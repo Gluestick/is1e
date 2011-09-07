@@ -1,0 +1,16 @@
+hmmm je krijg een password van google code
+dus stap 1, log in op google
+stap 2, ga naar deze site https://code.google.com/hosting/settings
+stap 3, maak je een map project aan in je root mapje (van usbserver)
+stap 4, open het mapje project (dus dan zit je in ../root/project.)
+stap 5, maak een mapje aan met als naam je eigen naam (nu krijg je een blauw vraagteken te zien bij het mapje wat je net hebt aangemaakt).
+stap 6, ga 1 directory omhoog (dus dan zit je in ../root
+stap 7, druk rechtermuisknop op het mapje project
+stap 8, druk op SVN Commit...
+stap 9, voeg een beschrijving toe in het message vakje
+Stap 10, druk op OK
+Stap 11, voer je email adres in bij authentication
+stap 12, voer je generated password in te vinden bij de link wat ik net gaf (https://code.google.com/hosting/settings ) JE MOET INGELOGGED ZIJN
+nu zou hij je mapje moeten uploaden
+
+alles zou nu goed moeten gaan
