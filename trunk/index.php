@@ -1,7 +1,6 @@
-<?php include("header.php"); 
+<?php
 	/**
 	* @author: Kay van Bree
-	* 
 	*/
 ?>
 	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur aliquet tempus ante. 
@@ -11,4 +10,3 @@
 	est. Duis accumsan ipsum id odio. Aliquam sed mauris non nibh commodo dictum. Aenean vitae eros 
 	vitae velit posuere mattis. Nullam tempus pulvinar felis. Suspendisse potenti. Proin ante metus, 
 	gravida sit amet, lacinia sit amet, scelerisque et, magna. Nunc tempus.</p>
-<?php include("footer.php"); ?>
