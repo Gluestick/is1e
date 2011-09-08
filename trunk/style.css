@@ -1,0 +1,15 @@
+html, body {
+	margin: 0px;
+	padding: 0px;
+	background: grey;
+}
+
+#main_container {
+	width: 800px;
+	margin: 0 auto;
+}
+
+#header {
+	background: black;
+	height: 150px;
+}
