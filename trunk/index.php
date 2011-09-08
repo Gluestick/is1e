@@ -1,6 +1,8 @@
 <?php
 	/**
 	* @author: Kay van Bree
+	* @description: Dit is de homepage. Op elke pagina wordt automatisch header.php voorin de 
+	*				pagina en footer.php achterin de pagina geladen.
 	*/
 ?>
 	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur aliquet tempus ante. 

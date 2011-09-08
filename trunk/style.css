@@ -13,3 +13,33 @@ html, body {
 	background: black;
 	height: 150px;
 }
+
+#menu {
+	background: green;
+	min-height: 200px;
+	width: 200px;
+	float: left;
+}
+
+#menu div {
+	text-align: center;
+}
+
+#content {
+	background: blue;
+	min-height: 200px;
+	width: 600px;
+	float: right;
+}
+
+#content p, #menu a {
+	margin: 20px;
+}
+
+#footer {
+	text-align: center;
+	background: orange;
+	min-height: 20px;
+	width: 800px;
+	margin-top: 20px;
+}
