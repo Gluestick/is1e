@@ -1,0 +1,143 @@
+/* 
+    Document   : style
+    Created on : 10-sep-2011, 21:25:12
+    Author     : Joep
+    Description:
+       CSS ontwerp van eventplaza ZOEN
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+    background-color: #E4F0F2;
+    display:block;
+    font-family: Calibri, Arial;
+}
+
+#hoofd { /*De header*/
+    background-image: -webkit-gradient( /*Gradient gegenereerd op gradients.glrzad.com*/
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, #E4F0F2),
+        color-stop(1, #85CBD6)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #E4F0F2 0%,
+        #85CBD6 100%
+    );
+    position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    height: 135px;
+}
+
+#hoofdplaatje {
+    position: absolute;
+        left: 50%;
+        margin-left: -199px;
+}
+
+#midden { /*Het belangerijkste deel van de pagina*/
+    background-color: #CCE0E4;
+    position: absolute;
+        top: 0;
+        margin-top: 135px;
+        left: 50%;
+        margin-left: -350px;
+        right: 0;
+        bottom: 50px;
+    width: 680px;
+    border: double #74A4AB 2px;
+    -moz-border-radius: 5px;
+}
+
+#middentekst {
+    position: absolute;
+       top: 0px;
+       bottom: 65px;
+    padding-top: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+#menu { /*De ruimte onder de header én links van het middenstuk*/
+    background-color: #E4F0F2;
+    position: absolute;
+        top: 0;
+        margin-top: 135px;
+        left: 50%;
+        margin-left: -500px;
+        bottom: 0;
+    width: 150px;
+}
+
+.knop { /*Layout van de knoppen*/
+    background-color: #9DC8CF;
+    position: absolute;
+        margin-left: 7px;
+        margin-top: 5px;
+    border: outset #74A4AB 2px;
+}
+
+.zijknop { /*Layout van de zijknoppen*/
+    background-color: #9DC8CF;
+    position: absolute;
+        margin-left: 101px;
+        margin-top: 5px;
+    border: outset #74A4AB 2px;
+}
+
+.navigeerlijst:hover,
+.zijknop:hover {
+    display: block;
+}
+
+
+li, ul {
+    list-style-type: none;
+}
+
+a:hover.knop, a:hover.zijknop {
+}
+
+a:hover.knop, a:hover.zijknop { /*Kleur van knop als de muis eroverheen gaat*/
+    background-color: #E4F0F2;
+    text-decoration: none;
+}
+
+a:link.knop, a:link.zijknop {
+    color: black;
+    text-decoration: none
+}
+
+a:visited.knop, a:visited.zijknop {
+    color: black;
+    text-decoration: none
+}
+
+a:visited.knop, a:visited.zijknop {
+    color: black;
+    text-decoration: none
+}
+
+.knoptekst { /*Opmaak van de text in de knop*/
+    font-size: 11pt;
+    color: black;
+    text-align: center;
+    padding: 3px;
+    width: 125px;
+}
+
+a:link.knoptekst {
+    color: white;
+}
+
+.knoppositie { /*Alle knoppen op de bovenste na worden hier wat naar beneden geplaatst, zodat de knoppen elkaar niet overlappen*/
+    margin-top: 6px;
+}
