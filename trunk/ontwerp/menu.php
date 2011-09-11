@@ -1,33 +1,28 @@
-<div id="menu">
-    <ul id="navigeerlijst">
-            <li><a class="knop" href="/"><div class="knoptekst">Evenementen</div></a> <!-- Hoofdknop evenementen -->
-                <ul class="zijknopzichtbaarheid">
-                    <li><a class="zijknop" href="/"><div class="knoptekst">Toevoegen</div></a></li><br />
-                    <div class="knoppositie"><li><a class="zijknop" href="/"><div class="knoptekst">Raadplegen</div></a></li></div>
-                </ul>
-            </li><br />
-        <div class="knoppositie">
-            <li><a class="knop" href="/"><div class="knoptekst">Verenigingen</div></a> <!-- Hoofdknop verenigingen -->
-                <ul class="zijknopzichtbaarheid"">
-                    <li><a class="zijknop" href="/"><div class="knoptekst">Registreren</div></a></li><br />
-                    <div class="knoppositie"><li><a class="zijknop" href="/"><div class="knoptekst">Raadplegen</div></a></li></div>
-                </ul>
-            </li><br />
-        </div>
-        <div class="knoppositie">
-            <li><a class="knop" href="/"><div class="knoptekst">Studenten</div></a> <!-- Hoofdknop studenten -->
-                <ul class="zijknopzichtbaarheid"">
-                    <li><a class="zijknop" href="/"><div class="knoptekst">Registreren</div></a></li><br />
-                    <div class="knoppositie"><li><a class="zijknop" href="/"><div class="knoptekst">Raadplegen</div></a></li></div>
-                </ul>
-            </li><br />
-        </div>
-        <div class="knoppositie">
-            <li><a class="knop" href="/"><div class="knoptekst">Beheer</div></a> <!-- Hoofdknop beheer -->
-                <ul class="zijknopzichtbaarheid"">
-                    <li><a class="zijknop" href="/"><div class="knoptekst">Managementrapport</div></a></li><br />
-                    <div class="knoppositie"><li><a class="zijknop" href="/"><div class="knoptekst">Categorieen</div></a></li></div>
-                </ul>
-            </li><br />
-        </div>  
+<div>
+    <ul>
+        <li><a href="/">Evenementen</a> <!-- Hoofdknop evenementen -->
+            <ul>
+                <li><a href="/">Toevoegen</a></li>
+                <li><a href="/">Raadplegen</a></li>
+            </ul>
+        </li>
+        <li><a href="/">Vereniginge</a> <!-- Hoofdknop verenigingen -->
+            <ul>
+                <li><a href="/">Registreren</a></li>
+                <li><a href="/">Raadplegen</a></li>
+            </ul>
+        </li>
+        <li><a href="/">Studenten</a> <!-- Hoofdknop studenten -->
+            <ul>
+                <li><a href="/">Registreren</a></li>
+                <li><a href="/">Raadplegen</a></li>
+            </ul>
+        </li>
+        <li><a href="/">Beheer</a> <!-- Hoofdknop beheer -->
+            <ul>
+                <li><a href="/">Managementrapport</a></li>
+                <li><a href="/">Categorieen</a></li>
+            </ul>
+        </li>
+    </ul>
 </div>
