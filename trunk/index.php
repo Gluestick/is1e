@@ -5,6 +5,7 @@
 	*				pagina en footer.php achterin de pagina geladen.
 	*/
 ?>
+	<h1>EventPlaza</h1>
 	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur aliquet tempus ante. 
 	Nam lorem ante, congue non, vulputate a, condimentum vel, neque. Donec ultricies tincidunt est. 
 	Aenean fermentum porta neque. Vestibulum nisl pede, commodo et, vestibulum nec, sollicitudin eget, 
