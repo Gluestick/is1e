@@ -6,9 +6,8 @@
 	*/
 ?>	
 	</div>
-	</div>
 	<div id="footer">
-		Footer tekst
+		<p><a href="#">eventplaza</a> is ontworpen door <a href="#">is1e gfy</a>, in opdracht van <a href="#">zoe/a></p>
 	</div>
 </div>
 </body>
