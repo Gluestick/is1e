@@ -1,7 +1,7 @@
 /* 
     Document   : style
     Created on : 10-sep-2011, 21:25:12
-    Author     : Joep
+    Author     : Joep Kemperman
     Description:
        CSS ontwerp van eventplaza ZOEN
 */
@@ -13,49 +13,79 @@
 
 body {
     background-color: #E4F0F2;
-    display:block;
     font-family: Calibri, Arial;
+    margin: 0px;
+}
+
+#container {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    min-width: 1024px;
 }
 
 #hoofd { /*De header*/
-    background-image: -webkit-gradient( /*Gradient gegenereerd op gradients.glrzad.com*/
-        linear,
-        left bottom,
-        left top,
-        color-stop(0, #E4F0F2),
-        color-stop(1, #85CBD6)
-    );
-    background-image: -moz-linear-gradient(
-        center bottom,
-        #E4F0F2 0%,
-        #85CBD6 100%
-    );
+    color: #fff;
+    height: 100px;
+    padding: 10px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#85CBD6), to(#E4F0F2)); /* Gradient voor Chrome en Safari */
+    background: -moz-linear-gradient(top, #85CBD6, #E4F0F2); /* Gradient voor Firefox */
+    background: -o-linear-gradient(top, #85CBD6, #E4F0F2); /* Gradient voor Opera */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#85CBD6, endColorstr=#85CBD6); /* Voor IE 5.5-7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#85CBD6, endColorstr=#E4F0F2)"; /* Voor IE 7+ */
     position: absolute;
         top: 0;
         left: 0;
         right: 0;
     height: 135px;
+    min-width: 1000px;
+    z-index: 2;
+}
+
+#hoofd div {
+    position: absolute;
+        margin-top: 15px;
+        left: 50%;
+        margin-left: 185px;
+}
+
+#hoofd form input {
+    width: 150px;
+}
+
+#hoofd form input[type="submit"] {
+    width: 156px;
 }
 
 #hoofdplaatje {
+    display: block;
     position: absolute;
+        top: 0;
         left: 50%;
-        margin-left: -199px;
+        margin-left: -345px;
+    z-index: 2;
+}
+
+a img {
+    border: none;
 }
 
 #midden { /*Het belangerijkste deel van de pagina*/
+    display: block;
     background-color: #CCE0E4;
     position: absolute;
         top: 0;
         margin-top: 135px;
         left: 50%;
-        margin-left: -350px;
+        margin-left: -340px;
         right: 0;
-        bottom: 50px;
     width: 680px;
-    border: double #74A4AB 2px;
+    height: 400px;
+    border: solid #74A4AB 2px;
     -moz-border-radius: 5px;
+    z-index: 2;
 }
+    
 
 #middentekst {
     position: absolute;
@@ -63,5 +93,87 @@ body {
        bottom: 65px;
     padding-left: 25px;
     padding-right: 25px;
+    z-index: 2;
 }
 
+#menu {
+    position: absolute;
+        margin-top: 135px;
+        left: 50%;
+        margin-left: -490px;
+    z-index: 100;
+}
+
+#menu ul {
+    margin: 0;
+    padding: 0;
+    width: 142px;
+}
+
+ul, li {
+    list-style-type: none; /*Om bulletpoints weg te halen*/
+}
+
+li a {
+    display: block;
+    border: outset #85CBD6 2px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#85CBD6), to(#E4F0F2)); /* Gradient voor Chrome en Safari */
+    background: -moz-linear-gradient(top, #85CBD6, #E4F0F2); /* Gradient voor Firefox */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#85CBD6, endColorstr=#85CBD6); /* Voor IE 5.5-7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#85CBD6, endColorstr=#E4F0F2)"; /* Voor IE 7+ */
+    padding: 2px;
+    width: 135px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#menu li {
+    position: relative;
+}
+
+#menu ul ul {
+    display: none;
+}
+
+#menu ul li:hover ul {
+    display: block;
+}
+
+#menu ul li:hover a { /*Gradient wordt omgedraait als je hovert over een hoofd menu knop*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#E4F0F2), to(#85CBD6)); /* Gradient voor Chrome en Safari */
+    background: -moz-linear-gradient(top, #E4F0F2, #85CBD6); /* Gradient voor Firefox */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E4F0F2, endColorstr=#85CBD6); /* Voor IE 5.5-7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E4F0F2, endColorstr=#85CBD6)"; /* Voor IE 7+ */
+}
+
+#menu ul li:hover ul li a { /*Submenu knoppen blijven onveranderd als je hovert over een hoof dmenu knop*/
+background: -webkit-gradient(linear, left top, left bottom, from(#85CBD6), to(#E4F0F2)); /* Gradient voor Chrome en Safari */
+    background: -moz-linear-gradient(top, #85CBD6, #E4F0F2); /* Gradient voor Firefox */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#85CBD6, endColorstr=#85CBD6); /* Voor IE 5.5-7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#85CBD6, endColorstr=#E4F0F2)"; /* Voor IE 7+ */
+}
+
+#menu ul li ul li:hover a { /*GRadient wordt omgedraait als je hovert over een sub menu knop*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#E4F0F2), to(#85CBD6)); /* Gradient voor Chrome en Safari */
+    background: -moz-linear-gradient(top, #E4F0F2, #85CBD6); /* Gradient voor Firefox */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E4F0F2, endColorstr=#85CBD6); /* Voor IE 5.5-7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E4F0F2, endColorstr=#85CBD6)"; /* Voor IE 7+ */
+}
+
+#menu ul li {
+    display: block;
+}
+
+#menu ul ul {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 135px;
+}
+
+#menu ul ul li {
+    z-index: 3;
+}
