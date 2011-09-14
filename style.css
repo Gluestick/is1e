@@ -13,21 +13,6 @@ body {
 	margin: 0 auto;
 }
 
-#top {
-	margin: 0px auto;
-	margin-top: 5px;
-	width: 920px;
-	height: 25px;
-	background: grey;
-	border: 1px #000712 solid;
-	text-align: right;
-	border-bottom: none;
-	-moz-box-shadow:inset 0px 0px 1px #EDF4FF;  
-    -webkit-box-shadow:inset 0px 0px 1px #EDF4FF;  
-    box-shadow:inset 0px 0px 1px #EDF4FF;
-	border-radius: 10px 10px 0px 0px;
-}
-
 #login h4 {
 	color: grey;
 	margin: 0px;
@@ -91,11 +76,9 @@ body {
 	width: 920px;
 	margin: 0 auto;
 	height: 120px;
-	background: black;
 	border: 1px #000712 solid;
 	border-bottom: none;
 }
-
 
 /* MENU */
 #nav {
@@ -180,10 +163,6 @@ body {
 #nav li:hover .dropdown {
 	left: -1px;
 	top: auto;
-}
-
-.dropdown div {
-	
 }
 
 .dropdown a {
