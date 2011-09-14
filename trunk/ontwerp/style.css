@@ -24,7 +24,7 @@ body {
     min-width: 1024px;
 }
 
-#hoofd { /*De header*/
+#header { /*De header*/
     color: #fff;
     height: 100px;
     padding: 10px;
@@ -42,22 +42,22 @@ body {
     z-index: 2;
 }
 
-#hoofd div {
+#header div {
     position: absolute;
         margin-top: 15px;
         left: 50%;
         margin-left: 185px;
 }
 
-#hoofd form input {
+#header form input {
     width: 150px;
 }
 
-#hoofd form input[type="submit"] {
+#header form input[type="submit"] {
     width: 156px;
 }
 
-#hoofdplaatje {
+#header .header_img {
     display: block;
     position: absolute;
         top: 0;
