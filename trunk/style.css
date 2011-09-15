@@ -76,9 +76,11 @@ body {
 	width: 920px;
 	margin: 0 auto;
 	height: 120px;
+	background: black;
 	border: 1px #000712 solid;
 	border-bottom: none;
 }
+
 
 /* MENU */
 #nav {

@@ -33,7 +33,7 @@
 	<li>
 		<a href="beheer.php" class="drop">Beheer</a>
 		<div class="dropdown">
-			<div><a href="#">Categorieen<p>Beheer evenementen-categorieen</p></a></div>
+			<div><a href="#">Categorieen<p>Beheer categorieen</p></a></div>
 			<div><a href="#">Managements-rapport<p>Vraag rapporten op</p></a></div>
 		</div>
 	</li>
