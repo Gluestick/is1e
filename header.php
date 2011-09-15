@@ -15,6 +15,7 @@
 <body>
 <div id="container">
 	<div id="header">
+		<img src="images/header.png" />
 		<div id="login">
 		<fieldset class="login">
 			<h4>Inloggen:</h4>
