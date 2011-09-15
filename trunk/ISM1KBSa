@@ -1,0 +1,12 @@
+<NotepadPlus>
+    <Session activeView="0">
+        <mainView activeIndex="3">
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="5248" startPos="195" endPos="0" selMode="0" lang="PHP" encoding="-1" filename="C:\xampp\htdocs\project\index.php" />
+            <File firstVisibleLine="4" xOffset="0" scrollWidth="968" startPos="658" endPos="658" selMode="0" lang="PHP" encoding="-1" filename="C:\xampp\htdocs\project\header.php" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1040" startPos="149" endPos="149" selMode="0" lang="PHP" encoding="-1" filename="C:\xampp\htdocs\project\footer.php" />
+            <File firstVisibleLine="126" xOffset="0" scrollWidth="824" startPos="2887" endPos="2887" selMode="0" lang="CSS" encoding="-1" filename="C:\xampp\htdocs\project\style.css" />
+            <File firstVisibleLine="1" xOffset="0" scrollWidth="696" startPos="493" endPos="493" selMode="0" lang="PHP" encoding="-1" filename="C:\xampp\htdocs\project\menu.php" />
+        </mainView>
+        <subView activeIndex="0" />
+    </Session>
+</NotepadPlus>
