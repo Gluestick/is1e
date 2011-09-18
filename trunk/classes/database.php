@@ -5,16 +5,32 @@
  *
  * @author Hans-Jurgen
  */
-class database {
-    
-    
-    public static function getInstantie()
-    {
-        if (!self::$instantie)
-        {
-                self::$instantie = new self();
-        }
-        return self::$instantie;
-    }
+class database
+{
+	private static $instantie;
+	
+	private $verbinding;
+	
+	public function __construct()
+	{
+		$config = config::getInstantie();
+		
+		try {
+			$this->verbinding = new PDO("mysql:host=".$config->getHostName().";dbname=".$config->getDatabase(),
+					$config->getGebruikersnaam(),
+					$config->getWachtwoord());
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	public static function getInstantie()
+	{
+		if (!self::$instantie) {
+			self::$instantie = new self();
+		}
+		return self::$instantie;
+	}
 }
+
 ?>
