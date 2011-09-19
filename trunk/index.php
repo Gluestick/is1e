@@ -35,3 +35,8 @@
 </div>
 <?php
 	echo $pagina->getVereisteHTMLafsluiting();
+	$database = database::getInstantie();
+	
+	$database->getVerbinding();
+	
+?>
