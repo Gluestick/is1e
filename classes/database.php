@@ -24,12 +24,21 @@ class database
 		}
 	}
 
+	/**
+	 *
+	 * @return database
+	 */
 	public static function getInstantie()
 	{
 		if (!self::$instantie) {
 			self::$instantie = new self();
 		}
 		return self::$instantie;
+	}
+	
+	public function getVerbinding()
+	{
+		return $this->verbinding;
 	}
 }
 
