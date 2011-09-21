@@ -136,15 +136,13 @@ class pagina
 		return "<div id=\"header\">
 		<img src=\"images/header.png\" />
 		<div id=\"login\">
-		<fieldset class=\"login\">
 			<h4>Inloggen:</h4>
 			<form action=" . $_SERVER["PHP_SELF"] . " method=\"post\">
-				<input type=\"text\" name=\"gebruiker\" class=\"text\" />
+				<input type=\"text\" name=\"gebruiker\" class=\"text\" /><br />
 				<input type=\"password\" name=\"password\" class=\"pass\" />
 				<input type=\"submit\" name=\"submit\" value=\"Ga!\" class=\"submit\" />
-			</form>
-			<p>Geen account? <a href=\"#\">Registreer!</a></p>
-		</fieldset>
+			</form><br />
+			<div>Geen account? <a href=\"#\">Registreer!</a></div>
 		</div>
 	</div>";
 	}
