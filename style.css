@@ -13,6 +13,13 @@ body {
 	margin: 0 auto;
 }
 
+#login {
+	border: none;
+	float: right;
+	width: 190px;
+	margin: 0px;
+}
+
 #login h4 {
 	color: grey;
 	margin: 0px;
@@ -20,23 +27,17 @@ body {
 	margin-left: 10px;
 }
 
-#login p {
+#login div {
 	color: grey;
 	margin: 0px;
+	width:180px;
 }
 
-#login fieldset {
-	border: none;
-	float: right;
-	width: 190px;
-	margin: 0px;
-}
-
-.login input.text, .login input.pass, .login input.submit {
+#login input.text, #login input.pass, #login input.submit {
 	float: left;
 }
 
-.login input.text, .login input.pass {
+#login input.text, #login input.pass {
 	padding: 5px;
 	padding-bottom: 4px;
 	border: 1px #3E3E40 solid;
@@ -44,28 +45,30 @@ body {
 	background: #FAFAFA
 }
 
-.login input.text {
-	border-radius: 5px 5px 0px 0px;
-	width: 170px;
+#login input.text {
+	border-radius:5px 5px 0px 0px;
+	width:170px;
 }
 
-.login input.pass {
-	border-radius: 0px 0px 0px 5px;
+#login input.pass {
+	border-radius:0px 0px 0px 5px;
+	width:140px;
 }
 
-.login input.submit {
-	padding: 4px;
-	padding-bottom: 3px;
-	border: 1px #3E3E40 solid;
-	background: -moz-linear-gradient(top, #997E02, #E5BC00);
-	background: -webkit-linear-gradient(top, #FAFAFA, #D0D0DA);
-	border-radius: 0px 0px 5px 0px;
-	-moz-box-shadow:inset 0px 0px 1px #473B01;  
-    -webkit-box-shadow:inset 0px 0px 2px #473B01;  
+#login input.submit {
+	width:30px;
+	padding:4px;
+	padding-bottom:3px;
+	border:1px #3E3E40 solid;
+	background:-moz-linear-gradient(top, #997E02, #E5BC00);
+	background:-webkit-linear-gradient(top, #FAFAFA, #D0D0DA);
+	border-radius:0px 0px 5px 0px;
+	-moz-box-shadow:inset 0px 0px 1px #473B01;
+    -webkit-box-shadow:inset 0px 0px 2px #473B01;
     box-shadow:inset 0px 0px 2px #473B01;
 }
 
-.login input.submit:hover {
+#login input.submit:hover {
 	background: #E3BD00;
 	-moz-box-shadow:inset 0px 0px 1px #000;  
     -webkit-box-shadow:inset 0px 0px 2px #000;  
@@ -81,8 +84,16 @@ body {
 	border-bottom: none;
 }
 
+#header img {
+	float:left;
+}
+
 
 /* MENU */
+#menu {
+	width:960px;
+}
+
 #nav {
 	clear: right;
 	list-style: none;
@@ -250,6 +261,10 @@ fieldset.search {
 
 
 /* CONTENT */
+#page {
+	width:960px;
+}
+
 #content {
 	width: 880px;
 	margin: 0px auto;

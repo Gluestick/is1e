@@ -16,15 +16,16 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<p></p>
-			<div>
-				<a href="categorie.php">
-					<div style="float:left;width:200px;height:200px;">Categorieën</div>
-				</a>
-				<a href="rapport.php">
-					<div style="float:left;width:200px;height:200px;">Management-rapport</div>
-				</a>
-			</div>
+			<center>
+				<div>
+					<a href="categorie.php" style="display:block;width:200px;height:200px;">
+						Categorieën
+					</a>
+					<a href="rapport.php" style="display:block;width:200px;height:200px;">
+						Management-rapport
+					</a>
+				</div>
+			</center>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
