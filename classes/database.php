@@ -7,21 +7,19 @@
  */
 class database
 {
+
 	private static $instantie;
-	
 	private $verbinding;
-	
+
 	public function __construct()
 	{
 		$config = config::getInstantie();
-		
-		try {
-			$this->verbinding = new PDO("mysql:host=".$config->getHostName().";dbname=".$config->getDatabase(),
-					$config->getGebruikersnaam(),
-					$config->getWachtwoord());
-		} catch (PDOException $e) {
-			echo $e->getMessage();
+
+		$this->verbinding = mysql_connect($config->getHostName(), $config->getGebruikersnaam(), $config->getWachtwoord());
+		if (!$this->verbinding) {
+			die('Could not connect: ' . mysql_error());
 		}
+		mysql_select_db($config->getDatabase(), $this->verbinding);
 	}
 
 	/**
@@ -35,11 +33,16 @@ class database
 		}
 		return self::$instantie;
 	}
-	
+
+	/**
+	 *
+	 * @return PDO
+	 */
 	public function getVerbinding()
 	{
 		return $this->verbinding;
 	}
+
 }
 
 ?>
