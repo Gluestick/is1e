@@ -10,10 +10,10 @@ class config {
 	
 	private static $instantie;
 	
-    private $hostname;
-    private $database;
-    private $gebruikersnaam;
-    private $wachtwoord;
+    private $hostname = "localhost";
+    private $database = "project";
+    private $gebruikersnaam = "root";
+    private $wachtwoord = "";
 
 	/**
 	 *
@@ -30,10 +30,6 @@ class config {
 	public function __construct()
 	{
 		self::$csspad = $_SERVER["DOCUMENT_ROOT"]."/project/css";
-		$this->hostname = "localhost";
-		$this->database = "zf-tutorial";
-		$this->gebruikersnaam = "root";
-		$this->wachtwoord = "";
 	}
     
     public function getHostName() {
