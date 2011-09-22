@@ -135,15 +135,6 @@ class pagina
 	{
 		return "<div id=\"header\">
 		<img src=\"images/header.png\" alt=\"henk!\" />
-		<div id=\"login\">
-			<h4>Inloggen:</h4>
-			<form action=\"" . $_SERVER["PHP_SELF"] . "\" method=\"post\">
-				<input type=\"text\" name=\"gebruiker\" class=\"text\" /><br />
-				<input type=\"password\" name=\"password\" class=\"pass\" />
-				<input type=\"submit\" name=\"submit\" value=\"Ga!\" class=\"submit\" />
-			</form><br />
-			<div>Geen account? <a href=\"#\">Registreer!</a></div>
-		</div>
 	</div>";
 	}
 
@@ -152,37 +143,50 @@ class pagina
 		return "<div id=\"menu\">
 		<ul id=\"nav\">
 			<li class=\"single\">
-				<a href=\"index.php\">Home</a>
+				<a href=\"index.php\" class=\"button\">Home</a>
 			</li>
 			<li>
-				<a href=\"student.php\" class=\"drop\">Studenten</a>
+				<a href=\"student.php\" class=\"drop\" class=\"button\">Studenten</a>
 				<div class=\"dropdown\">
-					<div><a href=\"#\">Studentenlijst<br /><font>Een lijst van alle studenten</font></a></div>
-					<div><a href=\"#\">Profiel<br /><font>Wijzig je profiel</font></a></div>
-					<div><a href=\"#\">Registreren<br /><font>Geen account? Schrijf je in</font></a></div>
+					<div><a href=\"#\" class=\"button\">Studentenlijst<br /><font>Een lijst van alle studenten</font></a></div>
+					<div><a href=\"#\" class=\"button\">Profiel<br /><font>Wijzig je profiel</font></a></div>
+					<div><a href=\"#\" class=\"button\">Registreren<br /><font>Geen account? Schrijf je in</font></a></div>
 				</div>
 			</li>
 			<li>
-				<a href=\"vereniging.php\" class=\"drop\">Verenigingen</a>
+				<a href=\"vereniging.php\" class=\"drop\" class=\"button\">Verenigingen</a>
 				<div class=\"dropdown\">
-					<div><a href=\"#\">Verenigingenlijst<br /><font>Een lijst van alle verenigingen</font></a></div>
-					<div><a href=\"#\">Registreren<br /><font>Registreer je vereniging</font></a></div>
+					<div><a href=\"#\" class=\"button\">Verenigingenlijst<br /><font>Een lijst van alle verenigingen</font></a></div>
+					<div><a href=\"#\" class=\"button\">Registreren<br /><font>Registreer je vereniging</font></a></div>
 				</div>
 			</li>
 			<li>
-				<a href=\"evenement.php\" class=\"drop\">Evenementen</a>
+				<a href=\"evenement.php\" class=\"drop\" class=\"button\">Evenementen</a>
 				<div class=\"dropdown\">
-					<div><a href=\"#\">Evenementenlijst<br /><font>Een lijst van alle evenementen</font></a></div>
-					<div><a href=\"#\">Toevoegen<br /><font>Voeg een evenement toe</font></a></div>
+					<div><a href=\"#\" class=\"button\">Evenementenlijst<br /><font>Een lijst van alle evenementen</font></a></div>
+					<div><a href=\"#\" class=\"button\">Toevoegen<br /><font>Voeg een evenement toe</font></a></div>
 				</div>
 			</li>
 			<li>
-				<a href=\"beheer.php\" class=\"drop\">Beheer</a>
+				<a href=\"beheer.php\" class=\"drop\" class=\"button\">Beheer</a>
 				<div class=\"dropdown\">
-					<div><a href=\"#\">Categorieen<br /><font>Beheer categorieen</font></a></div>
-					<div><a href=\"rapport.php\">Managements-rapport<br /><font>Vraag rapporten op</font></a></div>
+					<div><a href=\"#\" class=\"button\">Categorieen<br /><font>Beheer categorieen</font></a></div>
+					<div><a href=\"rapport.php\" class=\"button\">Managements-rapport<br /><font>Vraag rapporten op</font></a></div>
 				</div>
 			</li>
+			<li class=\"align_right\">
+				<a href=\"#\" class=\"drop\">Inloggen</a>
+					<div id=\"login\" class=\"dropdown\">
+					<h4>Inloggen:</h4>
+					<form action=\"" . $_SERVER["PHP_SELF"] . "\" method=\"post\">
+						<input type=\"text\" name=\"gebruiker\" class=\"text\" /><br />
+						<input type=\"password\" name=\"password\" class=\"pass\" />
+						<input type=\"submit\" name=\"submit\" value=\"Ga!\" class=\"submit\" />
+					</form><br /><br />
+					Geen account? <a href=\"#\" class=\"login\">Registreer!</a></div>
+				<div>
+			</li>
+		</div>
 		</ul>
 		</div>";
 	}

@@ -13,68 +13,6 @@ body {
 	margin: 0 auto;
 }
 
-#login {
-	border: none;
-	float: right;
-	width: 190px;
-	margin: 0px;
-}
-
-#login h4 {
-	color: grey;
-	margin: 0px;
-	margin-top: 5px;
-	margin-left: 10px;
-}
-
-#login div {
-	color: grey;
-	margin: 0px;
-	width:180px;
-}
-
-#login input.text, #login input.pass, #login input.submit {
-	float: left;
-}
-
-#login input.text, #login input.pass {
-	padding: 5px;
-	padding-bottom: 4px;
-	border: 1px #3E3E40 solid;
-	border-right: none;
-	background: #FAFAFA
-}
-
-#login input.text {
-	border-radius:5px 5px 0px 0px;
-	width:170px;
-}
-
-#login input.pass {
-	border-radius:0px 0px 0px 5px;
-	width:140px;
-}
-
-#login input.submit {
-	width:30px;
-	padding:4px;
-	padding-bottom:3px;
-	border:1px #3E3E40 solid;
-	background:-moz-linear-gradient(top, #997E02, #E5BC00);
-	background:-webkit-linear-gradient(top, #FAFAFA, #D0D0DA);
-	border-radius:0px 0px 5px 0px;
-	-moz-box-shadow:inset 0px 0px 1px #473B01;
-    -webkit-box-shadow:inset 0px 0px 2px #473B01;
-    box-shadow:inset 0px 0px 2px #473B01;
-}
-
-#login input.submit:hover {
-	background: #E3BD00;
-	-moz-box-shadow:inset 0px 0px 1px #000;  
-    -webkit-box-shadow:inset 0px 0px 2px #000;  
-    box-shadow:inset 0px 0px 2px #000;
-}
-
 #header {
 	width: 920px;
 	margin: 0 auto;
@@ -178,7 +116,15 @@ body {
 	top: auto;
 }
 
-.dropdown a {
+#nav li:hover #login {
+	left: auto;
+	right: -1px;
+	top: auto;
+	border-radius: 5px 0px 5px 5px;
+	padding: 20px;
+}
+
+.dropdown a.button {
 	display: block;
 	width: 200px;
 	height: 30px;
@@ -187,7 +133,7 @@ body {
 	margin-left: 10px;
 }
 
-.dropdown a:hover {
+.dropdown a.button:hover {
 	background: #FFF;
 	border: 1px grey solid;
 	border-radius: 5px;
@@ -196,13 +142,92 @@ body {
 	padding: 9px 11px 16px 9px;
 }
 
-.dropdown a font {
+.dropdown a.button font {
 	color: blue;
 	font-size: 12px;
 	margin: 0px;
 	padding: 0px;
 }
 
+#nav .align_right {
+	float: right;
+	margin-right: 0px;
+	display: block;
+	text-align: center;
+	position: relative;	
+}
+
+#login a.login {
+	font-size: 15px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#login a.login:hover {
+	color: blue;
+}
+
+#login {
+	border: none;
+	float: right;
+	width: 170px;
+	margin: 0px;
+}
+
+#login h4 {
+	color: grey;
+	margin: 0px;
+	margin-top: 5px;
+	margin-left: 10px;
+}
+
+#login div {
+	color: grey;
+	margin: 0 auto;
+	width: 170px;
+}
+
+#login input.text, #login input.pass, #login input.submit {
+	float: left;
+}
+
+#login input.text, #login input.pass {
+	padding: 5px;
+	padding-bottom: 4px;
+	border: 1px #3E3E40 solid;
+	border-right: none;
+	background: #FAFAFA
+}
+
+#login input.text {
+	border-radius:5px 5px 0px 0px;
+	width:170px;
+}
+
+#login input.pass {
+	border-radius:0px 0px 0px 5px;
+	width:140px;
+}
+
+#login input.submit {
+	width:30px;
+	padding:4px;
+	padding-bottom:3px;
+	border:1px #3E3E40 solid;
+	background:-moz-linear-gradient(top, #997E02, #E5BC00);
+	background:-webkit-linear-gradient(top, #FAFAFA, #D0D0DA);
+	border-radius:0px 0px 5px 0px;
+	-moz-box-shadow:inset 0px 0px 1px #473B01;
+    -webkit-box-shadow:inset 0px 0px 2px #473B01;
+    box-shadow:inset 0px 0px 2px #473B01;
+}
+
+#login input.submit:hover {
+	background: #E3BD00;
+	-moz-box-shadow:inset 0px 0px 1px #000;  
+    -webkit-box-shadow:inset 0px 0px 2px #000;  
+    box-shadow:inset 0px 0px 2px #000;
+}
 
 /* CONTENT */
 #page {
