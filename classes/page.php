@@ -180,7 +180,7 @@ class pagina
 				<a href=\"beheer.php\" class=\"drop\">Beheer</a>
 				<div class=\"dropdown\">
 					<div><a href=\"#\">Categorieen<p>Beheer categorieen</p></a></div>
-					<div><a href=\"#\">Managements-rapport<p>Vraag rapporten op</p></a></div>
+					<div><a href=\"rapport.php\">Managements-rapport<p>Vraag rapporten op</p></a></div>
 				</div>
 			</li>
 			<div class=\"align_right\">
