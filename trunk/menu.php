@@ -37,12 +37,4 @@
 			<div><a href="#">Managements-rapport<p>Vraag rapporten op</p></a></div>
 		</div>
 	</li>
-	<div class="align_right">
-		<form>
-			<fieldset class="search">
-			<input type="text" name="zoek" class="box" />
-			<input type="submit" name="submit" value="O-" class="btn" />
-			</fieldset>
-		</form>
-	</div>
 </ul>
