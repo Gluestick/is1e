@@ -134,7 +134,7 @@ class pagina
 	public function getHeader()
 	{
 		return "<div id=\"header\">
-		<img src=\"images/header.png\" />
+		<img src=\"images/header.png\" alt=\"henk!\" />
 		<div id=\"login\">
 			<h4>Inloggen:</h4>
 			<form action=\"" . $_SERVER["PHP_SELF"] . "\" method=\"post\">
@@ -157,30 +157,30 @@ class pagina
 			<li>
 				<a href=\"student.php\" class=\"drop\">Studenten</a>
 				<div class=\"dropdown\">
-					<div><a href=\"#\">Studentenlijst<p>Een lijst van alle studenten</p></a></div>
-					<div><a href=\"#\">Profiel<p>Wijzig je profiel</p></a></div>
-					<div><a href=\"#\">Registreren<p>Geen account? Schrijf je in</p></a></div>
+					<div><a href=\"#\">Studentenlijst<br /><font>Een lijst van alle studenten</font></a></div>
+					<div><a href=\"#\">Profiel<br /><font>Wijzig je profiel</font></a></div>
+					<div><a href=\"#\">Registreren<br /><font>Geen account? Schrijf je in</font></a></div>
 				</div>
 			</li>
 			<li>
 				<a href=\"vereniging.php\" class=\"drop\">Verenigingen</a>
 				<div class=\"dropdown\">
-					<div><a href=\"#\">Verenigingenlijst<p>Een lijst van alle verenigingen</p></a></div>
-					<div><a href=\"#\">Registreren<p>Registreer je vereniging</p></a></div>
+					<div><a href=\"#\">Verenigingenlijst<br /><font>Een lijst van alle verenigingen</font></a></div>
+					<div><a href=\"#\">Registreren<br /><font>Registreer je vereniging</font></a></div>
 				</div>
 			</li>
 			<li>
 				<a href=\"evenement.php\" class=\"drop\">Evenementen</a>
 				<div class=\"dropdown\">
-					<div><a href=\"#\">Evenementenlijst<p>Een lijst van alle evenementen</p></a></div>
-					<div><a href=\"#\">Toevoegen<p>Voeg een evenement toe</p></a></div>
+					<div><a href=\"#\">Evenementenlijst<br /><font>Een lijst van alle evenementen</font></a></div>
+					<div><a href=\"#\">Toevoegen<br /><font>Voeg een evenement toe</font></a></div>
 				</div>
 			</li>
 			<li>
 				<a href=\"beheer.php\" class=\"drop\">Beheer</a>
 				<div class=\"dropdown\">
-					<div><a href=\"#\">Categorieen<p>Beheer categorieen</p></a></div>
-					<div><a href=\"rapport.php\">Managements-rapport<p>Vraag rapporten op</p></a></div>
+					<div><a href=\"#\">Categorieen<br /><font>Beheer categorieen</font></a></div>
+					<div><a href=\"rapport.php\">Managements-rapport<br /><font>Vraag rapporten op</font></a></div>
 				</div>
 			</li>
 		</ul>
