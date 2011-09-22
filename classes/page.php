@@ -183,16 +183,6 @@ class pagina
 					<div><a href=\"rapport.php\">Managements-rapport<p>Vraag rapporten op</p></a></div>
 				</div>
 			</li>
-			<li>
-				<div class=\"align_right\">
-					<form action=\"" . $_SERVER["PHP_SELF"] . "\">
-						<fieldset class=\"search\">
-						<input type=\"text\" name=\"zoek\" class=\"box\" />
-						<input type=\"submit\" name=\"submit\" value=\"O-\" class=\"btn\" />
-						</fieldset>
-					</form>
-				</div>
-			</li>
 		</ul>
 		</div>";
 	}
