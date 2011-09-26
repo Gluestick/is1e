@@ -5,7 +5,7 @@
  */
 $pagina = pagina::getInstantie();
 
-$pagina->setTitel("Eventplaza");
+$pagina->setTitel("Raadplegen verenigingen");
 $pagina->setCss("style.css");
 
 echo $pagina->getVereisteHTML();
@@ -16,9 +16,20 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<p>
-				tekst
-			</p>
+			<?php
+			
+			database::getInstantie();
+			
+			$sql = "SELECT * FROM vereniging;";
+			$resultaat_van_server = mysql($sql);
+			
+			if (count($resultaat_van_server) > 0) {
+			?>
+			
+			<?php
+			
+			}
+			?>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
