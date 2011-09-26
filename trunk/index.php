@@ -16,13 +16,51 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur aliquet tempus ante. 
-				Nam lorem ante, congue non, vulputate a, condimentum vel, neque. Donec ultricies tincidunt est. 
-				Aenean fermentum porta neque. Vestibulum nisl pede, commodo et, vestibulum nec, sollicitudin eget, 
-				pede. Vestibulum laoreet euismod lectus. Etiam placerat suscipit diam. Phasellus semper bibendum 
-				est. Duis accumsan ipsum id odio. Aliquam sed mauris non nibh commodo dictum. Aenean vitae eros 
-				vitae velit posuere mattis. Nullam tempus pulvinar felis. Suspendisse potenti. Proin ante metus, 
-				gravida sit amet, lacinia sit amet, scelerisque et, magna. Nunc tempus.</p>
+			<p><html>
+				<head>
+
+				</head>
+				<body>
+					<form action="toevoegen.php" method="get">
+						<table>
+							<tr>
+								<td>Naam </td>
+								<td><input type="text" name="naam" /></td>
+							</tr>
+							<tr>
+								<td>Begin </td>	
+								<td><input type="text" name="bdatum"/></td>
+							</tr>
+							<tr>
+								<td>Eind </td>
+								<td><input type="text" name="edatum"/></td>
+							</tr>
+							<form method="post" action="bestemming">
+								<tr>
+									<td>Categorie </td>
+									<td><textarea name ="tekstvak" ></textarea></td>
+								</tr>
+							</form>
+							<tr>
+								<td>Organisator </td>
+							</tr>
+							<tr>
+								<td>Aanmelding verplicht? </td>
+								<td><input type="checkbox" name="aanmelden" value="jn" /></td>
+							</tr>
+							<form method="post" action="bestemming">
+								<tr>
+									<td>Omschrijving </td>
+									<td><textarea name ="tekstvak" > </textarea></td>
+								</tr>
+							</form>
+							<tr>
+								<td><input type="submit" value="Toevoegen"/></td>
+							</tr>
+						</table>
+					</form>
+				</body>
+			</html></p>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
@@ -33,11 +71,11 @@ echo $pagina->getVereisteHTML();
 <?php
 echo $pagina->getVereisteHTMLafsluiting();
 
-//	database::getInstantie();
-//	
-//	$sql = "SELECT * FROM `student`;";
-//	$resultaat_van_server = mysql_query($sql);
-//	while($array = mysql_fetch_array($resultaat_van_server)) {
-//		echo $array["voornaam"]."<br />";
-//	}
+	database::getInstantie();
+	
+	$sql = "SELECT * FROM `student`;";
+	$resultaat_van_server = mysql_query($sql);
+	while($array = mysql_fetch_array($resultaat_van_server)) {
+		echo $array["voornaam"]."<br />";
+	}
 ?>
