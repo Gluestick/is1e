@@ -17,17 +17,36 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<div class="zoeken">
-				
+				<form action="" method="post">
+					<table>
+						<tr>
+							<td>
+								<label for="zoeknaam">Naam</label>
+							</td>
+							<td>
+								<input type="text" name="zoeknaam" id="zoeknaam" />
+							</td>
+							<td>
+								<input type="submit" name="zoeken" />
+							</td>
+						</tr>
+					</table>
+				</form>
+				<br />
 			</div>
-			<div>
+			<div class="gegevens">
 				<?php
 				
 				database::getInstantie();
-
-				$sql = "SELECT * FROM `vereniging`;";
+				
+				if (isset($_POST["zoeken"]) && !empty($_POST["zoeknaam"])) {
+					$sql = "SELECT `naam`, `aantalEigenLeden` FROM `vereniging` WHERE naam LIKE '%".mysql_real_escape_string($_POST["zoeknaam"])."%';";
+				} else {
+					$sql = "SELECT `naam`, `aantalEigenLeden` FROM `vereniging`;";
+				}
 				$resultaat_van_server = mysql_query($sql);
 				
-				if (count($resultaat_van_server) > 0) {
+				if (mysql_num_rows($resultaat_van_server) > 0) {
 					?>
 					<table border="1">
 						<th>Naam</th><th>Leden</th>
