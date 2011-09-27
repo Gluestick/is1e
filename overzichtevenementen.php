@@ -47,33 +47,26 @@ echo $pagina->getVereisteHTML();
 
 				if (isset($_POST["periode"]) && (!empty($_POST["beginperiode"]) || !empty($_POST["eindperiode"]))) {
 					if (!empty($_POST["beginperiode"]) && !empty($_POST["eindperiode"])) {
-						$where = "WHERE begindatum >= ".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")." AND einddatum <= ".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d");
+						$where = "AND begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."' AND einddatum <= '".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d")."'";
 					} else if (!empty($_POST["beginperiode"])) {
-						$where = "";
+						$where = "AND begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."'";
 					} else {
-						$where = "";
+						$where = "AND einddatum <= ".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d");
 					}
-					$sql = "SELECT * FROM `vereniging`".$where.";";
+					$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `evenement` WHERE `evenement`.`organiserendeVerenigingId` = `vereniging`.`verenigingId` ".$where.") AS totaal FROM `vereniging` WHERE (SELECT COUNT(*) FROM `evenement` WHERE `evenement`.`organiserendeVerenigingId` = `vereniging`.`verenigingId` ".$where.") > 0;";
 				} else {
-					$sql = "SELECT * FROM `vereniging`;";
+					$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `evenement` WHERE `evenement`.`organiserendeVerenigingId` = `vereniging`.`verenigingId`) AS totaal FROM `vereniging` WHERE (SELECT COUNT(*) FROM `evenement` WHERE `evenement`.`organiserendeVerenigingId` = `vereniging`.`verenigingId`) > 0;";
 				}
 				
 				$resultaat_van_server = mysql_query($sql);
 				
 				if (mysql_num_rows($resultaat_van_server) > 0) {
-					
 					?>
 					<table border="1">
-						<th>Naam evenement</th><th>Evenementen</th>
+						<th>Naam vereniging</th><th>Evenementen</th>
 						<?php
 						while($array = mysql_fetch_array($resultaat_van_server)) {
-							$query = "SELECT * FROM `evenement` WHERE organiserendeVerenigingId = ".$array["verenigingId"];
-							$result = mysql_query($query);
-							$aantal = null;
-							if (mysql_num_rows($result) > 0) {
-								$aantal = mysql_num_rows($result);
-							}
-							echo "<tr><td>".$array["naam"]."</td><td>".$aantal."</td></tr>";
+							echo "<tr><td>".$array["naam"]."</td><td>".$array["totaal"]."</td></tr>";
 						}
 						?>
 					</table>
