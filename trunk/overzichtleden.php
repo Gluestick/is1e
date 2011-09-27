@@ -40,9 +40,9 @@ echo $pagina->getVereisteHTML();
 				database::getInstantie();
 				
 				if (isset($_POST["zoeken"]) && !empty($_POST["zoeknaam"])) {
-					$sql = "SELECT `naam`, `aantalEigenLeden` FROM `vereniging` WHERE naam LIKE '%".mysql_real_escape_string($_POST["zoeknaam"])."%';";
+					$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging` WHERE naam LIKE '%".mysql_real_escape_string($_POST["zoeknaam"])."%';";
 				} else {
-					$sql = "SELECT `naam`, `aantalEigenLeden` FROM `vereniging`;";
+					$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging`;";
 				}
 				$resultaat_van_server = mysql_query($sql);
 				
@@ -52,7 +52,7 @@ echo $pagina->getVereisteHTML();
 						<th>Naam</th><th>Leden</th>
 						<?php
 						while($array = mysql_fetch_array($resultaat_van_server)) {
-							echo "<tr><td>".$array["naam"]."</td><td>".$array["aantalEigenLeden"]."</td></tr>";
+							echo "<tr><td>".$array["naam"]."</td><td>".$array["totaal"]."</td></tr>";
 						}
 						?>
 					</table>
