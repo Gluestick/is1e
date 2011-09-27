@@ -44,7 +44,7 @@ echo $pagina->getVereisteHTML();
 				<?php
 				
 				database::getInstantie();
-				$date = new DateTime("");
+
 				if (isset($_POST["periode"]) && (!empty($_POST["beginperiode"]) || !empty($_POST["eindperiode"]))) {
 					if (!empty($_POST["beginperiode"]) && !empty($_POST["eindperiode"])) {
 						$where = "WHERE begindatum >= ".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")." AND einddatum <= ".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d");
