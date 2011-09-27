@@ -18,17 +18,8 @@ echo $pagina->getVereisteHTML();
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php
 			
+			$resultaat_van_server["naam"];
 			database::getInstantie();
-			
-			$sql = "SELECT * FROM vereniging;";
-			$resultaat_van_server = mysql($sql);
-			
-			if (count($resultaat_van_server) > 0) {
-			?>
-			
-			<?php
-			
-			}
 			?>
 		</div>
 	</div>
