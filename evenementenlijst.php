@@ -56,12 +56,9 @@ echo $pagina->getVereisteHTML();
                             <?php
 
                             
-                              if(!isset($_POST["naam"])){
-                                
-                            }
-                            else{
-							?>
-							<table>     
+                              if(isset($_POST["naam"])){
+							 ?>
+                           <table>     
                                <tr>
                           
                               <th align="left" width="150" height="50"></th>  
@@ -88,7 +85,9 @@ echo $pagina->getVereisteHTML();
                             }
                             ?>
 
-                            </table>
+                            </table> 
+
+
 
                             
                         </form>
