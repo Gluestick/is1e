@@ -17,7 +17,7 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
  
-			<form action="evenementenlijst.php" method="GET">
+			<form action="evenementenlijst.php" method="POST">
                                
                             Naam:<input type="text" name="naam" />
                             Datum:<input type="text" name="begindatum" />
@@ -79,7 +79,7 @@ echo $pagina->getVereisteHTML();
                             <?php
 
                             
-                              if(!isset($_GET["naam"])){
+                              if(!isset($_POST["naam"])){
                                 
                             }
                             else{
@@ -100,7 +100,7 @@ echo $pagina->getVereisteHTML();
 							  <th align="left" width="150" height="50">Aanmelden</th>
 							  </tr>
 							  <?php
-                            $sql = "SELECT `naam`,`begindatum`,`einddatum`,`isAanmeldingVerplicht` FROM `Evenement` Where `naam` LIKE '%".$_GET["naam"]."%' AND `begindatum` LIKE '%".$_GET["begindatum"]."%' AND `einddatum`LIKE '%".$_GET["einddatum"]."%';";   
+                            $sql = "SELECT `naam`,`begindatum`,`einddatum`,`isAanmeldingVerplicht` FROM `Evenement` Where `naam` LIKE '%".$_POST["naam"]."%' AND `begindatum` LIKE '%".$_POST["begindatum"]."%' AND `einddatum`LIKE '%".$_POST["einddatum"]."%';";   
                             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
                                   echo "<br/><tr><td></td><td> <a href= \"#\">".$array["naam"]." </a></td><td>".$array["begindatum"]."</td><td>".$array["einddatum"]."</td><td>.</td><td>.</td><td>".$array["isAanmeldingVerplicht"]."</td></tr>";     
