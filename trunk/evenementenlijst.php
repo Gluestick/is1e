@@ -52,30 +52,7 @@ echo $pagina->getVereisteHTML();
                             <input type="submit" name="submit" value="Zoeken" />
                            
                               
-                            <?php
-                            
-                            if(!isset($_POST["naam"])){
-                                
-                            }
-                            else{
-                            ?>
-                            <table>     
-                                <tr>
-                          
-                              <th align="left" width="150" height="50"></th>  
-                                    
-                              <th align="left" width="150" height="50">Naam</th>
-                              
-                              
-                              
-                              <th align="left" width="150" height="50">Begin</th> 
-							  <th align="left" width="150" height="50">Eind</th>
-							  <th align="left" width="150" height="50">Vereniging</th>
-							  <th align="left" width="150" height="50">Categorie</th>
-							  <th align="left" width="150" height="50">Aanmelden</th>
-                                </tr>
-								<tr>
-                            <?php }?>    
+
                             <?php
 
                             
