@@ -26,28 +26,28 @@ echo $pagina->getVereisteHTML();
 							database::getInstantie();
 							?>
                             Vereniging:<Select>
-											<option>
+											
 											<?php
 											$sql = "SELECT `naam` FROM `Vereniging`;";
                                 
                             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
-								echo $array["naam"]."<br/>";
+								echo "<option>".$array["naam"]."<br/></option>";
 							}
 											?>
-											</option>
+										
 										</select>
                             Categorie:<Select>
-											<option>
+											
 											<?php
 											$sql = "SELECT DISTINCT `naam` FROM `Categorie`;";
                                 
                             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
-								echo $array["naam"]."<br/>";
+								echo "<option>".$array["naam"]."<br/></option>";
 							}
 											?>
-											</option>
+										
 										</select>
                             <input type="submit" name="submit" value="Zoeken" />
                            
