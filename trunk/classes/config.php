@@ -13,7 +13,7 @@ class config {
     private $hostname = "localhost";
     private $database = "project";
     private $gebruikersnaam = "root";
-    private $wachtwoord = "";
+    private $wachtwoord = "usbw";
 
 	/**
 	 *
