@@ -163,7 +163,7 @@ class pagina
 			<li>
 				<a href=\"evenement.php\" class=\"drop\" class=\"button\">Evenementen</a>
 				<div class=\"dropdown\">
-					<div><a href=\"#\" class=\"button\">Evenementenlijst<br /><font>Een lijst van alle evenementen</font></a></div>
+					<div><a href=\"evenementenlijst.php\" class=\"button\">Evenementenlijst<br /><font>Een lijst van alle evenementen</font></a></div>
 					<div><a href=\"#\" class=\"button\">Toevoegen<br /><font>Voeg een evenement toe</font></a></div>
 				</div>
 			</li>
