@@ -1,6 +1,6 @@
 <?php
 /**
- * @author: Kay van Bree
+ * @author: Arjan Speiard
  * @description: 
  */
 $pagina = pagina::getInstantie();
