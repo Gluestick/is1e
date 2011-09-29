@@ -33,16 +33,6 @@ class database
 		}
 		return self::$instantie;
 	}
-
-	/**
-	 *
-	 * @return PDO
-	 */
-	public function getVerbinding()
-	{
-		return $this->verbinding;
-	}
-
 }
 
 ?>
