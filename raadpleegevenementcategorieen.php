@@ -56,9 +56,6 @@ echo $pagina->getVereisteHTML();
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
                                   echo "<tr><td> <a href= \"#\">".$array["naam"]." </a></td> <td>".$array["categorieId"]."</td></tr>";     
                             }
-                           
-                                  
-                                  
                             }
                             ?>
 
