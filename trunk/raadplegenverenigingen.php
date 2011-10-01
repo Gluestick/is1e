@@ -1,6 +1,6 @@
 <?php
 /**
- * @author: Kay van Bree
+ * @author: Joep Kemperman
  * @description: 
  */
 $pagina = pagina::getInstantie();
@@ -38,13 +38,25 @@ echo $pagina->getVereisteHTML();
 					<td><b>E-mail</b></td>
 				</tr>
 				<?php
-				if (isset($_GET["naam_vereniging"])) {
-					$naam_vereniging = $_GET["naam"];
-				} else {
-					
-				}
 				database::getInstantie();
-				$sql = "SELECT * FROM vereniging";
+				if (!empty($_POST["naam_vereniging"])) {
+					$naam_vereniging = $_POST["naam_vereniging"];
+				}
+				if (!empty($_POST["plaats_vereniging"])) {
+					$plaats_vereniging = $_POST["plaats_vereniging"];
+				}
+				if (!empty($naam_vereniging)) {
+					$sql = "SELECT * FROM vereniging WHERE naam LIKE '%$naam_vereniging%'";
+				}
+				elseif (!empty($plaats_vereniging)) {
+					$sql = "SELECT * FROM vereniging WHERE plaats LIKE '%$plaats_vereniging%'";
+				}
+				elseif (!empty($naam_vereniging) && isset($plaats_vereniging)) {
+					$sql = "SELECT * FROM vereniging WHERE naam LIKE '%$naam_vereniging%' AND plaats LIKE '%$plaats_vereniging%'";
+				}
+				else {
+					$sql = "SELECT * FROM vereniging";
+				}
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 
 				while ($array = mysql_fetch_array($resultaat_van_server)) {
