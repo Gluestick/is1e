@@ -16,16 +16,15 @@
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<center>
-				<div>
-					<a href="overzichtleden.php" style="display:block;width:200px;height:200px;">
-						Overzicht lezen per vereniging
-					</a>
-					<a href="overzichtevenementen.php" style="display:block;width:200px;height:200px;">
-						Overzicht evenementen per vereniging
-					</a>
-				</div>
-			</center>
+			<div style="width:500px;margin:0 auto;">
+				<a href="overzichtleden.php" class="linkknop" style="float:left;">
+					Overzicht lezen per vereniging
+				</a>
+				<a href="overzichtevenementen.php" class="linkknop" style="float:right;">
+					Overzicht evenementen per vereniging
+				</a>
+			</div>
+			<div style="clear:both;"></div>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>

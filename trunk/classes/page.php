@@ -186,7 +186,6 @@ class pagina
 					Geen account? <a href=\"#\" class=\"login\">Registreer!</a></div>
 				<div>
 			</li>
-		</div>
 		</ul>
 		</div>";
 	}
