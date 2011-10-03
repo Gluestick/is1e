@@ -126,9 +126,9 @@ class pagina
 				<body>";
 	}
 
-	public function render_noscript()
+	public function getNoscript()
 	{
-		echo '<noscript><center><p class="noscript">Your browser does not support JavaScript!/doesn\'t have javascript enabled</p></center></noscript>';
+		echo '<noscript><center><p class="noscript">Jouw browser ondersteund geen javascript!/Heeft javascript uitgeschakeld</p></center></noscript>';
 	}
 
 	public function getHeader()
