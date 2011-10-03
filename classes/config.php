@@ -6,7 +6,7 @@
  * @author Hans-Jurgen
  */
 class config {
-	public static $csspad;
+	public static $csspad = "/project/css/";
 	
 	private static $instantie;
 	
@@ -29,7 +29,7 @@ class config {
 	
 	public function __construct()
 	{
-		self::$csspad = $_SERVER["DOCUMENT_ROOT"]."/project/css";
+		
 	}
     
     public function getHostName() {
