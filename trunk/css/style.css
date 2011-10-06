@@ -278,3 +278,7 @@ body {
 	font-size: 12px;
 	font-variant: small-caps;
 }
+
+th {
+	text-align: left;
+}

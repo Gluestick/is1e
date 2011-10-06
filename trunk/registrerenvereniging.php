@@ -1,6 +1,6 @@
 <?php
 /**
- * @author: Kay van Bree, Joep Kemperman
+ * @author:
  * @description: Pagina waarop je een vereniging kunt registreren
  */
 $pagina = pagina::getInstantie();
@@ -16,7 +16,7 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<form method="POST" action="#">
+			<form method="post" action="#">
 				<table class="registreren"> <!-- De class registreren is om de text voor de inputs aan de rechterkant van de cel te plakken. -->
 					<tr>
 						<td>*Naam:</td>
