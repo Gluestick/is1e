@@ -12,19 +12,15 @@ $pagina->setJavascriptCode("
 	$(document).ready(function() {
 		$(\"#smiley\").click(function(){
 			if ($(\"#list\").css('display') == 'none') {
-				$(\"#list\").css('display','block');
+				var position = $(this).position();
+				$(\"#list\").css({'display':'block', 'left':position.left + 32, 'top':position.top});
 			} else {
 				$(\"#list\").css('display','none');
 			}
 		});
-		$(\".bold\").click(function(){
-			$(\"textarea\").val( $(\"textarea\").val() + '[b][/b]');
-		});
-		$(\".italic\").click(function(){
-			$(\"textarea\").val( $(\"textarea\").val() + '[i][/i]');
-		});
-		$(\".underline\").click(function(){
-			$(\"textarea\").val( $(\"textarea\").val() + '[u][/u]');
+		$(\".bold, .italic, .underline\").click(function(){
+			var html = $.trim($(this).html());
+			$(\"textarea\").val( $(\"textarea\").val() + '[' + html.toLowerCase() + ']' + '[/' + html.toLowerCase() + ']');
 		});
 		$(\"#list span\").click(function(){
 			$(\"textarea\").val( $(\"textarea\").val() + $(this).attr(\"title\"));
@@ -56,7 +52,7 @@ echo $pagina->getVereisteHTML();
 						U
 					</div>
 				</div>
-				<div id="list" style="display:none;margin-right:8px;float:left;border:1px solid black;">
+				<div id="list">
 					<?php
 					foreach (specialetekens::getSmileys() as $array) {
 						$smiley = explode("_", $array, 2);
