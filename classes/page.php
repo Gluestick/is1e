@@ -87,8 +87,7 @@ class pagina
 	 */
 	public function setCss($src, $type = "text/css", $rel = "stylesheet")
 	{
-		//$this->css .= "<link rel=\"" . $rel . "\" href=\"" . config::$csspad . $src . "\" type=\"" . $type . "\" />";
-		$this->css .= "<link rel=\"stylesheet\" href=\"style.css\" type=\"text/css\" />";
+		$this->css .= "<link rel=\"" . $rel . "\" href=\"" . config::$csspad . $src . "\" type=\"" . $type . "\" />";
 	}
 
 	public function setTitel($titel)
