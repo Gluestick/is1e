@@ -283,7 +283,6 @@ th {
 	text-align: left;
 
 }
-}
 
 /* SMILEYS */
 #tekstopties {
@@ -315,9 +314,11 @@ th {
 }
 
 #list {
-	float:left;
-	border: 1px solid #7B7B7B;
-	width: 136px;
+	border:1px solid #7B7B7B;
+	width:136px;
+	display:none;
+	position:absolute;
+	background-color:white;
 }
 
 #list span, #smiley {
