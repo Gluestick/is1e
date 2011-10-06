@@ -74,15 +74,19 @@ echo $pagina->getVereisteHTML();
 							  <th align="left" width="150" height="50">Aanmelden</th>
 							  </tr>
 							  <?php
+
                             $sql = "SELECT `naam`,`begindatum`,`einddatum`,`isAanmeldingVerplicht` FROM `Evenement` Where `naam` LIKE '%".$_POST["naam"]."%' AND `begindatum` LIKE '%".$_POST["begindatum"]."%' AND `einddatum`LIKE '%".$_POST["einddatum"]."%';";   
                             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                                                                                      
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
-                                  echo "<br/><tr><td></td><td> <a href= \"#\">".$array["naam"]." </a></td><td>".$array["begindatum"]."</td><td>".$array["einddatum"]."</td><td>.</td><td>.</td><td>".$array["isAanmeldingVerplicht"]."</td></tr>";     
-                            }
-                           
+                                for($i=1; $i <=2; $i++){
+                                  echo "<br/><tr><td></td><td> <a href= \"\evenementenlijst.php?evenement=".$i."\">".$array["naam"]." </a></td><td>".$array["begindatum"]."</td><td>".$array["einddatum"]."</td><td>.</td><td>.</td><td>".$array["isAanmeldingVerplicht"]."</td></tr>";     
+                                }}
+                                                          
                                   
                                   
-                            }
+                            
+                              }
                             ?>
 
                             </table> 
