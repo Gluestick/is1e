@@ -7,6 +7,7 @@
  */
 class config {
 	public static $csspad = "/project/css/";
+	public static $jspad = "/project/js/";
 	
 	private static $instantie;
 	

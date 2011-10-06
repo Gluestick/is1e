@@ -70,7 +70,19 @@ class pagina
 	 */
 	public function setJavascript($src, $type = "text/javascript")
 	{
-		$this->javascript .= "<script type=\"" . $type . "\" src=\"" . $src . "\"></script>";
+		$this->javascript .= "<script type=\"" . $type . "\" src=\"" . config::$jspad . $src . "\"></script>";
+	}
+	
+	/**
+	 * Deze functie maakt het mogelijk dat een stuk eigen geschreven javascript code op de pagina kan worden geplaatst.
+	 * Evenals de voorgaande javascript functie word type automatisch ingevuld als je deze niet aangeeft.
+	 * Zorg er voor dat dubbele quotes ge-escaped worden of dat er alleen enkele quotes worden gebruikt.
+	 * @param string $code
+	 * @param string $type 
+	 */
+	public function setJavascriptCode($code, $type = "text/javascript")
+	{
+		$this->javascript .= "<script type=\"" . $type . "\">".$code."</script>";
 	}
 
 	/**
