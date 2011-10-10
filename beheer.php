@@ -16,11 +16,11 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<div style="margin:0 auto;width:600px;">
-				<a href="categorie.php" style="float:left;display:block;width:200px;height:200px;">
+			<div style="width:500px;margin:0 auto;">
+				<a href="categorie.php" class="linkknop" style="float:left;">
 					Categorieën
 				</a>
-				<a href="rapport.php" style="float:right;display:block;width:200px;height:200px;">
+				<a href="rapport.php" class="linkknop" style="float:right;">
 					Management-rapport
 				</a>
 			</div>
