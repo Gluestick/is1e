@@ -79,7 +79,7 @@ class specialetekens {
 	{
 		foreach (self::getBBCODE() as $array) {
 			$bbcode = explode("_",$array,2);
-			$tekst=str_replace($bbcode[0],$bbcode[1],$tekst);
+			$tekst = str_replace($bbcode[0],$bbcode[1],$tekst);
 		}
 		
 		foreach (self::getSmileys() as $array) {

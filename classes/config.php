@@ -14,7 +14,7 @@ class config {
     private $hostname = "localhost";
     private $database = "project";
     private $gebruikersnaam = "root";
-    private $wachtwoord = "fuckyou2";
+    private $wachtwoord = "";
 
 	/**
 	 *
