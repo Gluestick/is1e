@@ -52,7 +52,7 @@ echo $pagina->getVereisteHTML();
 				elseif (!empty($plaats_vereniging)) { /* Query als er alleen op plaats wordt gezocht. */
 					$sql = "SELECT * FROM vereniging WHERE plaats LIKE '%$plaats_vereniging%' ORDER BY naam";
 				}
-				elseif (!empty($naam_vereniging) && isset($plaats_vereniging)) { /* Query als er op naam �n plaats wordt gezocht */
+				elseif (!empty($naam_vereniging) && isset($plaats_vereniging)) { /* Query als er op naam en plaats wordt gezocht */
 					$sql = "SELECT * FROM vereniging WHERE naam LIKE '%$naam_vereniging%' AND plaats LIKE '%$plaats_vereniging%' ORDER BY naam";
 				}
 				else { /* Query als er niet wordt gezocht of als er geen velden zijn ingevult */
@@ -61,7 +61,7 @@ echo $pagina->getVereisteHTML();
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 
 				while ($array = mysql_fetch_array($resultaat_van_server)) {
-					echo "<tr><td><a href=raadplegenvereniging.php?id=".$array["verenigingid"].">" . $array["naam"] . " </a></td><td>" . $array["plaats"] . "</td><td>" . $array["emailadres"] . "</tr>";
+					echo "<tr><td><a href=raadplegenvereniging.php?id=".$array["verenigingId"].">" . $array["naam"] . " </a></td><td>" . $array["plaats"] . "</td><td>" . $array["emailadres"] . "</tr>";
 				}
 				?>
 			</table>
