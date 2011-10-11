@@ -17,7 +17,7 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<div style="width:500px;margin:0 auto;">
-				<a href="categorie.php" class="linkknop" style="float:left;">
+				<a href="raadpleegevenementcategorieen.php" class="linkknop" style="float:left;">
 					Categorieën
 				</a>
 				<a href="rapport.php" class="linkknop" style="float:right;">

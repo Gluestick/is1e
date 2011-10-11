@@ -9,6 +9,7 @@ $pagina->setTitel("Registreren vereniging");
 $pagina->setCss("style.css");
 
 echo $pagina->getVereisteHTML();
+
 ?>
 <div id="container">
 	<?php echo $pagina->getHeader(); ?>
