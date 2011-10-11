@@ -43,6 +43,14 @@ echo $pagina->getVereisteHTML();
 						<td colspan="2"><input type="text" name="vereniging_mail" /></td>
 					</tr>
 					<tr>
+						<td>KVK:</td>
+						<td colspan="2"><input type="text" name="vereniging_kvk" /></td>
+					</tr>
+					<tr>
+						<td>*Contactpersoon:</td>
+						<td colspan="2"><input type="text" name="vereniging_mail" /></td>
+					</tr>
+					<tr>
 						<td>*Wachtwoord:</td>
 						<td colspan="2"><input type="password" name="vereniging_wachtwoord" /></td>
 					</tr>
