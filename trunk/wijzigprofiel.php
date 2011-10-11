@@ -6,13 +6,24 @@ and open the template in the editor.
 
 <?php //daniel ?>
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
-	
-    </head>
-    <body>
+<?php
+/**
+ * @author: Daniel
+ * @description: 
+ */
+$pagina = pagina::getInstantie();
+
+$pagina->setTitel("wijzig profiel");
+$pagina->setCss("style.css");
+
+echo $pagina->getVereisteHTML();
+?>
+<div id="container">
+	<?php echo $pagina->getHeader(); ?>
+	<div id="page">
+		<?php echo $pagina->getMenu(); ?>
+		<div id="content">
+			<h1><?php echo $pagina->getTitel();?></h1>
 
 
 		<?php
@@ -20,42 +31,80 @@ and open the template in the editor.
 				   
 				    database::getInstantie();
 					
-				
-		$id = mysql_real_escape_string($_GET["id"]);
-        $sql = "SELECT * FROM student WHERE studentid = $id ";
-        $resultaat_van_server = mysql_query($sql);
-        $array = mysql_fetch_array($resultaat_van_server);
+	
 		
 		  
-		
-		if(isset ($_GET["studentnr"]) && ($_GET["voornaam"]) && ($_GET["achternaam"]) && ( $_GET["adres"]) && ($_GET["postcode"]) && ( $_GET["woonplaats"]) && ($_GET["geslacht"]) && ($_GET["geboortedatum"]) && ($_GET["emailadres"]) ){
-		   $studentnr = $_GET["studentnr"];
-		   $voornaam= $_GET["voornaam"];
-		   $achternaam= $_GET["achternaam"];
-		   $adres= $_GET["adres"];
-		   $postcode=$_GET["postcode"];
-		   $woonplaats= $_GET["woonplaats"];
-		   $geslacht=$_GET["geslacht"];
-		   $geboortedatum=$_GET["geboortedatum"];
-		   $emailadres=$_GET["emailadres"];
+	
+		if(isset($_POST["wijzig"] )== "wijzig"
+		/*&& isset($_GET["studentnr"])
+	    && isset($_GET["voornaam"])
+		&& isset($_GET["achternaam"])
+		&& isset($_GET["adres"])
+		&& isset($_GET["postcode"])
+		&& isset($_GET["woonplaats"])
+		&& isset($_GET["geslacht"])
+		&& isset($_GET["geboortedatum"])
+		&& isset($_GET["emailadres"])
+		 */ ){
+			
+			             //   $id = $_GET['id'];
+
+			
+		   $studentnr = $_POST["studentnr"];
+		   $voornaam= $_POST["voornaam"];
+		   $achternaam= $_POST["achternaam"];
+		   $adres= $_POST["adres"];
+		   $postcode=$_POST["postcode"];
+		   $woonplaats= $_POST["woonplaats"];
+		   $geslacht=$_POST["geslacht"];
+		   $geboortedatum=$_POST["geboortedatum"];
+		   $emailadres=$_POST["emailadres"];
 		   
 		   
+		   $id = mysql_real_escape_string($_GET["id"]);
+		   $sql= "UPDATE student
+		          SET  voornaam='".$voornaam."',
+		               achternaam='".$achternaam."',
+		               adres='".$adres."',
+		               postcode='".$postcode."',
+		               woonplaats='".$woonplaats."',
+		               geslacht='".$geslacht."',
+		               geboortedatum='".$geboortedatum."',
+		               emailadres='".$emailadres."'
+		   WHERE studentid=".$id.";" ;
+		  $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+         // $array = mysql_fetch_array($resultaat_van_server);
+		  
 		   
-		   }
+		   echo"gewijzigd";
+		   echo"<a href=\"raadplegenprofielb.php?id=".$id."\"> terug </a>";
+		 }	   
+	//if(isset($_POST["wijzig"])!= "wijzig"){ 	 
+		$id = mysql_real_escape_string($_GET["id"]);
+        $query = "SELECT * FROM student WHERE studentid =" .$id." ;";
+        $resultaat_van_server = mysql_query($query);
+        $array = mysql_fetch_array($resultaat_van_server);
+		//echo"nu moet ik het ophalen";
+	//}
+		    
 		?>
 
-		<form action="wijzigprofiel.php?id=$id" method="GET" align="left">
+		<!-- <form action="RaadplegenProfielb.php?id= <?php // echo $id ?>   "method="GET" align="left"> -->
+		<?php $id = mysql_real_escape_string($_GET["id"]); ?>
+		<form action="wijzigprofiel.php?id=<?php echo $id; ?>   "method="POST" align="left">
 		<table>
+			<?php
+			echo $id;?>
 			
 		<tr>	
-				<td>Studentnummer: </td>	<td><input type="text" name="studentnr" value=" <?php echo $array["studentnr"]; ?>" disabled="disabled"/></br> </td> 
+				<td>Studentnummer: </td>	<td><input type="text" name="studentnr" value=" <?php echo $array["studentnr"]; ?>" readonly="readonly" /></br> </td> 
 				
 		</tr>
 		<tr>
-				<td>Voornaam:</td> <td>	    <input type="text" name="voornaam"  value=" <?php echo $array["voornaam"]; ?>"/> </br></td>
+				<td>Voornaam:</td> <td>	    <input type="text" name="voornaam"  value="<?php echo $array["voornaam"]; ?>"/> </br></td>
 		</tr>
 		<tr>
-				<td> Achternaam: </td>	<td>    <input type="text" name="achternaam" value=" <?php echo $array["achternaam"]; ?>"/>  </br> </td>
+				<td> Achternaam: </td>	<td>    <input type="text" name="achternaam" value="<?php echo $array["achternaam"]; ?>"/>  </br> </td>
 		</tr>
 		<tr>
 				<td>	Adres: 	 </td>   <td>    <input type="text" name="adres" value="<?php echo $array["adres"]; ?>" /> </br></td>
@@ -75,135 +124,15 @@ and open the template in the editor.
 		<tr>
 				<td>	E-mailadres: </td> <td> 	<input type="text" name="emailadres" value="<?php echo $array["emailadres"]; ?>" /> </br></td>
 		</tr>
+		<tr>
+			<td><input type="submit" name="wijzig" value="wijzig"/> </td>
+		</tr>
+		<tr>
+				<td><a href="raadplegenprofielb.php?id=<?php echo $id; ?>"> terug </a></td>
+		</tr>
+			
 		</table>
-		</form>
-		
-		
-		<?php
-		
-		   /* 
-		database::getInstantie();
-		$id = mysql_real_escape_string($_GET["id"]);
-		$query = "SELECT * FROM Profielbericht WHERE studentid = ".$id.";";
-		$resultaat_van_server = mysql_query($query);
-		
-		echo "<table style=\"text-align:left;\">";
-		while($row = mysql_fetch_array($resultaat_van_server)){
-			echo "<tr><th>datum</th><td>".$row["datum"]."</td></tr> ";
-			echo "<tr><th>onderwerp</th><td>".$row["onderwerp"]."</td></tr> ";
-		    echo "<tr><th>bericht</th><td>".$row["inhoud"]."</td></tr> ";
-		}
-		echo "</table>";*/
-		
-			
-		
-		
-		
-			
-			?>
-		
-		
-		
-		
-						<?php	/*  database::getInstantie();
-		$id = mysql_real_escape_string($_GET["id"]);
-		$sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid WHERE studentid = ".$id." ;";
-        $resultaat_van_server = mysql_query($sql); */
-      
-		
-		
-		
-			
-		?>	
-
-		<!--<table> 
-			<tr>
-			<th> datum </th>
-			<td> <input type="text" disabled="disabled" value=" <?php// echo $array["datum"]; ?>  "</td>
-		</tr>
-		<tr>
-			<th> onderwerp </th>
-			<td>  <input type="text" disabled="disabled" value=" <?php //echo $array["onderwerp"]; ?>" </td>
-		</tr>
-		<tr>
-			<th> bericht </th>
-			<td>  <input type="text" disabled="disabled" value=" <?php //echo $array["inhoud"]; ?>" </td>
-		</tr>
-		</table>-->    
-		
-		
-		 
-		
-		
-		<?php
-		
-		/*
-						database::getInstantie();
-		$id = mysql_real_escape_string($_GET["id"]);
-		$sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid WHERE studentid = ".$id." ;";
-        $resultaat_van_server = mysql_query($sql);
-      
-		
-		
-		echo" evenementen bezocht";
-		    echo"<table style=\"text-align:left;\">";
-		    while($row= mysql_fetch_array($resultaat_van_server)){
-			   if( $row["begindatum"] <= date("Y-m-d")) {
-        		    echo "<tr><th>naam</th><td>".$row["naam"]."</td></tr> ";
-		            echo "<tr><th>begindatum</th><td>".tijd::formatteerTijd($row["begindatum"],"d-m-Y" )."</td></tr> ";
-		            echo "<tr><th>vereniging</th><td>".$row["organiserendeverenigingid"]."</td></tr> ";
-		            echo "<tr><th>categorie</th><td>".$row["categorieid"]."</td></tr> ";
-		         
-			  }
-			}	
-		    echo"</table> ";
-	        echo"evenementen nog te bezoeken";
-	        echo"<table style=\"text-align:left;\">";
-			$sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid WHERE studentid = ".$id." ;";
-			$resultaat_van_server = mysql_query($sql);
-		    while($row = mysql_fetch_array($resultaat_van_server)){
-			   if( $row["begindatum"] > date("Y-m-d")) {
-		            echo "<tr><th>naam</th><td>".$row["naam"]."</td></tr> ";
-		            echo "<tr><th>begindatum</th><td>".tijd::formatteerTijd($row["begindatum"], "d-m-Y")."</td></tr> ";
-		            echo "<tr><th>vereniging</th><td>".$row["organiserendeverenigingid"]."</td></tr> ";
-		            echo "<tr><th>categorie</th><td>".$row["categorieid"]."</td></tr> ";
-				}
-			}	
-		    echo"</table> ";
-
-		*/	
-		?>	
-		
-		
-		
-		<?php
-		  $studentnr = $_GET["studentnr"];
-		   $voornaam= $_GET["voornaam"];
-		   $achternaam= $_GET["achternaam"];
-		   $adres= $_GET["adres"];
-		   $postcode=$_GET["postcode"];
-		   $woonplaats= $_GET["woonplaats"];
-		   $geslacht=$_GET["geslacht"];
-		   $geboortedatum=$_GET["geboortedatum"];
-		   $emailadres=$_GET["emailadres"];
-		   
-		   
-		   
-		   
-		$resultaat_van_server = mysql_query($sql);
-        $array = mysql_fetch_array($resultaat_van_server);
-		$sql= "UPDATE student SET  studentnr='$studentnr', voornaam='$voornaam', achternaam='$achternaam', adres='$adres', postcode='$postcode', woonplaats='$woonplaats', geslacht='$geslacht', geboortedatum='$geboortedatum', emailadres='$emailadres'"               ;
 	
-		?>
-		
-		<table>
-			<tr>
-			<td><input type="submit" name="submit"/> </td>
-			</tr>
-			
-			
-		</table>
-		
 			
 			
 			
@@ -215,5 +144,13 @@ and open the template in the editor.
 		</form>
 		
 		
-    </body>
-</html>
+  </div>
+	</div>
+	<?php echo $pagina->getFooter(); ?>
+</div>
+
+
+
+<?php
+echo $pagina->getVereisteHTMLafsluiting();
+

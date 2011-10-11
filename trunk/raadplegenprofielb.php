@@ -5,21 +5,38 @@ and open the template in the editor.
 <!DOCTYPE html>
 
 <?php //daniel  ?>
+
  
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
-    </head>
-    <body>
+<?php
+/**
+ * @author: Daniel
+ * @description: 
+ */
+$pagina = pagina::getInstantie();
+
+$pagina->setTitel("studenten profiel");
+$pagina->setCss("style.css");
+
+echo $pagina->getVereisteHTML();
+?>
+<div id="container">
+	<?php echo $pagina->getHeader(); ?>
+	<div id="page">
+		<?php echo $pagina->getMenu(); ?>
+		<div id="content">
+			<h1><?php echo $pagina->getTitel();?></h1>
 		
-		<a href="wijzigprofiel.php" method="GET" > wijzig </a>
+		
+		
+		<?php $studentid=$_GET["id"]; ?>
+		<a href="wijzigprofiel.php?id=<?php echo $studentid; ?>" method="GET" > wijzig </a>
         
         <table style="text-align:left; " >
 		<?php
-        database::getInstantie();
+		
+		        database::getInstantie();
 		$id = mysql_real_escape_string($_GET["id"]);
-        $sql = "SELECT * FROM student WHERE studentId = ".$id;" LIMIT 1;";
+        $sql = "SELECT * FROM student WHERE studentid = ".$id;" LIMIT 1;";
         $resultaat_van_server = mysql_query($sql);
         $array = mysql_fetch_array($resultaat_van_server);
         ?>
@@ -64,19 +81,19 @@ and open the template in the editor.
 		</br>
 		
 		
-		Mijn berichten ( <a href="plaatsenprofielbericht.php"> toevoegen </a>)
+		Mijn berichten ( <a href="plaatsenprofielbericht.php?id=<?php echo"$studentid" ?>"> toevoegen </a>)
 			
 			
 			
 		<?php
 		database::getInstantie();
 		$id = mysql_real_escape_string($_GET["id"]);
-		$query = "SELECT * FROM Profielbericht WHERE studentId = ".$id.";";
+		$query = "SELECT * FROM Profielbericht WHERE studentid = ".$id.";";
 		$resultaat_van_server = mysql_query($query);
 		
 		echo "<table style=\"text-align:left;\">";
 		while($row = mysql_fetch_array($resultaat_van_server)){
-			echo "<tr><th>datum</th><td>".$row["datum"]."</td></tr> ";
+			echo "<tr><th>datum</th><td> ".$row["datum"]."</td></tr> ";
 			echo "<tr><th>onderwerp</th><td>".$row["onderwerp"]."</td></tr> ";
 		    echo "<tr><th>bericht</th><td>".$row["inhoud"]."</td></tr> ";
 		}
@@ -91,23 +108,43 @@ and open the template in the editor.
 		
 		Bezocht: 
 		
-		<table border="1">
+	
 			
 				<?php	  database::getInstantie();
 		$id = mysql_real_escape_string($_GET["id"]);
-        $sql = "SELECT * FROM Evenement WHERE evenementId = ".$id;" LIMIT 1;";
+		$sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid WHERE studentid = ".$id." ;";
         $resultaat_van_server = mysql_query($sql);
       
 		
-		echo"<table style=\"text-align:left;\">";
-		while($row= mysql_fetch_array($resultaat_van_server)){
-		 echo "<tr><th>naam</th><td>".$row["naam"]."</td></tr> ";
-		 echo "<tr><th>begindatum</th><td>".$row["begindatum"]."</td></tr> ";
-		 echo "<tr><th>vereniging</th><td>".$row["organiserendeVerenigingId"]."</td></tr> ";
-		 echo "<tr><th>categorie</th><td>".$row["categorieId"]."</td></tr> ";
-		}
-		 echo "</table>"
-	    ?>	
+		
+		echo" evenementen bezocht";
+		    echo"<table style=\"text-align:left;\">";
+		    while($row= mysql_fetch_array($resultaat_van_server)){
+			   if( $row["begindatum"] <= date("Y-m-d")) {
+        		    echo "<tr><th>naam</th><td><a href=\"evenementenlijst.php\">".$row["naam"]."</a></td></tr> ";
+		            echo "<tr><th>begindatum</th><td>".tijd::formatteerTijd($row["begindatum"],"d-m-Y" )."</td></tr> ";
+		            echo "<tr><th>vereniging</th><td>".$row["organiserendeverenigingid"]."</td></tr> ";
+		            echo "<tr><th>categorie</th><td>".$row["categorieid"]."</td></tr> ";
+		         
+			  }
+			}	
+		    echo"</table> ";
+	        echo"evenementen nog te bezoeken";
+	        echo"<table style=\"text-align:left;\">";
+			$sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid WHERE studentid = ".$id." ;";
+			$resultaat_van_server = mysql_query($sql);
+		    while($row = mysql_fetch_array($resultaat_van_server)){
+			   if( $row["begindatum"] > date("Y-m-d")) {
+		            echo "<tr><th>naam</th><td><a href=\"evenementen.php\">".$row["naam"]."</a></td></tr> ";
+		            echo "<tr><th>begindatum</th><td>".tijd::formatteerTijd($row["begindatum"], "d-m-Y")."</td></tr> ";
+		            echo "<tr><th>vereniging</th><td>".$row["organiserendeverenigingid"]."</td></tr> ";
+		            echo "<tr><th>categorie</th><td>".$row["categorieid"]."</td></tr> ";
+				}
+			}	
+		    echo"</table> ";
+
+			
+		?>	
 		
 			
 		 <?php	
@@ -120,5 +157,12 @@ and open the template in the editor.
 			</tr>
 		</table>  */ 
 	?>
-    </body>
-</html>
+   </div>
+	</div>
+	<?php echo $pagina->getFooter(); ?>
+</div>
+
+
+
+<?php
+echo $pagina->getVereisteHTMLafsluiting();

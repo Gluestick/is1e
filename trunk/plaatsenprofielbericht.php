@@ -1,38 +1,44 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
-    </head>
-    <body>
+<?php
+/**
+ * @author: Daniel
+ * @description: 
+ */
+$pagina = pagina::getInstantie();
 
+$pagina->setTitel("Plaatsen bericht");
+$pagina->setCss("style.css");
 
+echo $pagina->getVereisteHTML();
+?>
+<div id="container">
+	<?php echo $pagina->getHeader(); ?>
+	<div id="page">
+		<?php echo $pagina->getMenu(); ?>
+		<div id="content">
+			<h1><?php echo $pagina->getTitel();
+			database::getInstantie();?></h1>
 		<?php
 		$studentid = $_GET["id"];
-		if (isset($_POST["verstuur"])) {
+		if (isset($_POST["verstuur"])
+				&&($_POST["onderwerp"])
+				&& ($_POST["bericht"])) 
+			{
 
-			$bericht = $_POST["bericht"];
-			$onderwerp = $_POST["onderwerp"];
+			$bericht = mysql_real_escape_string($_POST["bericht"]);
+			$onderwerp = mysql_real_escape_string($_POST["onderwerp"]);
 			// $sql= "INSERT INTO  profielbericht VALUES $datum,$onderwerp,$inhoud;";
 
 
-			$con = mysql_connect("localhost", "root", "usbw");
-			if (!$con) {
-				die("could not connect:" . mysql_error());
-			}
-			mysql_select_db("project", $con);
+			
 			$sql = "INSERT INTO  profielbericht (datum, onderwerp, inhoud, studentid) VALUES ('" . date("Y-m-d") . "','" . $onderwerp . "','" . $bericht . "', " . $studentid . ")";
 
-			if (!mysql_query($sql, $con)) {
-				die("Error" . mysql_error());
+			if (mysql_query($sql)) {
+				echo"bericht toegevoegd";
 			}
-			echo "bericht toegevoegd";
-			mysql_close($con);
-		}
+			else {
+					die (mysql_error());
+			}
+			}
 		?>
 
 		<form action="plaatsenprofielbericht.php?id=<?php echo $studentid; ?>" method="POST">
@@ -50,13 +56,25 @@ and open the template in the editor.
 				<tr>
 					<td> <input type="submit" value="verzenden" name="verstuur"/>   </td><td> <input type="reset" value="wis alles"/> </td>
 
-					<td><a href="RaadplegenProfielb.php?id=<?php echo $studentid; ?>"> terug </a></td>
+					<td><a href="raadplegenprofielb.php?id=<?php echo $studentid; ?>"> terug </a></td>
 				</tr>
 			</table>
-		</form>		
+		</form>
+		</div>
+	</div>
+	<?php echo $pagina->getFooter(); ?>
+</div>
 
-		<?php
-		//$query= "INSERT INTO  profielbericht VALUES $datum,$onderwerp,$inhoud; "
-		?>
-	</body>
-</html>
+
+
+<?php
+echo $pagina->getVereisteHTMLafsluiting();
+
+//	database::getInstantie();
+//
+//	$sql = "SELECT * FROM `student`;";
+//	$resultaat_van_server = mysql_query($sql);
+//	while($array = mysql_fetch_array($resultaat_van_server)) {
+//		echo $array["voornaam"]."<br />";
+//	}
+?>
