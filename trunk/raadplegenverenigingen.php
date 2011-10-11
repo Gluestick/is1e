@@ -40,10 +40,10 @@ echo $pagina->getVereisteHTML();
 				<?php
 				database::getInstantie();
 				if (!empty($_POST["naam_vereniging"])) {
-					$naam_vereniging = $_POST["naam_vereniging"];
+					$naam_vereniging = mysql_real_escape_string($_POST["naam_vereniging"]);
 				}
 				if (!empty($_POST["plaats_vereniging"])) {
-					$plaats_vereniging = $_POST["plaats_vereniging"];
+					$plaats_vereniging = mysql_real_escape_string($_POST["plaats_vereniging"]);
 				}
 				
 				if (!empty($naam_vereniging)) { /* Query als er alleen op naam wordt gezocht. */
@@ -61,7 +61,7 @@ echo $pagina->getVereisteHTML();
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 
 				while ($array = mysql_fetch_array($resultaat_van_server)) {
-					echo "<tr><td><a href=raadplegenvereniging.php?id=".$array["verenigingId"].">" . $array["naam"] . " </a></td><td>" . $array["plaats"] . "</td><td>" . $array["emailadres"] . "</tr>";
+					echo "<tr><td><a href=raadplegenvereniging.php?id=".$array["verenigingid"].">" . $array["naam"] . " </a></td><td>" . $array["plaats"] . "</td><td>" . $array["emailadres"] . "</tr>";
 				}
 				?>
 			</table>
