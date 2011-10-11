@@ -12,7 +12,7 @@
 		<a href="studentenlijst.php" class="drop" class="button">Studenten</a>
 		<div class="dropdown">
 			<div><a href="studentenlijst.php" class="button">Studentenlijst<br /><font>Ingeschreven studenten</font></a></div>
-			<div><a href="registreer.php" class="button">Registreer<br /><font>Wordt lid!</font></a></div>
+			<?php if(!isMember()){ ?><div><a href="registreer.php" class="button">Registreer<br /><font>Wordt lid!</font></a></div><?php } ?>
 		</div>
 	</li>
 	<li>
@@ -42,9 +42,8 @@
 		?>
 		<a href="#" class="drop">Ingelogd</a>
 		<div id="login" class="dropdown">
-			<h4><?php print($_SESSION['username']); ?></h4>
-			<a href="profiel.php">Profiel</a>
-			<a href="login.php?logout=true">Uitloggen</a>
+			<div><a href="profiel.php" class="button">Profiel<br /><font>Je eigen profiel</font></a></div>
+			<div><a href="index.php?logout=true" class="button">Uitloggen<br /><font>De verbinding verbreken</font></a></div>
 		</div>
 		<?php
 			} else {

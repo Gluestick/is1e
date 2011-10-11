@@ -44,7 +44,7 @@
 				if(strlen($gebruikersnaam) < 3){
 					$error .= "<li>Je gebruikersnaam moet minstens 3 letters/cijfers bevatten.</li>";
 				}
-				if($this->checkDubbel($gebruikersnaam, "username")){
+				if($this->checkDubbel("user", $gebruikersnaam, "username")){
 					$error .= "<li>De gebruikersnaam is al in gebruik.</li>";
 				}
 			}
@@ -53,7 +53,7 @@
 				$error .= "<li>U heeft geen e-mailadres ingevuld.</li>";
 			} else {
 				if(preg_match("/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i", $email)){
-					if($this->checkDubbel($email, 'emailadres')){
+					if($this->checkDubbel("user", $email, 'email')){
 					$error .= "<li>Dit e-mailadres is al in gebruik.</li>";
 					}
 				} else {
@@ -70,10 +70,9 @@
 			}
 			
 			if(!isset($_POST['studentnr'])){
-				$error .= "<li>U heeft geen studentnummer ingevuld.</li>";
-				if(!preg_match("/s{1}[0-9]{7}/", $studentnr)){
+				$studentnr = NULL;
+			} elseif(!preg_match("/s{1}[0-9]{7}/", $studentnr)){
 					$error .= "<li>Je studentnummer moet beginnen met een s en 7 cijfers bevatten.</li>";
-				}
 			}
 			
 			
@@ -87,12 +86,16 @@
 				//geen error
 				$salt = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',5)),0,32);
 				$activation = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',5)),0,32);
-
+				$role = NULL;
+				
 				$password = md5($pass1 . "" . $salt);
 
-				$query = "INSERT INTO `student` (`studentId`, `studentnr`, `username`, `password`, `salt`,  `activation`, `voornaam`, `achternaam`, `adres`, `postcode`, `woonplaats`, `geslacht`, `geboortedatum`, `emailadres`)
-										VALUES ('$studentid', '$studentnr', '$gebruikersnaam', '$password', '$salt', '$activation', '$voornaam', '$achternaam', '$adres', '$postcode', '$woonplaats', '$geslacht', '$geboortedatum', '$email');";
-				mysql_query($query) or die(mysql_error());
+				$query = "INSERT INTO `student` (`studentId`, `studentnr`, `voornaam`, `achternaam`, `adres`, `postcode`, `woonplaats`, `geslacht`, `geboortedatum`)
+										VALUES ('$studentid', '$studentnr', '$voornaam', '$achternaam', '$adres', '$postcode', '$woonplaats', '$geslacht', '$geboortedatum');";
+				$query2 = " INSERT INTO user (username, password, salt, activation, email, role, studentId)
+										VALUES ('$gebruikersnaam', '$password', '$salt', '$activation', '$email', '$role', '$studentid');";
+				mysql_query($query) or die(mysql_error() . $query);
+				mysql_query($query2) or die(mysql_error() . $query2);
 				$bericht = "<p>U bent succesvol geregistreerd. Binnen 24 uur ontvangt u een mail met daarin de activatie-code.";
 				$bericht .= "Na het activeren kunt u inloggen. Klik <a href=\"index.php\">hier</a> om terug naar de home-pagina te gaan.</p>";
 			}
@@ -102,9 +105,9 @@
 		
 		
 		/****** Kijkt of er van de ingevoerde waarde al een waarde bestaat in een bepaald veld *****/
-		private function checkDubbel($waarde, $veldnaam){
+		private function checkDubbel($tabel, $waarde, $veldnaam){
 			database::getInstantie();
-			$query = "SELECT $veldnaam FROM `student` WHERE `$veldnaam` = '$waarde';";
+			$query = "SELECT $veldnaam FROM `$tabel` WHERE `$veldnaam` = '$waarde';";
 			$result = mysql_query($query) or die(mysql_error());
 			$error = FALSE;
 			if(mysql_num_rows($result) > 0){
@@ -164,7 +167,7 @@
 		}
 		
 		private function checkUser($username, $password){
-			$query = "SELECT `username` FROM `student` WHERE `username` = '$username' AND `password` = '$password';";
+			$query = "SELECT `username` FROM `user` WHERE `username` = '$username' AND `password` = '$password';";
 			$result = mysql_query($query);
 			if(mysql_num_rows($result) == 1){
 				return TRUE;
@@ -174,7 +177,7 @@
 		}
 		
 		private function getSalt($username){
-			$query = "SELECT `salt` FROM `student` WHERE `username` = '$username';";
+			$query = "SELECT `salt` FROM `user` WHERE `username` = '$username';";
 			$result = mysql_query($query);
 			if(mysql_num_rows($result) < 1){
 				$salt = "Error, no '$username' not found.";
