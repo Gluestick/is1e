@@ -19,15 +19,17 @@ echo $pagina->getVereisteHTML();
 		
 		
 		
-		<?php $studentid=$_GET["id"]; ?>
-		<a href="wijzigprofiel.php?id=<?php echo $studentid; ?>" method="GET" > wijzig </a>
+		<?php $user_id = $_GET['id'] ?>
+		<a href="wijzigprofiel.php?id=<?php echo $user_id; ?>"> wijzig </a>
         
         <table style="text-align:left; " >
 		<?php
 		
 		        database::getInstantie();
 		$id = mysql_real_escape_string($_GET["id"]);
-        $sql = "SELECT * FROM student WHERE studentid = ".$id;" LIMIT 1;";
+		$sql = "SELECT S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email
+				FROM student S JOIN user U ON S.studentId = U.studentId
+				WHERE U.user_id = '$user_id' LIMIT 1;";
         $resultaat_van_server = mysql_query($sql);
         $array = mysql_fetch_array($resultaat_van_server);
         ?>
@@ -65,7 +67,7 @@ echo $pagina->getVereisteHTML();
 			</tr>
 			<tr>
 				<th>  E-mail   </th> 
-				<td><?php echo $array["emailadres"]; ?></td>
+				<td><?php echo $array["email"]; ?></td>
 			</tr>
                
         </table> 

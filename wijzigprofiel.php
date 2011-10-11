@@ -49,7 +49,8 @@ echo $pagina->getVereisteHTML();
 			
 			             //   $id = $_GET['id'];
 
-			
+		   $studentId = $_POST['studentId'];
+		
 		   $studentnr = $_POST["studentnr"];
 		   $voornaam= $_POST["voornaam"];
 		   $achternaam= $_POST["achternaam"];
@@ -69,10 +70,13 @@ echo $pagina->getVereisteHTML();
 		               postcode='".$postcode."',
 		               woonplaats='".$woonplaats."',
 		               geslacht='".$geslacht."',
-		               geboortedatum='".$geboortedatum."',
-		               emailadres='".$emailadres."'
-		   WHERE studentid=".$id.";" ;
+		               geboortedatum='".$geboortedatum."'
+		   WHERE studentid=".$studentId.";" ;
+		   $sql2= "UPDATE user
+		          SET  email='".$emailadres."'
+		   WHERE user_id=".$id.";" ;
 		  $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+		  $resultaat_van_server2 = mysql_query($sql2) or die(mysql_error());
          // $array = mysql_fetch_array($resultaat_van_server);
 		  
 		   
@@ -81,7 +85,9 @@ echo $pagina->getVereisteHTML();
 		 }	   
 	//if(isset($_POST["wijzig"])!= "wijzig"){ 	 
 		$id = mysql_real_escape_string($_GET["id"]);
-        $query = "SELECT * FROM student WHERE studentid =" .$id." ;";
+        $query = "SELECT S.studentId, S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email
+				FROM student S JOIN user U ON S.studentId = U.studentId
+				WHERE U.user_id = '$id' LIMIT 1;";
         $resultaat_van_server = mysql_query($query);
         $array = mysql_fetch_array($resultaat_van_server);
 		//echo"nu moet ik het ophalen";
@@ -93,9 +99,7 @@ echo $pagina->getVereisteHTML();
 		<?php $id = mysql_real_escape_string($_GET["id"]); ?>
 		<form action="wijzigprofiel.php?id=<?php echo $id; ?>   "method="POST" align="left">
 		<table>
-			<?php
-			echo $id;?>
-			
+			<input type="text" name="studentId" hidden="hidden" value="<?php echo $array['studentId']; ?>" />
 		<tr>	
 				<td>Studentnummer: </td>	<td><input type="text" name="studentnr" value=" <?php echo $array["studentnr"]; ?>" readonly="readonly" /></br> </td> 
 				
@@ -122,7 +126,7 @@ echo $pagina->getVereisteHTML();
 				<td>Geboortedatum: </td> <td>	<input type="text" name="geboortedatum" value="<?php echo $array["geboortedatum"]; ?>" /> </br></td>
 		</tr>
 		<tr>
-				<td>	E-mailadres: </td> <td> 	<input type="text" name="emailadres" value="<?php echo $array["emailadres"]; ?>" /> </br></td>
+				<td>	E-mailadres: </td> <td> 	<input type="text" name="emailadres" value="<?php echo $array["email"]; ?>" /> </br></td>
 		</tr>
 		<tr>
 			<td><input type="submit" name="wijzig" value="wijzig"/> </td>
