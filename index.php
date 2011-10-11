@@ -23,17 +23,6 @@ echo $pagina->getVereisteHTML();
 	</div>
 	<?php echo $pagina->getFooter(); ?>
 </div>
-
-
-
 <?php
 echo $pagina->getVereisteHTMLafsluiting();
-
-//	database::getInstantie();
-//
-//	$sql = "SELECT * FROM `student`;";
-//	$resultaat_van_server = mysql_query($sql);
-//	while($array = mysql_fetch_array($resultaat_van_server)) {
-//		echo $array["voornaam"]."<br />";
-//	}
 ?>

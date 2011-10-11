@@ -18,23 +18,25 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php
-			$sql = "SELECT * FROM groep WHERE eigenaar = ".mysql_real_escape_string($_GET["id"]);
-			$resultaat_van_server = mysql_query($sql);
-			if (mysql_num_rows($resultaat_van_server) > 0) {
-				echo "<table>";
-				while ($array = mysql_fetch_assoc($resultaat_van_server)) {
-					echo "<tr><td>".$array["naam"]."</td>";
-					
-					$query = "SELECT * FROM groeplid WHERE groepid = ".$array["groepid"];
-					$resultaat = mysql_query($query);
-					while ($rij = mysql_fetch_assoc($resultaat)) {
-						echo "";
+			if (isset($_GET["id"])) {
+				$sql = "SELECT * FROM groep WHERE eigenaar = ".mysql_real_escape_string($_GET["id"]);
+				$resultaat_van_server = mysql_query($sql);
+				if (mysql_num_rows($resultaat_van_server) > 0) {
+					echo "<table style=\"text-align:left;\">";
+					while ($array = mysql_fetch_assoc($resultaat_van_server)) {
+						$query = "SELECT * FROM groeplid INNER JOIN student ON student.studentid = groeplid.studentid WHERE groepid = ".$array["groepid"];
+						$resultaat = mysql_query($query);
+						echo "<tr><td valign=\"middle\" rowspan=\"".(mysql_num_rows($resultaat) + 1)."\">".$array["naam"]."</td></tr>";
+						while ($rij = mysql_fetch_assoc($resultaat)) {
+							echo "<tr><td><a href=\"raadplegenprofiel.php?id=".$rij["studentid"]."\">".$rij["voornaam"]." ".$rij["achternaam"]."</a></td></tr>";
+						}
 					}
-					echo "</tr>";
+					echo "</table>";
+				} else {
+					echo "U heeft nog geen groepen aangemaakt";
 				}
-				echo "</table>";
 			} else {
-				echo "U heeft nog geen groepen aangemaakt";
+				echo "Geen gegevens beschikbaar";
 			}
 			?>
 		</div>
