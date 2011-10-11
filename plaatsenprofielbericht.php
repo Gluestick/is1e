@@ -56,7 +56,7 @@ echo $pagina->getVereisteHTML();
 				<tr>
 					<td> <input type="submit" value="verzenden" name="verstuur"/>   </td><td> <input type="reset" value="wis alles"/> </td>
 
-					<td><a href="raadplegenprofielb.php?id=<?php echo $studentid; ?>"> terug </a></td>
+					<td><a href="raadplegenprofiel.php?id=<?php echo $studentid; ?>"> terug </a></td>
 				</tr>
 			</table>
 		</form>

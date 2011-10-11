@@ -77,7 +77,7 @@ echo $pagina->getVereisteHTML();
 		  
 		   
 		   echo"gewijzigd";
-		   echo"<a href=\"raadplegenprofielb.php?id=".$id."\"> terug </a>";
+		   echo"<a href=\"raadplegenprofiel.php?id=".$id."\"> terug </a>";
 		 }	   
 	//if(isset($_POST["wijzig"])!= "wijzig"){ 	 
 		$id = mysql_real_escape_string($_GET["id"]);
@@ -128,7 +128,7 @@ echo $pagina->getVereisteHTML();
 			<td><input type="submit" name="wijzig" value="wijzig"/> </td>
 		</tr>
 		<tr>
-				<td><a href="raadplegenprofielb.php?id=<?php echo $id; ?>"> terug </a></td>
+				<td><a href="raadplegenprofiel.php?id=<?php echo $id; ?>"> terug </a></td>
 		</tr>
 			
 		</table>
