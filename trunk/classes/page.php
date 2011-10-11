@@ -146,7 +146,7 @@ class pagina
 	public function getHeader()
 	{
 		return "<div id=\"header\">
-		<img src=\"images/header.png\" alt=\"henk!\" />
+		<a href=\"index.php\"><h1>EventPlaza</h1></a>
 	</div>";
 	}
 
@@ -192,7 +192,7 @@ class pagina
 					?>
 					<a href="#" class="drop">Ingelogd</a>
 					<div id="login" class="dropdown">
-						<div><a href="raadplegenprofiel.php" class="button">Profiel<br /><font>Je eigen profiel</font></a></div>
+						<div><a href="raadplegenprofiel.php?id=<?php print($_SESSION['user_id']); ?>" class="button">Profiel<br /><font>Je eigen profiel</font></a></div>
 						<div><a href="login.php?logout=true" class="button">Uitloggen<br /><font>De verbinding verbreken</font></a></div>
 					</div>
 					<?php
