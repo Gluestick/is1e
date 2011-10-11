@@ -5,8 +5,8 @@
  */
 if (!empty($_GET["id"])) {
 	database::getInstantie();
-	$verenigingid = $_GET["id"];
-	$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
+	$verenigingId = $_GET["id"];
+	$sql = "SELECT * FROM vereniging WHERE verenigingId=$verenigingId";
 	$resultaat_van_server = mysql_query($sql) or die(mysql_erraor());
 	$row = mysql_fetch_assoc($resultaat_van_server);
 } else {
@@ -25,8 +25,18 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php
+			if (isset($_GET["aanmelden"])) {
+				$getdatum = getdate();
+				$datum = $getdatum["year"]."-".$getdatum["mon"]."-".$getdatum["mday"];
+				$sql = "INSERT INTO lidmaatschap VALUES({$_GET["studentId"]}, {$_GET["id"]}, '$datum')";
+				$result = mysql_query($sql);
+				if ($result != true) {
+					print"Student niet aan vereniging toegevoegd. Misschien ben je al lid?";
+				}
+				
+			}
 			if (!empty($_GET["id"])) {
-				$sql = "SELECT * FROM student JOIN lidmaatschap ON student.studentid=lidmaatschap.studentid WHERE verenigingid='$verenigingid' AND lidmaatschap.studentid IS NOT NULL";
+				$sql = "SELECT * FROM student JOIN lidmaatschap ON student.studentId=lidmaatschap.studentId WHERE verenigingId='$verenigingId' AND lidmaatschap.studentId IS NOT NULL";
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 				?>
 				<table>
@@ -35,7 +45,7 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<?php
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
-						print "<tr><td><a href=\"raadplegenstudent.php?id=" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</a></td></tr>";
+						print "<tr><td><a href=\"raadplegenprofiel.php?id=" . $array["studentId"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</a></td></tr>";
 					}
 					?>
 				</table><br/>
@@ -48,17 +58,17 @@ echo $pagina->getVereisteHTML();
 						<th>Begindatum</th>
 					</tr>
 					<?php
-					$sql = "SELECT * FROM evenement WHERE organiserendeverenigingid=$verenigingid";
+					$sql = "SELECT * FROM evenement WHERE organiserendeverenigingId=$verenigingId";
 					$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 					$format = "d-m-Y";
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
 						$begindatum = tijd::formatteerTijd($array["begindatum"], $format);
-						print"<tr><td><a href=\"raadplegenevenement.php?id=" . $array["evenementid"] . "\">" . $array["naam"] . "</a></td><td>" . $begindatum . "</td></tr>";
+						print"<tr><td><a href=\"raadplegenevenement.php?id=" . $array["evenementId"] . "\">" . $array["naam"] . "</a></td><td>" . $begindatum . "</td></tr>";
 					}
 					?>
 				</table><br/>
 				<?php
-				$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
+				$sql = "SELECT * FROM vereniging WHERE verenigingId=$verenigingId";
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 				$row = mysql_fetch_assoc($resultaat_van_server);
 				?>
@@ -100,12 +110,14 @@ echo $pagina->getVereisteHTML();
 					</tr>
 				</table>
 				<form>
+					<input type="hidden" name="id" value="<?php print $_GET["id"];?>" />
+					<select name="studentId">
 					<?php
 					$sql = "SELECT * FROM student ORDER BY voornaam";
 					$resultaat_van_server = mysql_query($sql) or die(mysql_error());
-					print "<br/><select name=\"studentid\">";
+					
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
-						print "<option value=\"" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</option>";
+						print "<option value=\"" . $array["studentId"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</option>";
 					}
 					print "<input type=\"submit\" name=\"aanmelden\" value=\"Aanmelden\" /></select>";
 					?>
