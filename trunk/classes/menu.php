@@ -12,38 +12,41 @@
 		<a href="studentenlijst.php" class="drop" class="button">Studenten</a>
 		<div class="dropdown">
 			<div><a href="studentenlijst.php" class="button">Studentenlijst<br /><font>Ingeschreven studenten</font></a></div>
-			<?php if(!isMember()){ ?><div><a href="registreer.php" class="button">Registreer<br /><font>Wordt lid!</font></a></div><?php } ?>
 		</div>
 	</li>
 	<li>
-		<a href="vereniging.php" class="drop">Verenigingen</a>
+		<a href="verenigingenlijst.php" class="drop" class = "button">Verenigingen</a>
 		<div class="dropdown">
-			<div><a href="#">Verenigingenlijst<p>Een lijst van alle verenigingen</p></a></div>
-			<div><a href="#">Registreren<p>Registreer je vereniging</p></a></div>
+			<div><a href="verenigingenlijst.php" class="button">Overzicht<br /><font>Een lijst van alle verenigingen</font></a></div>
+			<div><a href="registrerenvereniging.php" class="button">Registreer<br /><font>Voeg een vereniging toe</font></a></div>
 		</div>
 	</li>
 	<li>
-		<a href="evenement.php" class="drop">Evenementen</a>
+		<a href="overzichtevenementen.php" class="drop" class = "button">Evenementen</a>
 		<div class="dropdown">
-			<div><a href="#">Evenementenlijst<p>Een lijst van alle evenementen</p></a></div>
-			<div><a href="#">Toevoegen<p>Voeg een evenement toe</p></a></div>
+			<div><a href="overzichtevenementen.php" class="button">Overzicht<br /><font>Een lijst van alle evenementen</font></a></div>
+			<div><a href="evenementtoevoegen.php" class="button">Toevoegen<br /><font>Een evenement toevoegen</font></a></div>
 		</div>
 	</li>
+	<?php if(isAdmin()){ ?>
 	<li>
-		<a href="beheer.php" class="drop">Beheer</a>
+		<a href="beheer.php" class="drop" class = "button">Beheer</a>
 		<div class="dropdown">
-			<div><a href="#">Categorieen<p>Beheer categorieen</p></a></div>
-			<div><a href="#">Managements-rapport<p>Vraag rapporten op</p></a></div>
+			<div><a href="raadpleegevenementcategorieen.php" class="button">Categoriën<br /><font>Overzicht van categoriën</font></a></div>
+			<div><a href="rapport.php" class="button">Rapport<br /><font>Rapporten opvragen</font></a></div>
 		</div>
 	</li>
+	<?php } ?>
+	
+	
 	<li class="align_right">
 		<?php
-			if(isset($_SESSION['login'])){
+			if(isMember()){
 		?>
 		<a href="#" class="drop">Ingelogd</a>
 		<div id="login" class="dropdown">
-			<div><a href="profiel.php" class="button">Profiel<br /><font>Je eigen profiel</font></a></div>
-			<div><a href="index.php?logout=true" class="button">Uitloggen<br /><font>De verbinding verbreken</font></a></div>
+			<div><a href="raadplegenprofiel.php" class="button">Profiel<br /><font>Je eigen profiel</font></a></div>
+			<div><a href="login.php?logout=true" class="button">Uitloggen<br /><font>De verbinding verbreken</font></a></div>
 		</div>
 		<?php
 			} else {
@@ -57,6 +60,7 @@
 				<input type="submit" name="login" value="Ga!" class="submit" />
 			</form><br /><br />
 			Geen account? <a href="#" class="login">Registreer!</a>
+			<div><a href="registreer.php" class="button">Registreer<br /><font>Wordt lid!</font></a></div>
 		</div>
 		<?php } ?>
 	</li>

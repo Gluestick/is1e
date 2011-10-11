@@ -28,4 +28,15 @@
 			return false;
 		}
 	}
+	
+	/**
+	 * Returns true als de gebruiker een student is.
+	 */
+	function isStudent(){
+		if(isMember() && isset($_SESSION['studennr'])){
+			return true;
+		} else {
+			return false;
+		}
+	}
 ?>
