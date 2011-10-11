@@ -16,7 +16,7 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<form method="post" action="raadplegenverenigingen.php">
+			<form method="post" action="verenigingenlijst.php">
 				<table>
 					<tr>
 						<td>Vereniging:</td>
