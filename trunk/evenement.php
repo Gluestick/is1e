@@ -4,8 +4,13 @@
  * @description: 
  */
 $pagina = pagina::getInstantie();
-
-$pagina->setTitel("Eventplaza");
+database::getInstantie();
+$id=$_GET['id'];
+$sql = "SELECT evenement.naam From evenement where evenementid=".$id."";
+$resultaat_van_server = mysql_query($sql);
+$array = mysql_fetch_array($resultaat_van_server);
+$evenement = $array["naam"];
+$pagina->setTitel($evenement);
 $pagina->setCss("style.css");
 
 echo $pagina->getVereisteHTML();
@@ -16,7 +21,7 @@ echo $pagina->getVereisteHTML();
         <?php echo $pagina->getMenu(); ?>
         <div id="content">
             <h1><?php echo $pagina->getTitel(); ?></h1>
-            <?php database::getInstantie(); 
+            <?php  
             $id = $_GET['id'];
             print("<a href=\"wijzigevenement.php?id=$id\">Wijzigen</a><br /><br />");
             
