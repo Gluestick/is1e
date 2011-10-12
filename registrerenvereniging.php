@@ -17,11 +17,31 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<form method="post" action="#">
+			<?php
+			database::getInstantie();
+			if (isset($_POST["verstuur"])) {
+				if (!empty($_POST["vereniging_naam"]) && isset($_POST["vereniging_plaats"]) && isset($_POST["vereniging_adres"]) && isset($_POST["vereniging_postcode"]) && isset($_POST["vereniging_mail"]) && isset($_POST["vereniging_contactpersoon"]) && isset($_POST["vereniging_wachtwoord"]) && isset($_POST["vereniging_wachtwoord_herhaling"])) {
+					if ($_POST["vereniging_wachtwoord"] != $_POST["vereniging_wachtwoord_herhaling"]) {
+						print"<h3>ERROR: Ingevulde wachtwoorden zijn niet gelijk!</h3>";
+					}
+					else {
+						$sql = "INSERT INTO vereniging (naam, plaats, adres, postcode, emailadres, contactpersoon) VALUES ('".mysql_real_escape_string($_POST["vereniging_naam"])."', '".mysql_real_escape_string($_POST["vereniging_plaats"])."', '".mysql_real_escape_string($_POST["vereniging_adres"])."', '".mysql_real_escape_string($_POST["vereniging_postcode"])."', '".mysql_real_escape_string($_POST["vereniging_mail"])."', '".mysql_real_escape_string($_POST["vereniging_contactpersoon"])."')";
+						$result = mysql_query($sql);
+						if ($result != true) {
+							print"<h3>ERROR:</h3>".mysql_error();
+						}
+						else {
+							print"Vereniging succesvol geregistreerd!";
+						}
+					}
+				}
+			}
+			?>
+			<form method="post" action="registrerenvereniging.php">
 				<table class="registreren"> <!-- De class registreren is om de text voor de inputs aan de rechterkant van de cel te plakken. -->
 					<tr>
 						<td>*Naam:</td>
-						<td colspan="2"><input type="text" name="vereniging_naam" /></td> <!-- De naam van de inputs kunnen nog verkort worden door het "vereniging" stukje weg te laten. Laat me weten als je denkt dat dat beter uitkomt. -->
+						<td colspan="2"><input type="text" name="vereniging_naam" /></td>
 					</tr>
 					<tr>
 						<td>*Plaats:</td>
@@ -49,7 +69,7 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<td>*Contactpersoon:</td>
-						<td colspan="2"><input type="text" name="vereniging_mail" /></td>
+						<td colspan="2"><input type="text" name="vereniging_contactpersoon" /></td>
 					</tr>
 					<tr>
 						<td>*Wachtwoord:</td>
@@ -63,12 +83,12 @@ echo $pagina->getVereisteHTML();
 						<td></td>
 						<td align="center">
 							<input type="reset" value="Herstellen" />
-							<input type="submit" value="Verstuur" />
+							<input type="submit" name="verstuur" value="Verstuur" />
 						</td>
 					</tr>
 				</table>
 			</form>
-			<br/>Velden met * zijn verplicht. <!-- Astrisk in het formulier kan later nog "mooier" worden gemaakt -->
+			<br/>Velden met "*" zijn verplicht.
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
