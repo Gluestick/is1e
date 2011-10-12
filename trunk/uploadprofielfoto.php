@@ -33,41 +33,9 @@ echo $pagina->getVereisteHTML();
 			<?php
 			database::getInstantie();
 			
-			function checkValideUpload($code)
-			{
-				if ($code == UPLOAD_ERR_OK) {
-					return;
-				}
-
-				switch ($code) {
-					case UPLOAD_ERR_INI_SIZE:
-					case UPLOAD_ERR_FORM_SIZE:
-						$bericht = 'Afbeelding is te groot';
-						break;
-					case UPLOAD_ERR_PARTIAL:
-						$bericht = 'De afbeelding is gedeeltelijk geupload';
-						break;
-					case UPLOAD_ERR_NO_FILE:
-						$bericht = 'Geen afbeelding geupload';
-						break;
-					case UPLOAD_ERR_NO_TMP_DIR:
-						$bericht = 'De upload map is niet gevonden';
-						break;
-					case UPLOAD_ERR_CANT_WRITE:
-						$bericht = 'Kon de afbeelding niet wegschrijven';
-						break;
-					case UPLOAD_ERR_EXTENSION:
-						$bericht = 'Kon afbeelding niet openen door onbekende extensie';
-						break;
-					default:
-						$bericht = 'Onbekende error';
-				}
-				return $bericht;
-			}
-
 			if (isset($_FILES["profielfoto"]["tmp_name"])) { //heeft de foto een tijdelijke naam?
 				$afbeelding = $_FILES['profielfoto'];
-				if (checkValideUpload($afbeelding["error"]) == "") {
+				if (gebruiker::checkValideUpload($afbeelding["error"]) == "") {
 					if (filesize($afbeelding['tmp_name']) < 100000) { //is de afbeelding in de temp map, minder dan 100kb?
 						if (getimagesize($_FILES['profielfoto']['tmp_name'])) { //kunnen we eigenschappen ophalen van de afbeelding?
 							list($width, $height, $type, $attr) = getimagesize($_FILES['profielfoto']['tmp_name']);
@@ -116,7 +84,7 @@ echo $pagina->getVereisteHTML();
 						echo "Te groot bestand.";
 					}
 				} else {
-					echo checkValideUpload($afbeelding["error"]);
+					echo gebruiker::checkValideUpload($afbeelding["error"]);
 				}
 			}
 			
