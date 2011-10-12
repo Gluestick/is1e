@@ -171,7 +171,7 @@ class pagina
 				</div>
 			</li>
 			<li>
-				<a href="overzichtevenementen.php" class="drop" class = "button">Evenementen</a>
+				<a href="evenementenlijst.php" class="drop" class = "button">Evenementen</a>
 				<div class="dropdown">
 					<div><a href="evenementenlijst.php" class="button">Overzicht<br /><font>Een lijst van alle evenementen</font></a></div>
 					<div><a href="evenementtoevoegen.php" class="button">Toevoegen<br /><font>Een evenement toevoegen</font></a></div>
