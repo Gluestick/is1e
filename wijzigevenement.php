@@ -4,11 +4,6 @@ $id = ($_GET["id"]);
 $sql = "SELECT * FROM `evenement` where evenementId = $id;";
 $resultaat_van_server = mysql_query($sql);
 $array = mysql_fetch_array($resultaat_van_server);
-//while ($array = mysql_fetch_array($resultaat_van_server)) {
-//	echo "<option value=\"".$array["categorieId"]."\">" . $array["naam"] . "</option>";
-//}
-?>
-<?php
 /**
  * @author: Kay van Bree, Kajel Bhikhoe
  * @description: 
@@ -68,7 +63,7 @@ echo $pagina->getVereisteHTML();
 								$resultaat_van_server = mysql_query($sql);
 								while ($vereniging = mysql_fetch_array($resultaat_van_server)) {
 									$selected = "";
-									if ($array["naam"] == $vereniging["naam"]) {
+									if ($array["organiserendeverenigingid"] == $vereniging["verenigingid"]) {
 										$selected = "selected=\"selected\"";
 									}
 									echo "<option ".$selected." value=\"" . $vereniging["verenigingid"] . "\">" . $vereniging["naam"] . "</option>";
@@ -100,15 +95,11 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<td>Omschrijving </td>
-						<td><textarea name ="tekstvak" value="<?php echo $array["omschrijving"]; ?>"/>
-							<?php
+						<td><textarea name ="tekstvak" value="<?php echo $array["omschrijving"]; ?>"/><?php
 							$sql = "SELECT * FROM `Evenement` WHERE evenementId = $id;";
 							$resultaat_van_server = mysql_query($sql);
-							while ($array = mysql_fetch_array($resultaat_van_server)) {
-								echo $array["omschrijving"];
-							}
-							?>
-							</textarea>
+							while ($array = mysql_fetch_array($resultaat_van_server)) { echo $array["omschrijving"];}
+							?></textarea>
 						</td>
 					</tr>
 					<tr>
