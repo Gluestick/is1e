@@ -73,7 +73,7 @@ echo $pagina->getVereisteHTML();
 					<tr>
 						<td>*</td>
 						<td>Postcode:</td>
-						<td colspan="2"><input type="text" name="vereniging_postcode" /></td>
+						<td colspan="2"><input type="text" name="vereniging_postcode" maxlength="6" /></td>
 					</tr>
 					<tr>
 						<td>*</td>
