@@ -5,7 +5,7 @@
  */
 $pagina = pagina::getInstantie();
 
-$pagina->setTitel("Eventplaza");
+$pagina->setTitel("Toevoegen evenement");
 $pagina->setCss("style.css");
 
 echo $pagina->getVereisteHTML();

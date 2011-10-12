@@ -5,7 +5,7 @@
  */
 $pagina = pagina::getInstantie();
 
-$pagina->setTitel("Eventplaza");
+$pagina->setTitel("Evenementen");
 $pagina->setCss("style.css");
 
 echo $pagina->getVereisteHTML();
@@ -15,7 +15,7 @@ echo $pagina->getVereisteHTML();
     <div id="page">
         <?php echo $pagina->getMenu(); ?>
         <div id="content">
-            <h1><?php echo $pagina->getTitel(); ?></h1>
+           <h1><?php echo $pagina->getTitel(); ?></h1>
 
             <form action="evenementenlijst.php" method="POST">
 
