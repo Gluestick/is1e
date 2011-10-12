@@ -29,7 +29,7 @@ echo $pagina->getVereisteHTML();
                     $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                     
                     print("Het verwijderen is gelukt!<br/>");
-                    echo "<a href=\"beheercategorieevenementtoevoegen.php\">Terug </a>";
+                    echo "<a href=\"raadpleegevenementcategorieen.php\">Terug </a>";
                 }
        
         

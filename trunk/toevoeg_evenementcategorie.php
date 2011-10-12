@@ -50,7 +50,7 @@ echo $pagina->getVereisteHTML();
                        Naam: <input type="text" name="naam"/><br>
                       
                         <input type="submit" name="submit" value="Toevoegen"/><br>
-                        <a href="beheercategorieevenementtoevoegen.php">Terug naar vorige pagina</a>
+                        <a href="raadpleegevenementcategorieen.php">Terug naar vorige pagina</a>
                         </form>
 		</div>
 	</div>
