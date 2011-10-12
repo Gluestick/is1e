@@ -66,7 +66,7 @@ echo $pagina->getVereisteHTML();
                     AND verenigingid LIKE '%".$_POST["vereniging"]."%'
                         ;";
     
-    print $_POST["categorie"];
+   
 
     while ($array = mysql_fetch_array($resultaat_van_server)) {
         $id = $array['evenementid'];
