@@ -29,7 +29,7 @@ echo $pagina->getVereisteHTML();
                     $sql = "UPDATE categorie SET `naam` ='".$naam1."' WHERE categorieid = " .$id."";
                     print("Het wijzigen is gelukt!<br>");
                     $resultaat_van_server = mysql_query($sql) or die(mysql_error());
-                        print("<a href=\"beheercategorieevenementtoevoegen.php\">Terug </a>");
+                        print("<a href=\"raadpleegevenementcategorieen.php\">Terug </a>");
 
                         } 
                         
