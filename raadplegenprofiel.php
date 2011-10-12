@@ -4,8 +4,20 @@
  * @description: 
  */
 $pagina = pagina::getInstantie();
+database::getInstantie();
+$studentid = mysql_real_escape_string($_GET["id"]);
+$sql = "SELECT studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, emailadres, profielfoto
+		FROM student S JOIN user U ON S.studentid = U.studentid
+		WHERE S.studentid = '$studentid' LIMIT 1;";
+$resultaat_van_server = mysql_query($sql);
+$array = mysql_fetch_array($resultaat_van_server);
 
-$pagina->setTitel("studenten profiel");
+$naam = "";
+if (mysql_num_rows($resultaat_van_server) > 0) {
+	$naam = "van ".$array["voornaam"]." ".$array["achternaam"];
+}
+
+$pagina->setTitel("Studenten profiel ".$naam);
 $pagina->setCss("style.css");
 
 echo $pagina->getVereisteHTML();
@@ -16,24 +28,21 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel();?></h1>
-		
-		
-		
-		<?php $user_id = $_GET['id'] ?>
-		<a href="wijzigprofiel.php?id=<?php echo $user_id; ?>"> wijzig </a>
+		<a href="wijzigprofiel.php?id=<?php echo $studentid; ?>"> wijzig </a>
         
-        <table style="text-align:left; " >
-		<?php
-		
-		database::getInstantie();
-		$id = mysql_real_escape_string($_GET["id"]);
-		$sql = "SELECT studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, emailadres
-				FROM student S JOIN user U ON S.studentid = U.studentid
-				WHERE S.studentid = '$user_id' LIMIT 1;";
-        $resultaat_van_server = mysql_query($sql);
-        $array = mysql_fetch_array($resultaat_van_server);
-		$studentid = $array["studentnr"];
-        ?>
+        <table style="text-align:left;">
+			<tr>
+				<th>
+					Profielfoto
+				</th>
+				<td>
+					<?php if (!empty($array["profielfoto"])) { ?>
+					<img src="data:image/png;base64,<?php echo $array["profielfoto"]; ?>" alt="avatar" title="avatar" />
+					<?php } else { ?>
+					Geen profielfoto.
+					<?php } ?>
+				</td>
+			</tr>
 			<tr>
 				<th>  Studentnummer  </th>
 				<td> <?php echo $array["studentnr"]; ?> </td>
@@ -75,21 +84,21 @@ echo $pagina->getVereisteHTML();
 		</br>
 		
 		
-		Mijn berichten ( <a href="plaatsenprofielbericht.php?id=<?php echo"$studentid" ?>"> toevoegen </a>)
+		Mijn berichten ( <a href="plaatsenprofielbericht.php?id=<?php echo $studentid; ?>"> toevoegen </a>)
 			
 			
 			
 		<?php
 		database::getInstantie();
 		$id = mysql_real_escape_string($_GET["id"]);
-		$query = "SELECT * FROM profielbericht WHERE studentid = ".$id.";";
+		$query = "SELECT * FROM profielbericht WHERE studentid = ".$studentid.";";
 		$resultaat_van_server = mysql_query($query);
 		
 		echo "<table style=\"text-align:left;\">";
 		while($row = mysql_fetch_array($resultaat_van_server)){
 			echo "<tr><th>datum</th><td> ".$row["datum"]."</td></tr> ";
 			echo "<tr><th>onderwerp</th><td>".$row["onderwerp"]."</td></tr> ";
-		    echo "<tr><th>bericht</th><td>".$row["inhoud"]."</td></tr> ";
+		    echo "<tr><th>bericht</th><td>".specialetekens::vervangTekensInTekst($row["inhoud"])."</td></tr> ";
 		}
 		echo "</table>";
 			
@@ -104,9 +113,8 @@ echo $pagina->getVereisteHTML();
 		
 	
 			
-				<?php	  database::getInstantie();
-		$id = mysql_real_escape_string($_GET["id"]);
-		$sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid WHERE studentid = ".$id." ;";
+		<?php
+		$sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid WHERE studentid = ".$studentid." ;";
         $resultaat_van_server = mysql_query($sql);
       
 		
@@ -125,7 +133,7 @@ echo $pagina->getVereisteHTML();
 		    echo"</table> ";
 	        echo"evenementen nog te bezoeken";
 	        echo"<table style=\"text-align:left;\">";
-			$sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid WHERE studentid = ".$id." ;";
+			$sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid WHERE studentid = ".$studentid." ;";
 			$resultaat_van_server = mysql_query($sql);
 		    while($row = mysql_fetch_array($resultaat_van_server)){
 			   if( $row["begindatum"] > date("Y-m-d")) {
@@ -136,21 +144,7 @@ echo $pagina->getVereisteHTML();
 				}
 			}	
 		    echo"</table> ";
-
-			
-		?>	
-		
-			
-		 <?php	
-		 //<th> Naam </th> <th>Begin</th> <th> Vereniging </th> <th> Categorie </th> 
-			//<tr>
-		/*	<td> <?php echo $array["naam"];  ?></td> 
-			<td> <?php echo $array["begindatum"];  ?></td> 
-			<td> <?php echo $array["organiserendeVerenigingId"];  ?></td> 
-			<td> <?php echo $array["categorieId"];  ?></td> 
-			</tr>
-		</table>  */ 
-	?>
+		?>
    </div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>

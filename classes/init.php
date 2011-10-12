@@ -8,6 +8,7 @@ include_once $_SERVER["DOCUMENT_ROOT"].'/project/classes/tijd.php';
 include_once $_SERVER["DOCUMENT_ROOT"].'/project/classes/login.php';
 include_once $_SERVER["DOCUMENT_ROOT"].'/project/classes/smiley.php';
 include_once $_SERVER["DOCUMENT_ROOT"].'/project/classes/function.php';
+include_once $_SERVER["DOCUMENT_ROOT"].'/project/classes/gebruiker.php';
 	
 if(isset($_POST['login'])){
 	$login = login::getInstantie();
