@@ -25,11 +25,11 @@ echo $pagina->getVereisteHTML();
         <table style="text-align:left; " >
 		<?php
 		
-		        database::getInstantie();
+		database::getInstantie();
 		$id = mysql_real_escape_string($_GET["id"]);
-		$sql = "SELECT S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email
-				FROM student S JOIN user U ON S.studentId = U.studentId
-				WHERE U.user_id = '$user_id' LIMIT 1;";
+		$sql = "SELECT studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, emailadres
+				FROM student S JOIN user U ON S.studentid = U.studentid
+				WHERE S.studentid = '$user_id' LIMIT 1;";
         $resultaat_van_server = mysql_query($sql);
         $array = mysql_fetch_array($resultaat_van_server);
         ?>
@@ -67,7 +67,7 @@ echo $pagina->getVereisteHTML();
 			</tr>
 			<tr>
 				<th>  E-mail   </th> 
-				<td><?php echo $array["email"]; ?></td>
+				<td><?php echo $array["emailadres"]; ?></td>
 			</tr>
                
         </table> 
@@ -114,7 +114,7 @@ echo $pagina->getVereisteHTML();
 		    echo"<table style=\"text-align:left;\">";
 		    while($row= mysql_fetch_array($resultaat_van_server)){
 			   if( $row["begindatum"] <= date("Y-m-d")) {
-        		    echo "<tr><th>naam</th><td><a href=\"evenementenlijst.php\">".$row["naam"]."</a></td></tr> ";
+        		    echo "<tr><th>naam</th><td><a href=\"evenement.php?id=".$row["evenementid"]."\">".$row["naam"]."</a></td></tr> ";
 		            echo "<tr><th>begindatum</th><td>".tijd::formatteerTijd($row["begindatum"],"d-m-Y" )."</td></tr> ";
 		            echo "<tr><th>vereniging</th><td>".$row["organiserendeverenigingid"]."</td></tr> ";
 		            echo "<tr><th>categorie</th><td>".$row["categorieid"]."</td></tr> ";
