@@ -1,6 +1,6 @@
 <?php
 /**
- * @author: Kay van Bree
+ * @author: Marissa van Essen
  * @description: 
  */
 $pagina = pagina::getInstantie();
@@ -17,7 +17,7 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			
-                        <form action="raadpleegevenement.php" method="POST">
+                        <form action="raadpleegevenementcategorieen.php" method="POST">
                                
                             <input type="text" name="naam" />
                             <input type="submit" name="submit" value="Zoeken" />
@@ -54,7 +54,7 @@ echo $pagina->getVereisteHTML();
                                 
                             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
-                                  echo "<tr><td> <a href= \"#\">".$array["naam"]." </a></td> <td>".$array["categorieId"]."</td></tr>";     
+                                  echo "<tr><td> <a href= \"#\">".$array["naam"]." </a></td> <td>".$array["categorieid"]."</td></tr>";     
                             }
                             }
                             ?>

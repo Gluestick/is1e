@@ -23,9 +23,7 @@ echo $pagina->getVereisteHTML();
                             <input type="submit" name="submit" value="Zoeken" /> 
                            
                         
-                        <?php
-                            
-                            if(isset($_POST["naam"])){ ?>
+                      
                                <table>     
                                 <tr>                   
                               <th alight="left" width="" height="50">  <br /></th>
@@ -33,13 +31,9 @@ echo $pagina->getVereisteHTML();
                               <th align="left" width="100" height="50">CategorieID</th> 
                               <th align="left" width="150" height="50">         </th>
                                 </tr>
-                          <?php  }
+                          
                             
-                                
-                            ?>  
-                            
-                                
-                             
+                     
                                 
                                 
                                 
@@ -47,20 +41,17 @@ echo $pagina->getVereisteHTML();
                              database::getInstantie();
                              
                            
-                             
-                              if(!isset($_POST["naam"])){
-                                
-                            }
-                            else{
+                            
+                            
                             $sql = "SELECT * FROM `categorie` WHERE `naam` LIKE '%".$_POST["naam"]."%' ORDER BY `categorieid` ;";                                
                             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
-                             print("<br><a href=\"toevoeg_evenementcategorie.php\">Toevoegen</a> "); 
+                            
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
                                
                                   echo "<tr><td> </td><td> <a href= \"#\">".$array["naam"]." </a></td> <td>".$array["categorieid"]."</td><td><a href= \"wijzig_evenementcategorie.php?id=".$array["categorieid"]."\">  Wijzig<a href=\"verwijder_evenementcategorie.php?id=" .$array ["categorieid"] . "&verwijder=true\"> Verwijder</tr>";   
                                   
-                            }
-          
+                            
+      
                             }
                                                        
 
@@ -70,6 +61,11 @@ echo $pagina->getVereisteHTML();
                                 
                                 
                             </table>
+                            
+                            <?php
+                                 print("<br><a href=\"toevoeg_evenementcategorie.php\">Toevoegen</a> "); 
+                            ?>
+                            
                         </form>  
                         
                         <br/>

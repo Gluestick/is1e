@@ -27,7 +27,9 @@ echo $pagina->getVereisteHTML();
                         if(isset($_POST['wijzigen'])){
                     $naam1 = $_POST["naam"];
                     $sql = "UPDATE categorie SET `naam` ='".$naam1."' WHERE categorieid = " .$id."";
+                    print("Het wijzigen is gelukt!<br>");
                     $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                        print("<a href=\"beheercategorieevenementtoevoegen.php\">Terug </a>");
 
                         } 
                         
@@ -36,7 +38,7 @@ echo $pagina->getVereisteHTML();
                         $row = mysql_fetch_assoc($resultaat_van_server);
                         $id1 = $row["categorieid"];
                         $naam = $row["naam"];
-                        
+                    
                         ?>
                         <form method="post" action="wijzig_evenementcategorie.php?id=<?php print($id);?>"> 
                         <table>
