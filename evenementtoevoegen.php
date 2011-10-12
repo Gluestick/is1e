@@ -18,13 +18,13 @@ echo $pagina->getVereisteHTML();
 			<h1><?php echo $pagina->getTitel(); ?></h1>
                         <?php 
                         database::getInstantie();
-                 if(isset($_GET['submit'])){       
-                    if(isset($_GET['naam']) && isset($_GET['begindatum']) && isset($_GET['einddatum']) && isset($_GET['categorie']) && isset($_GET['organisator']) && isset($_GET['verplicht']) && isset($_GET['omschrijving'])){
+                 if(isset($_POST['submit'])){       
+                    if(isset($_POST['naam']) && isset($_POST['begindatum']) && isset($_POST['einddatum']) && isset($_POST['categorie']) && isset($_POST['organisator']) && isset($_POST['verplicht']) && isset($_POST['omschrijving'])){
                         $id = mysql_fetch_array(mysql_query("SELECT MAX(evenementid) FROM evenement"));
                         $id["MAX(evenementid)"]++;
                         
                         
-                        $sql = "INSERT INTO `evenement` (`evenementid`,`naam`,`begindatum`,`einddatum`,`omschrijving`, `isaanmeldingverplicht`,`categorieid`,`organiserendeverenigingid`) VALUES('" . $id["MAX(evenementid)"] . "','".$_GET['naam']."','".$_GET['begindatum']."','".$_GET['einddatum']."','".$_GET['omschrijving']."','".$_GET['verplicht']."','".$_GET['categorie']."','".$_GET['organisator']."')";
+                        $sql = "INSERT INTO `evenement` (`evenementid`,`naam`,`begindatum`,`einddatum`,`omschrijving`, `isaanmeldingverplicht`,`categorieid`,`organiserendeverenigingid`) VALUES('" . $id["MAX(evenementid)"] . "','".$_POST['naam']."','".tijd::formatteerTijd($_POST['begindatum'],"Y-m-d")."','".tijd::formatteerTijd($_POST['einddatum'],"Y-m-d")."','".$_POST['omschrijving']."','".$_POST['verplicht']."','".$_POST['categorie']."','".$_POST['organisator']."')";
                             
                         
                             $query = mysql_query($sql);
@@ -41,8 +41,8 @@ echo $pagina->getVereisteHTML();
                         print("U bent enkele velden vergeten in te vullen<br/>");
                         print("<a href=\"evenementtoevoegen.php\">Ga hier terug naar het formulier</a>");
                     }}
-                        if(!isset($_GET['submit'])){ ?>
-                        <form action="" method="GET">
+                        if(!isset($_POST['submit'])){ ?>
+                        <form action="" method="POST">
                             <table>
                                 <tr>
                                     <th>*</th>
