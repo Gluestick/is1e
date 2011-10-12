@@ -38,7 +38,7 @@ echo $pagina->getVereisteHTML();
 
                 </select>
                 Categorie:<select name="categorie">
-<option></option>
+                    <option></option>
                     <?php
                     $sql = "SELECT DISTINCT `naam`, `categorieid` FROM `categorie`;";
 
