@@ -29,9 +29,12 @@ echo $pagina->getVereisteHTML();
                   
                 if (isset($_POST['naam'])){
                     $sql = "INSERT INTO `categorie` (`categorieid`,`naam`)  Values ('". $row["MAX(categorieid)"] ."','". $_POST['naam'] ."')";
+                    print("Het toevoegen is gelukt!<br/>");
+                    
                     $query = mysql_query($sql);
                     if ($query == false){
                         print mysql_error();
+                        
                     }
                      
                            
@@ -39,7 +42,7 @@ echo $pagina->getVereisteHTML();
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
                                 print ("<tr><td>" .$naam. "</td></tr>");
                                 
-                                
+                             
                             }
                             }
                         
