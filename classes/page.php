@@ -146,7 +146,7 @@ class pagina
 	public function getHeader()
 	{
 		return "<div id=\"header\">
-		<a href=\"index.php\"><h1>EventPlaza</h1></a>
+		<h1><a href=\"index.php\">EventPlaza</a></h1>
 	</div>";
 	}
 
@@ -158,20 +158,20 @@ class pagina
 				<a href="index.php" class="button">Home</a>
 			</li>
 			<li>
-				<a href="studentenlijst.php" class="drop" class="button">Studenten</a>
+				<a href="studentenlijst.php" class="drop button">Studenten</a>
 				<div class="dropdown">
 					<div><a href="studentenlijst.php" class="button">Studentenlijst<br /><font>Ingeschreven studenten</font></a></div>
 				</div>
 			</li>
 			<li>
-				<a href="verenigingenlijst.php" class="drop" class = "button">Verenigingen</a>
+				<a href="verenigingenlijst.php" class="drop button">Verenigingen</a>
 				<div class="dropdown">
 					<div><a href="verenigingenlijst.php" class="button">Overzicht<br /><font>Een lijst van alle verenigingen</font></a></div>
 					<div><a href="registrerenvereniging.php" class="button">Registreer<br /><font>Voeg een vereniging toe</font></a></div>
 				</div>
 			</li>
 			<li>
-				<a href="evenementenlijst.php" class="drop" class = "button">Evenementen</a>
+				<a href="evenementenlijst.php" class="drop button">Evenementen</a>
 				<div class="dropdown">
 					<div><a href="evenementenlijst.php" class="button">Overzicht<br /><font>Een lijst van alle evenementen</font></a></div>
 					<div><a href="evenementtoevoegen.php" class="button">Toevoegen<br /><font>Een evenement toevoegen</font></a></div>
@@ -179,7 +179,7 @@ class pagina
 			</li>
 			<?php if (isAdmin()) { ?>
 				<li>
-					<a href="beheer.php" class="drop" class = "button">Beheer</a>
+					<a href="beheer.php" class="drop button">Beheer</a>
 					<div class="dropdown">
 						<div><a href="raadpleegevenementcategorieen.php" class="button">Categoriën<br /><font>Overzicht van categoriën</font></a></div>
 						<div><a href="rapport.php" class="button">Rapport<br /><font>Rapporten opvragen</font></a></div>
