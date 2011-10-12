@@ -23,6 +23,7 @@ body {
 	margin: 0 auto;
 	height: 80px;
 	border-bottom: none;
+	text-align: center;
 }
 
 @font-face {
@@ -30,7 +31,7 @@ body {
 	src: url('lobster.otf');
 }
 
-#header h1 {
+#header h1 a {
 	text-align: center;
 	font-size: 64px;
 	font-family: font_lobster;
