@@ -16,9 +16,10 @@ echo $pagina->getVereisteHTML();
         <?php echo $pagina->getMenu(); ?>
         <div id="content">
             <h1><?php echo $pagina->getTitel(); ?></h1>
-            <?php database::getInstantie(); ?>
-            <a href="wijzigen1.php">Wijzigen</a><br /><br />
-            <?php
+            <?php database::getInstantie(); 
+            $id = $_GET['id'];
+            print("<a href=\"wijzigevenement.php?id=$id\">Wijzigen</a><br /><br />");
+            
             $id = $_GET['id'];
             $sql = "SELECT evenement.naam AS evenementnaam,begindatum,einddatum,categorie.naam AS categorienaam,vereniging.naam AS verenigingnaam,isaanmeldingverplicht,omschrijving FROM `evenement` JOIN `categorie` ON evenement.categorieid = categorie.categorieid JOIN `vereniging` ON `organiserendeverenigingid` = `verenigingid` WHERE evenementid=$id;";
             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
@@ -31,8 +32,9 @@ echo $pagina->getVereisteHTML();
                 $organisator = $array['verenigingnaam'];
                 $aanmelding = $array['isaanmeldingverplicht'];
                 $omschrijving = $array['omschrijving'];
+                $id=$_GET['id'];
+                print("<form action=\"aanmeldenevenement.php?id=$id\" method=\"POST\">");
                 ?>
-                <form action="#" method="POST">
                     <table>
                         <tr>
                             <td>Naam</td>
