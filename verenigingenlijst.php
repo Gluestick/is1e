@@ -61,7 +61,7 @@ echo $pagina->getVereisteHTML();
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 
 				while ($array = mysql_fetch_array($resultaat_van_server)) {
-					echo "<tr><td><a href=raadplegenvereniging.php?id=".$array["verenigingid"].">" . $array["naam"] . " </a></td><td>" . $array["plaats"] . "</td><td>" . $array["emailadres"] . "</tr>";
+					echo "<tr><td><a href=raadplegenvereniging.php?id=".$array["verenigingid"].">" . $array["naam"] . " </a></td><td>" . $array["plaats"] . "</td><td><a href=\"mailto:{$array["emailadres"]}\">{$array["emailadres"]}</a></tr>";
 				}
 				?>
 			</table>
