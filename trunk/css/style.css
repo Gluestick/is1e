@@ -9,6 +9,7 @@ body {
 	background: #EDF4FF -moz-linear-gradient(top, #4C92FF, #EDF4FF) no-repeat; 
 	background: #EDF4FF -webkit-linear-gradient(top, #4C92FF, #EDF4FF) no-repeat;
 	background: -o-linear-gradient(top, #4C92FF, #EDF4FF) no-repeat;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4C92FF', endColorstr='#EDF4FF',GradientType=0 );
 	min-height: 101%;
 }
 
@@ -132,7 +133,7 @@ body {
 	background: -moz-linear-gradient(top, #FAFAFA, #D0D0DA);
 	background: -o-linear-gradient(top, #FAFAFA, #D0D0DA);
 	background: -webkit-linear-gradient(top, #FAFAFA, #D0D0DA);
-    border-radius: 0px 5px 5px 5px; 
+    border-radius: 0px 5px 5px 5px;
 }
 
 #nav li:hover .dropdown {
