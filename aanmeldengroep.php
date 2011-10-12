@@ -26,10 +26,12 @@ echo $pagina->getVereisteHTML();
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php
 			if (isset($_POST["aanmelden"])) {
-				$sql = "SELECT * FROM groeplid WHERE groepid = ".mysql_real_escape_string($_GET["id"])." AND studentid = ".mysql_real_escape_string($_POST["studentid"]);
+				$sql = "SELECT * FROM groeplid WHERE groepid = ".mysql_real_escape_string($_GET["groepid"])." AND studentid = ".mysql_real_escape_string($_POST["student"]);
 				$result = mysql_query($sql);
-				if (mysql_num_rows()) {
+				if (mysql_num_rows($result) == 0) {
 					
+				} else {
+					echo "Deze persoon is al lid van deze groep.";
 				}
 			}
 			?>

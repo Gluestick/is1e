@@ -137,7 +137,7 @@ echo $pagina->getVereisteHTML();
 				echo "<tr><th>categorie</th><td>" . $row["categorienaam"] . "</td></tr> ";
 			}
 			echo"</table> ";
-
+			echo "<br />";
 			$sql = "SELECT * FROM groep WHERE eigenaar = ".mysql_real_escape_string($_GET["id"]);
 			$resultaat_van_server = mysql_query($sql);
 			if (mysql_num_rows($resultaat_van_server) > 0) {
