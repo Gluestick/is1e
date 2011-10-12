@@ -18,8 +18,8 @@ echo $pagina->getVereisteHTML();
 			<h1><?php echo $pagina->getTitel(); ?></h1>
                         <?php 
                         database::getInstantie();
-                        
-                    if(isset($_GET['submit'])){
+                 if(isset($_GET['submit'])){       
+                    if(isset($_GET['naam']) && isset($_GET['begindatum']) && isset($_GET['einddatum']) && isset($_GET['categorie']) && isset($_GET['organisator']) && isset($_GET['verplicht']) && isset($_GET['omschrijving'])){
                         $id = mysql_fetch_array(mysql_query("SELECT MAX(evenementid) FROM evenement"));
                         $id["MAX(evenementid)"]++;
                         
@@ -35,19 +35,27 @@ echo $pagina->getVereisteHTML();
                             print("Het evenement is toegevoegd!<br/>");
                             print("<a href=\"evenementenlijst.php\">Klik hier om terug te gaan naar de evenementen</a>");
                             
-                    }  
+                    }
+                    
+                    Else {
+                        print("U bent enkele velden vergeten in te vullen<br/>");
+                        print("<a href=\"evenementtoevoegen.php\">Ga hier terug naar het formulier</a>");
+                    }}
                         if(!isset($_GET['submit'])){ ?>
                         <form action="" method="GET">
                             <table>
                                 <tr>
+                                    <th>*</th>
                                     <th>Naam</th>
                                     <td><input type="text" name="naam"/></td>
                                 </tr>
                                 <tr>
+                                    <th>*</th>
                                     <th>Begindatum</th>
                                     <td><input type="text" name="begindatum"/></td>
                                 </tr>
                                 <tr>
+                                    <th></th>
                                     <th>Einddatum</th>
                                     <td><input type="text" name="einddatum"/></td>
                                 </tr>
@@ -55,6 +63,7 @@ echo $pagina->getVereisteHTML();
                                 $sql = "SELECT `naam`,`categorieid` FROM `categorie` ORDER BY `naam` ASC;";
                                 $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                                     ?>
+                                    <th>*</th>
                                     <th>Categorie</th>
                                     <td>
                                         <select name="categorie">
@@ -70,6 +79,7 @@ echo $pagina->getVereisteHTML();
                                 $sql = "SELECT `naam`,`verenigingid` FROM `vereniging` ORDER BY `naam` ASC;";
                                 $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                                     ?>
+                                    <th>*</th>
                                     <th>Organisator</th>
                                     <td>
                                         <select name="organisator">
@@ -82,18 +92,22 @@ echo $pagina->getVereisteHTML();
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>*</th>
                                     <th>Is aanmelding verplicht?</th>
-                                    <td><input type="checkbox" name="verplicht" value="Ja"/></td>
+                                    <td>Ja<input type="radio" name="verplicht" value="Ja"/>&nbsp;&nbsp;Nee<input type="radio" name="verplicht" value="Nee"/></td>
                                 </tr>
                                 <tr>
+                                    <th></th>
                                     <th>Omschrijving</th>
                                     <td><textarea name="omschrijving"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td></td>
+                                    <td></td>
                                     <td><input type="submit" name="submit" value="Toevoegen" /></td>
                                 </tr>
                             </table>
+                            <p>Velden met "*" zijn verplicht.</p>
                         </form>
                         <?php }
 
