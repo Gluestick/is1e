@@ -137,7 +137,7 @@ $sql = "SELECT * FROM aanmelding INNER JOIN evenement ON evenement.evenementid =
 $resultaat_van_server = mysql_query($sql);
 while ($row = mysql_fetch_array($resultaat_van_server)) {
 	if ($row["begindatum"] > date("Y-m-d")) {
-		echo "<tr><th>naam</th><td><a href=\"evenementen.php\">" . $row["naam"] . "</a></td></tr> ";
+		echo "<tr><th>naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["naam"] . "</a></td></tr> ";
 		echo "<tr><th>begindatum</th><td>" . tijd::formatteerTijd($row["begindatum"], "d-m-Y") . "</td></tr> ";
 		echo "<tr><th>vereniging</th><td>" . $row["organiserendeverenigingid"] . "</td></tr> ";
 		echo "<tr><th>categorie</th><td>" . $row["categorieid"] . "</td></tr> ";
