@@ -90,7 +90,7 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<th>Aantal Leden</th>
-						<td><?php print $row["aantalEigenLeden"]; ?>
+						<td><?php print $row["aantaleigenleden"]; ?>
 					</tr>
 					<tr>
 						<th>KVK</th>

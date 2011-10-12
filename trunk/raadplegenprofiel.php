@@ -32,6 +32,7 @@ echo $pagina->getVereisteHTML();
 				WHERE S.studentid = '$user_id' LIMIT 1;";
         $resultaat_van_server = mysql_query($sql);
         $array = mysql_fetch_array($resultaat_van_server);
+		$studentid = $array["studentnr"];
         ?>
 			<tr>
 				<th>  Studentnummer  </th>
