@@ -73,9 +73,10 @@ echo $pagina->getVereisteHTML();
             echo "<tr><td></td><td> <a href=\"evenement.php?id=$id\">" . $array["evenementnaam"] . " </a></td><td>" .tijd::formatteerTijd($array["begindatum"],"d-m-Y") . "</td><td>".tijd::formatteerTijd($array["einddatum"],"d-m-Y") . "</td><td>".$array["verenigingnaam"]."</td><td>".$array["categorienaam"]."</td><td>" . $array["isaanmeldingverplicht"] . "</td></tr>";
     }
 } else {
-	$sql = "SELECT evenement.naam AS evenementnaam,begindatum,einddatum,omschrijving,vereniging.naam AS verenigingnaam, evenementid,evenement.categorieid AS evenementcategorie,categorie.categorieid AS categorieid1,isaanmeldingverplicht, categorie.naam AS categorienaam 
+	$sql = "SELECT evenement.evenementid, evenement.naam AS evenementnaam,begindatum,einddatum,omschrijving,vereniging.naam AS verenigingnaam, evenementid,evenement.categorieid AS evenementcategorie,categorie.categorieid AS categorieid1,isaanmeldingverplicht, categorie.naam AS categorienaam 
         FROM `evenement` JOIN vereniging ON organiserendeverenigingid = verenigingid
-        JOIN categorie ON evenement.categorieid = categorie.categorieid";
+        JOIN categorie ON evenement.categorieid = categorie.categorieid
+        ORDER BY evenement.evenementid ASC";
 }
 ?>
                     <table>     
