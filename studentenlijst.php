@@ -76,7 +76,7 @@
 		public function makeQuery($aantalrijen, $vanaf){
 			if(!isset($_POST['submit'])){		
 				$query = "SELECT studentId, studentnr, voornaam, achternaam, geslacht, geboortedatum 
-						FROM student ";
+						FROM student WHERE studentnr != '' ";
 			} else {
 				$vind = $_POST['vind'];
 				$dit = $_POST['dit'];
@@ -86,7 +86,7 @@
 						$where = " WHERE studentnr = '$vind' ";
 						break;
 					case 'name':
-						$where = " WHERE voornaam LIKE '%$vind%' OR achternaam LIKE '%$vind%' ";
+						$where = " WHERE voornaam LIKE '%$vind%' OR achternaam LIKE '%$vind%' AND studentnr != '' ";
 						break;
 				}
 
