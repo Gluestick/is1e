@@ -18,12 +18,11 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 
+			<form action="evenementreactie2.php" method="POST">
 			<table>
-				<form action="evenementreactie2.php" method="POST">
-					<input type ="hidden" name ="evenementid" value = <?php echo $id ?>/>
 					<tr>
 						<td>Naam </td>
-						<td><input type="text" name="naam"></td>
+						<td><input type="text" name="naam"/><input type ="hidden" name ="evenementid" value = <?php echo $id ?>/></td>
 					</tr>
 					<tr>
 						<td>Datum </td>
@@ -38,9 +37,9 @@ echo $pagina->getVereisteHTML();
 						<td><input type="reset" value="Wis alles"/> <input type="submit" name="verstuur" value="Verstuur"/></td>
 					</tr>
 							
-				</form>
+			
 			</table>
-
+			</form>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
