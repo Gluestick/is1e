@@ -47,15 +47,15 @@ echo $pagina->getVereisteHTML();
 
 				if (isset($_POST["periode"]) && (!empty($_POST["beginperiode"]) || !empty($_POST["eindperiode"]))) {
 					if (!empty($_POST["beginperiode"]) && !empty($_POST["eindperiode"])) {
-						$where = "AND begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."' AND einddatum <= '".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d")."'";
+						$where = "WHERE begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."' AND einddatum <= '".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d")."'";
 					} else if (!empty($_POST["beginperiode"])) {
-						$where = "AND begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."'";
+						$where = "WHERE begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."'";
 					} else {
-						$where = "AND einddatum <= ".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d");
-					}
-					$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `evenement` WHERE `evenement`.`organiserendeVerenigingId` = `vereniging`.`verenigingId` ".$where.") AS totaal FROM `vereniging` WHERE (SELECT COUNT(*) FROM `evenement` WHERE `evenement`.`organiserendeVerenigingId` = `vereniging`.`verenigingId` ".$where.") > 0;";
+						$where = "WHERE einddatum <= ".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d");
+					} 
+					$sql = "SELECT `vereniging`.`naam`, COUNT(evenement.evenementid) AS totaal FROM `vereniging` INNER JOIN evenement ON vereniging.verenigingid = evenement.organiserendeverenigingid ".$where." GROUP BY vereniging.naam;";
 				} else {
-					$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `evenement` WHERE `evenement`.`organiserendeVerenigingId` = `vereniging`.`verenigingId`) AS totaal FROM `vereniging` WHERE (SELECT COUNT(*) FROM `evenement` WHERE `evenement`.`organiserendeVerenigingId` = `vereniging`.`verenigingId`) > 0;";
+					$sql = "SELECT `vereniging`.`naam`, COUNT(evenement.evenementid) AS totaal FROM `vereniging` INNER JOIN evenement ON vereniging.verenigingid = evenement.organiserendeverenigingid GROUP BY vereniging.naam;";
 				}
 				
 				$resultaat_van_server = mysql_query($sql);
