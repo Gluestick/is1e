@@ -45,12 +45,12 @@ echo $pagina->getVereisteHTML();
                                 $_POST["naam"] = "";
                             }
                             
-                            $sql = "SELECT * FROM `categorie` WHERE `naam` LIKE '%".$_POST["naam"]."%' ORDER BY `categorieid` ;";                                
+                            $sql = "SELECT categorie.categorieid,categorie.naam AS categorienaam,evenement.evenementid AS evenementid FROM `categorie` JOIN evenement ON categorie.categorieid = evenement.categorieid WHERE categorie.naam LIKE '%".$_POST["naam"]."%' ORDER BY `categorieid` ;";                                
                             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                             
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
-                               
-                                  echo "<tr><td> </td><td> <a href= \"#\">".$array["naam"]." </a></td> <td>".$array["categorieid"]."</td><td><a href= \"wijzig_evenementcategorie.php?id=".$array["categorieid"]."\">  Wijzig<a href=\"verwijder_evenementcategorie.php?id=" .$array ["categorieid"] . "&verwijder=true\"> Verwijder</tr>";   
+                               $id = $array['evenementid'];
+                                  echo "<tr><td> </td><td> <a href=\"evenement.php?id=$id\">".$array["categorienaam"]." </a></td> <td>".$array["categorieid"]."</td><td><a href= \"wijzig_evenementcategorie.php?id=".$array["categorieid"]."\">  Wijzig<a href=\"verwijder_evenementcategorie.php?id=" .$array ["categorieid"] . "&verwijder=true\"> Verwijder</tr>";   
                                   
                             
       
