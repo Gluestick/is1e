@@ -99,6 +99,9 @@ class pagina
 	 */
 	public function setCss($src, $type = "text/css", $rel = "stylesheet")
 	{
+		if(isset($_GET['css']) == 2){
+			$src = "style2.css";
+		}
 		$this->css .= "<link rel=\"" . $rel . "\" href=\"" . config::$csspad . $src . "\" type=\"" . $type . "\" />";
 	}
 
@@ -200,14 +203,16 @@ class pagina
 					?>
 					<a href="#" class="drop">Inloggen</a>
 					<div id="login" class="dropdown">
-						<h4>Inloggen:</h4>
+						Username + Password:
+						<div class="form">
 						<form action="<?php print($_SERVER["PHP_SELF"]); ?>" method="post">
+							<input type="submit" name="login" value="Ga!" class="submit" />
 							<input type="text" name="username" class="text" /><br />
 							<input type="password" name="password" class="pass" />
-							<input type="submit" name="login" value="Ga!" class="submit" />
-						</form><br /><br />
-						Geen account? <a href="#" class="login">Registreer!</a>
-						<div><a href="registreer.php" class="button">Registreer<br /><font>Wordt lid!</font></a></div>
+							
+						</form>
+						</div>
+						<div class="clear"><a href="registreer.php" class="button">Registreer<br /><font>Nog geen lid?</font></a></div>
 					</div>
 				<?php } ?>
 			</li>
