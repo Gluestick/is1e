@@ -90,13 +90,12 @@
 				
 				$password = md5($pass1 . "" . $salt);
 
-				if($studentid != NULL){
-					$query = "INSERT INTO `student` (`studentId`, `studentnr`, `voornaam`, `achternaam`, `adres`, `postcode`, `woonplaats`, `geslacht`, `geboortedatum`)
-										VALUES ('$studentid', '$studentnr', '$voornaam', '$achternaam', '$adres', '$postcode', '$woonplaats', '$geslacht', '$geboortedatum');";
-				}
+				
+				$query = "INSERT INTO `student` (`studentId`, `studentnr`, `voornaam`, `achternaam`, `adres`, `postcode`, `woonplaats`, `geslacht`, `geboortedatum`)
+									VALUES ('$studentid', '$studentnr', '$voornaam', '$achternaam', '$adres', '$postcode', '$woonplaats', '$geslacht', '$geboortedatum');";
+				mysql_query($query) or die(mysql_error() . $query);
 				$query2 = " INSERT INTO user (username, password, salt, activation, email, role, studentId)
 										VALUES ('$gebruikersnaam', '$password', '$salt', '$activation', '$email', '$role', '$studentid');";
-				mysql_query($query) or die(mysql_error() . $query);
 				mysql_query($query2) or die(mysql_error() . $query2);
 				$bericht = "<p>U bent succesvol geregistreerd. Binnen 24 uur ontvangt u een mail met daarin de activatie-code.";
 				$bericht .= "Na het activeren kunt u inloggen. Klik <a href=\"index.php\">hier</a> om terug naar de home-pagina te gaan.</p>";
