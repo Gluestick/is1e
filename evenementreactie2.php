@@ -53,7 +53,7 @@ echo $pagina->getVereisteHTML();
 					<td>
 						<?php
 						if ($tekstvak != "") {
-							echo $tekstvak;
+							echo specialetekens::vervangTekensInTekst($tekstvak);
 						} else {
 							echo "Bericht is verplicht!";
 						}
