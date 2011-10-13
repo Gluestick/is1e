@@ -44,6 +44,10 @@ body {
 		1px 1px 0 #00245C
 }
 
+#header a {
+	text-decoration: none;
+}
+
 #header img {
 	float:left;
 	border:0;
@@ -114,11 +118,11 @@ body {
 
 #nav li .drop {
 	padding-right: 21px;
-	background: url("images/drop.png") no-repeat right 8px;
+	background: url("image/drop.png") no-repeat right 8px;
 }
 
 #nav li:hover .drop {
-	background: url("images/drop.png") no-repeat right 7px;
+	background: url("image/drop.png") no-repeat right 7px;
 }
 
 #nav .dropdown {
@@ -183,69 +187,46 @@ body {
 	position: relative;	
 }
 
-#login a.login {
-	font-size: 15px;
+#login {
+	width: 220px;
+	padding: 0px;
+	margin: 0px;
+} 
+
+#login .form, #login .form:child {
+	width: 205px;
+	margin: 0 auto;
+	display: block;
+}
+
+#login div {
+	width: 220px;
 	margin: 0px;
 	padding: 0px;
 }
 
-#login a.login:hover {
-	color: blue;
+#login input {
+	box-sizing: initial;
 }
 
-#login {
-	border: none;
-	float: right;
-	margin: 0px;
-}
-
-#login div {
-	color: grey;
-	margin: 0 auto;
-}
-
-#login input.text, #login input.pass, #login input.submit {
+#login .text, #login .pass {
+	padding: 3px;
 	float: left;
+	width: 160px;
 }
 
-#login input.text, #login input.pass {
-	padding: 5px;
-	padding-bottom: 4px;
-	border: 1px #3E3E40 solid;
-	border-right: none;
-	background: #FAFAFA
+#login .submit {
+	float: right;
+	padding: 8px;
 }
 
-#login input.text {
-	border-radius:5px 5px 0px 0px;
-	width:170px;
+
+
+#login .clear {
+	clear: both;
+	padding-top: 10px;
 }
 
-#login input.pass {
-	border-radius:0px 0px 0px 5px;
-	width:140px;
-}
-
-#login input.submit, .linkknop {
-	width:30px;
-	padding:4px;
-	padding-bottom:3px;
-	border:1px #3E3E40 solid;
-	background:-moz-linear-gradient(top, #997E02, #E5BC00);
-	background:-o-linear-gradient(top, #997E02, #E5BC00);
-	background:-webkit-linear-gradient(top, #FAFAFA, #D0D0DA);
-	border-radius:0px 0px 5px 0px;
-	-moz-box-shadow:inset 0px 0px 1px #473B01;
-    -webkit-box-shadow:inset 0px 0px 2px #473B01;
-    box-shadow:inset 0px 0px 2px #473B01;
-}
-
-#login input.submit:hover, .linkknop:hover {
-	background: #E3BD00;
-	-moz-box-shadow:inset 0px 0px 1px #000;
-    -webkit-box-shadow:inset 0px 0px 2px #000;
-    box-shadow:inset 0px 0px 2px #000;
-}
 
 .linkknop {
 	display:block;
