@@ -22,10 +22,11 @@ echo $pagina->getVereisteHTML();
 			$id = $_POST["evenementid"];
 			$naam = $_POST["naam"];
 			$tekstvak = $_POST["tekstvak"];
+			$tijdstip = date("Y-m-d");
 
 			if (($naam) && ($tekstvak)) {
-				$query1 = "INSERT INTO reactie (evenementid,afzender, inhoud) 
-			VALUES('$id','$naam', '$tekstvak')";
+				$query1 = "INSERT INTO reactie (evenementid,afzender, inhoud, tijdstip) 
+			VALUES('$id','$naam', '$tekstvak', '$tijdstip')";
 
 				mysql_query($query1);
 			}
