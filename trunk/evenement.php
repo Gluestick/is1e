@@ -100,7 +100,7 @@ echo $pagina->getVereisteHTML();
                         <tr>
                             <td><?php print($naam); ?></td>
                             <td><?php print($datum); ?></td>
-                            <td><?php print($inhoud); ?></td>
+                            <td><?php print(specialetekens::vervangTekensInTekst($inhoud)); ?></td>
                         </tr>
 
                         <?php
