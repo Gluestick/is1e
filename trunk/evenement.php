@@ -109,7 +109,9 @@ echo $pagina->getVereisteHTML();
                 </table>
 
             </form>
-
+              <?php 
+              print("<a href=\"evenementreactie.php?id=$id\">Voeg een reactie toe!</a>")
+              ?>
         </div>
     </div>
     <?php echo $pagina->getFooter(); ?>
