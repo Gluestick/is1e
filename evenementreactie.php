@@ -19,14 +19,14 @@ echo $pagina->getVereisteHTML();
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 
 			<form action="evenementreactie2.php" method="POST">
-			<table>
+				<table>
 					<tr>
 						<td>Naam </td>
 						<td><input type="text" name="naam"/><input type ="hidden" name ="evenementid" value = <?php echo $id ?>/></td>
 					</tr>
 					<tr>
 						<td>Datum </td>
-						<td><input type="text" name="datum" readonly="readonly" value="<?php echo date("d/m/Y");?>"></td>
+						<td><input type="text" name="datum" readonly="readonly" value="<?php echo date("d/m/Y"); ?>"></td>
 					</tr>
 					<tr>
 						<td>Bericht </td>
@@ -35,10 +35,8 @@ echo $pagina->getVereisteHTML();
 					<tr>
 						<td></td>
 						<td><input type="reset" value="Wis alles"/> <input type="submit" name="verstuur" value="Verstuur"/></td>
-					</tr>
-							
-			
-			</table>
+					</tr>		
+				</table>
 			</form>
 		</div>
 	</div>
