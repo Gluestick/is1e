@@ -20,8 +20,8 @@
 			/****** escape alle waarden *****/
 			database::getInstantie();
 			
-			$studentid = mysql_real_escape_string($_POST['studentid']);
-			$gebruikersnaam = mysql_real_escape_string($_POST['gebruikersnaam']);
+			$studentid = strtolower(mysql_real_escape_string($_POST['studentid']));
+			$gebruikersnaam = strtolower(mysql_real_escape_string($_POST['gebruikersnaam']));
 			$email = mysql_real_escape_string($_POST['email']);
 			$pass1 = mysql_real_escape_string($_POST['pass1']);
 			$pass2 = mysql_real_escape_string($_POST['pass2']);
@@ -69,9 +69,9 @@
 				}
 			}
 			
-			if(!isset($_POST['studentnr'])){
+			if(empty($_POST['studentnr'])){
 				$studentnr = NULL;
-			} elseif(!preg_match("/s{1}[0-9]{7}/", $studentnr)){
+			} elseif(!preg_match("/[sS]{1}[0-9]{7}/", $studentnr)){
 					$error .= "<li>Je studentnummer moet beginnen met een s en 7 cijfers bevatten.</li>";
 			}
 			
@@ -90,8 +90,10 @@
 				
 				$password = md5($pass1 . "" . $salt);
 
-				$query = "INSERT INTO `student` (`studentId`, `studentnr`, `voornaam`, `achternaam`, `adres`, `postcode`, `woonplaats`, `geslacht`, `geboortedatum`)
+				if($studentid != NULL){
+					$query = "INSERT INTO `student` (`studentId`, `studentnr`, `voornaam`, `achternaam`, `adres`, `postcode`, `woonplaats`, `geslacht`, `geboortedatum`)
 										VALUES ('$studentid', '$studentnr', '$voornaam', '$achternaam', '$adres', '$postcode', '$woonplaats', '$geslacht', '$geboortedatum');";
+				}
 				$query2 = " INSERT INTO user (username, password, salt, activation, email, role, studentId)
 										VALUES ('$gebruikersnaam', '$password', '$salt', '$activation', '$email', '$role', '$studentid');";
 				mysql_query($query) or die(mysql_error() . $query);
@@ -141,7 +143,7 @@
 		}
 		
 		public function login(){
-			$username = mysql_real_escape_string($_POST['username']);
+			$username = strtolower(mysql_real_escape_string($_POST['username']));
 			$pass1 = mysql_real_escape_string($_POST['password']);
 			$salt = $this->getSalt($username);
 			$password = md5($pass1 . "" . $salt);

@@ -8,12 +8,14 @@ database::getInstantie();
 
 $studentid = mysql_real_escape_string($_GET["id"]);
 
-$sql = "SELECT studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, emailadres, profielfoto
+$sql = "SELECT S.studentId, studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 		FROM student S JOIN user U ON S.studentid = U.studentid
-		WHERE S.studentid = '$studentid' LIMIT 1;";
+		WHERE U.user_id = '$studentid' LIMIT 1;";
 
-$resultaat_van_server = mysql_query($sql);
+$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 $array = mysql_fetch_array($resultaat_van_server);
+
+$studentid = $array['studentId'];
 
 $naam = "";
 if (mysql_num_rows($resultaat_van_server) > 0) {
@@ -80,7 +82,7 @@ echo $pagina->getVereisteHTML();
 				</tr>
 				<tr>
 					<th>  E-mail   </th> 
-					<td><?php echo $array["emailadres"]; ?></td>
+					<td><?php echo $array["email"]; ?></td>
 				</tr>
 
 			</table> 

@@ -111,7 +111,7 @@
 					</select>
 				</td>
 				<td><input type="submit" name="submit" value="Zoeken!" /></td>
-				<td><a href="student.php">Alle studenten</a></td>
+				<td><a href="studentenlijst.php">Alle studenten</a></td>
 			</tr>
 		</table>
 	</form>
