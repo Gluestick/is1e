@@ -39,4 +39,10 @@
 			return false;
 		}
 	}
+	
+	function isHimSelf(){
+		if($_GET['id'] != $_SESSION['user_id']){
+			header('Location: index.php');
+		}
+	}
 ?>

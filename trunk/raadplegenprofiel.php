@@ -8,7 +8,7 @@ database::getInstantie();
 
 $studentid = mysql_real_escape_string($_GET["id"]);
 
-$sql = "SELECT S.studentId, studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
+$sql = "SELECT S.studentId as studentId, U.user_id as user_id, studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 		FROM student S JOIN user U ON S.studentid = U.studentid
 		WHERE U.user_id = '$studentid' LIMIT 1;";
 
@@ -16,6 +16,7 @@ $resultaat_van_server = mysql_query($sql) or die(mysql_error());
 $array = mysql_fetch_array($resultaat_van_server);
 
 $studentid = $array['studentId'];
+$userid = $array['user_id'];
 
 $naam = "";
 if (mysql_num_rows($resultaat_van_server) > 0) {
@@ -33,7 +34,9 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<a href="wijzigprofiel.php?id=<?php echo $studentid; ?>"> wijzig </a>
+			<?php if($userid == $_SESSION['user_id']){ ?>
+				<a href="wijzigprofiel.php?id=<?php echo $userid; ?>"> wijzig </a>
+			<?php } ?>
 
 			<table style="text-align:left;">
 				<tr>

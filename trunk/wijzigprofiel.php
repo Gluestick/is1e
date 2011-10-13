@@ -8,6 +8,8 @@ $pagina = pagina::getInstantie();
 $pagina->setTitel("wijzig profiel");
 $pagina->setCss("style.css");
 
+isHimSelf();
+
 echo $pagina->getVereisteHTML();
 ?>
 <div id="container">
