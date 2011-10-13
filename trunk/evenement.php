@@ -99,8 +99,8 @@ echo $pagina->getVereisteHTML();
 
                         <tr>
                             <td><?php print($naam); ?></td>
-                            <td><?php print($datum); ?></td>
-                            <td><?php print(specialetekens::vervangTekensInTekst($inhoud)); ?></td>
+                            <td><?php print(tijd::formatteerTijd($datum, "d-m-Y")); ?></td>
+                            <td><?php print(nl2br(specialetekens::vervangTekensInTekst($inhoud))); ?></td>
                         </tr>
 
                         <?php
