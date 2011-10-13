@@ -55,19 +55,19 @@
 			if($total_results > $aantalrijen){
 				print("<tr><td colspan=\"4\">");
 				if($page > 1){
-					print("<a href=\"student.php?pagina=". $prev ."\">Vorige</a> || ");
+					print("<a href=\"studentenlijst.php?pagina=". $prev ."\">Vorige</a> || ");
 				}
 
 				for($i = 1; $i <= $total_pages; $i++){
 					if($i == $page){
 						print($i . " | ");
 					} else {
-						print("<a href=\"student.php?pagina=". $i ."\">". $i . "</a> | ");
+						print("<a href=\"studentenlijst.php?pagina=". $i ."\">". $i . "</a> | ");
 					}
 				}
 
 				if($page < $total_pages){
-					print("| <a href=\"student.php?pagina=". $next ."\">Volgende</a>");
+					print("| <a href=\"studentenlijst.php?pagina=". $next ."\">Volgende</a>");
 				}
 				print("</td></tr>");
 			}
