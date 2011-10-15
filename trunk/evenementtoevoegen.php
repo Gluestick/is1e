@@ -19,15 +19,8 @@ echo $pagina->getVereisteHTML();
                         <?php 
                         database::getInstantie();
                  if(isset($_POST['submit'])){       
-                    if(!isset($_POST['naam']) && !isset($_POST['begindatum']) && !isset($_POST['einddatum']) && !isset($_POST['categorie']) && !isset($_POST['organisator']) && !isset($_POST['verplicht']) && !isset($_POST['omschrijving'])){
-                        print("U bent enkele velden vergeten in te vullen<br/>");
-                        print("<a href=\"evenementtoevoegen.php\">Ga hier terug naar het formulier</a>");
-                            
-                    }
-                    
-                    Else {
-                        
-						$id = mysql_fetch_array(mysql_query("SELECT MAX(evenementid) FROM evenement"));
+                    if(isset($_POST['naam']) && isset($_POST['begindatum']) && isset($_POST['einddatum']) && isset($_POST['categorie']) && isset($_POST['organisator']) && isset($_POST['verplicht']) && isset($_POST['omschrijving'])){
+                        $id = mysql_fetch_array(mysql_query("SELECT MAX(evenementid) FROM evenement"));
                         $id["MAX(evenementid)"]++;
                         
                         
@@ -41,7 +34,12 @@ echo $pagina->getVereisteHTML();
                             }
                             print("Het evenement is toegevoegd!<br/>");
                             print("<a href=\"evenementenlijst.php\">Klik hier om terug te gaan naar de evenementen</a>");
-						
+                            
+                    }
+                    
+                    Else {
+                        print("U bent enkele velden vergeten in te vullen<br/>");
+                        print("<a href=\"evenementtoevoegen.php\">Ga hier terug naar het formulier</a>");
                     }}
                         if(!isset($_POST['submit'])){ ?>
                         <form action="" method="POST">
