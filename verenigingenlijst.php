@@ -31,40 +31,35 @@ echo $pagina->getVereisteHTML();
 					</tr>
 				</table>
 			</form>
-			<table>
+				<?php
+				database::getInstantie();
+				if (isset($_POST["verstuur"])) {
+					$sql = "SELECT * FROM vereniging WHERE naam LIKE '%{$_POST["naam_vereniging"]}%' AND plaats LIKE'%{$_POST["plaats_vereniging"]}%' ORDER BY naam";
+				}
+				else {
+					$sql = "SELECT * FROM vereniging ORDER BY naam";
+				}
+				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+				if (mysql_num_rows($resultaat_van_server) >= 1) {
+				?>
+				<table>
 				<tr>
 					<td width="125"><b>Vereniging</b></td>
 					<td width="60"><b>Plaats</b></td>
 					<td><b>E-mail</b></td>
 				</tr>
 				<?php
-				database::getInstantie();
-				if (!empty($_POST["naam_vereniging"])) {
-					$naam_vereniging = mysql_real_escape_string($_POST["naam_vereniging"]);
-				}
-				if (!empty($_POST["plaats_vereniging"])) {
-					$plaats_vereniging = mysql_real_escape_string($_POST["plaats_vereniging"]);
-				}
-				
-				if (!empty($naam_vereniging)) { /* Query als er alleen op naam wordt gezocht. */
-					$sql = "SELECT * FROM vereniging WHERE naam LIKE '%$naam_vereniging%' ORDER BY naam";
-				}
-				elseif (!empty($plaats_vereniging)) { /* Query als er alleen op plaats wordt gezocht. */
-					$sql = "SELECT * FROM vereniging WHERE plaats LIKE '%$plaats_vereniging%' ORDER BY naam";
-				}
-				elseif (!empty($naam_vereniging) && isset($plaats_vereniging)) { /* Query als er op naam en plaats wordt gezocht */
-					$sql = "SELECT * FROM vereniging WHERE naam LIKE '%$naam_vereniging%' AND plaats LIKE '%$plaats_vereniging%' ORDER BY naam";
-				}
-				else { /* Query als er niet wordt gezocht of als er geen velden zijn ingevult */
-					$sql = "SELECT * FROM vereniging ORDER BY naam";
-				}
-				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
-
 				while ($array = mysql_fetch_array($resultaat_van_server)) {
 					echo "<tr><td><a href=\"raadplegenvereniging.php?id=".$array["verenigingid"]."\">" . $array["naam"] . " </a></td><td>" . $array["plaats"] . "</td><td><a href=\"mailto:{$array["emailadres"]}\">{$array["emailadres"]}</a></td></tr>";
 				}
 				?>
-			</table>
+				</table>
+				<?php
+				}
+				else {
+					print "Geen resultaat gevonden!";
+				}
+				?>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
