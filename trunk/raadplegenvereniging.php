@@ -7,7 +7,7 @@ if (!empty($_GET["id"])) {
 	database::getInstantie();
 	$verenigingid = $_GET["id"];
 	$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
-	$resultaat_van_server = mysql_query($sql) or die(mysql_erraor());
+	$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 	$row = mysql_fetch_assoc($resultaat_van_server);
 } else {
 	$row["naam"] = "Vereniging";
@@ -25,10 +25,10 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php
-			if (isset($_GET["aanmelden"])) {
+			if (isset($_POST["aanmelden"])) {
 				$getdatum = getdate();
 				$datum = $getdatum["year"]."-".$getdatum["mon"]."-".$getdatum["mday"];
-				$sql = "INSERT INTO lidmaatschap VALUES(".mysql_real_escape_string($_GET["studentid"]).", ".mysql_real_escape_string($_GET["id"]).", '$datum')";
+				$sql = "INSERT INTO lidmaatschap VALUES(".mysql_real_escape_string($_POST["studentid"]).", ".mysql_real_escape_string($_POST["id"]).", '$datum')";
 				$result = mysql_query($sql);
 				if ($result != true) {
 					print"Student niet aan vereniging toegevoegd. Misschien ben je al lid?";
@@ -78,38 +78,38 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<th>Adres</th>
-						<td><?php print $row["adres"]; ?>
+						<td><?php print $row["adres"]; ?></td>
 					</tr>
 					<tr>
 						<th>Postcode</th>
-						<td><?php print $row["postcode"]; ?>
+						<td><?php print $row["postcode"]; ?></td>
 					</tr>
 					<tr>
 						<th>Plaats</th>
-						<td><?php print $row["plaats"]; ?>
+						<td><?php print $row["plaats"]; ?></td>
 					</tr>
 					<tr>
 						<th>Aantal Leden</th>
-						<td><?php print $row["aantaleigenleden"]; ?>
+						<td><?php print $row["aantaleigenleden"]; ?></td>
 					</tr>
 					<tr>
 						<th>KVK</th>
-						<td><?php print $row["kvk"]; ?>
+						<td><?php print $row["kvk"]; ?></td>
 					</tr>
 					<tr>
 						<th>Contactpersoon</th>
-						<td><?php print $row["contactpersoon"]; ?>
+						<td><?php print $row["contactpersoon"]; ?></td>
 					</tr>
 					<tr>
 						<th>Telefoonnummer</th>
-						<td><?php print $row["telefoonnr"]; ?>
+						<td><?php print $row["telefoonnr"]; ?></td>
 					</tr>
 					<tr>
 						<th>E-mail adres</th>
-						<td><?php print "<a href=\"mailto:" . $row["emailadres"] . "\">" . $row["emailadres"] . "</a>"; ?>
+						<td><?php print "<a href=\"mailto:" . $row["emailadres"] . "\">" . $row["emailadres"] . "</a>"; ?></td>
 					</tr>
 				</table>
-				<form>
+				<form action="<?php print $_SERVER["PHP_SELF"]."?id=".$_GET["id"]; ?>" method="post">
 					<input type="hidden" name="id" value="<?php print $_GET["id"];?>" />
 					<select name="studentid">
 					<?php
@@ -119,7 +119,7 @@ echo $pagina->getVereisteHTML();
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
 						print "<option value=\"" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</option>";
 					}
-					print "<input type=\"submit\" name=\"aanmelden\" value=\"Aanmelden\" /></select>";
+					print "</select><input type=\"submit\" name=\"aanmelden\" value=\"Aanmelden\" />";
 					?>
 				</form>
 			</div>
