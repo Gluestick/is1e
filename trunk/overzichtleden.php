@@ -4,6 +4,17 @@
  * @description: 
  */
 $pagina = pagina::getInstantie();
+database::getInstantie();
+$error = "";
+if (isset($_POST["zoeken"]) && !empty($_POST["zoeknaam"])) {
+	$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging` WHERE naam LIKE '%".mysql_real_escape_string($_POST["zoeknaam"])."%';";
+} else if (isset($_POST["zoeken"]) && empty($_POST["zoeknaam"])) {
+	$error = "<li>U heeft geen naam ingevuld.</li>";
+	$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging`;";
+} else {
+	$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging`;";
+}
+$resultaat_van_server = mysql_query($sql);
 
 $pagina->setTitel("Overzicht leden per vereniging");
 $pagina->setCss("style.css");
@@ -16,6 +27,11 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
+			<?php
+			if (mysql_num_rows($resultaat_van_server) == 0) {
+				$error .= "<li>Geen resultaten.</li>";
+			}
+			?>
 			<div class="zoeken">
 				<form action="" method="post">
 					<table>
@@ -34,17 +50,13 @@ echo $pagina->getVereisteHTML();
 				</form>
 				<br />
 			</div>
+			<?php
+			if ($error != "") {
+				echo "<ul>".$error."</ul>";
+			}
+			?>
 			<div class="gegevens">
 				<?php
-				
-				database::getInstantie();
-				
-				if (isset($_POST["zoeken"]) && !empty($_POST["zoeknaam"])) {
-					$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging` WHERE naam LIKE '%".mysql_real_escape_string($_POST["zoeknaam"])."%';";
-				} else {
-					$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging`;";
-				}
-				$resultaat_van_server = mysql_query($sql);
 				
 				if (mysql_num_rows($resultaat_van_server) > 0) {
 					?>
@@ -58,7 +70,6 @@ echo $pagina->getVereisteHTML();
 					</table>
 					<?php
 				}
-				
 				?>
 			</div>
 		</div>
