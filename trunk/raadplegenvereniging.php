@@ -27,15 +27,15 @@ echo $pagina->getVereisteHTML();
 			<?php
 			if (isset($_POST["aanmelden"])) {
 				$getdatum = getdate();
-				$datum = $getdatum["year"]."-".$getdatum["mon"]."-".$getdatum["mday"];
-				$sql = "INSERT INTO lidmaatschap VALUES(".mysql_real_escape_string($_POST["studentid"]).", ".mysql_real_escape_string($_POST["id"]).", '$datum')";
+				$datum = $getdatum["year"] . "-" . $getdatum["mon"] . "-" . $getdatum["mday"];
+				$sql = "INSERT INTO lidmaatschap VALUES(" . mysql_real_escape_string($_POST["studentid"]) . ", " . mysql_real_escape_string($_POST["id"]) . ", '$datum')";
 				$result = mysql_query($sql);
 				if ($result != true) {
 					print"Student niet aan vereniging toegevoegd. Misschien ben je al lid?";
 				}
-				
 			}
 			if (!empty($_GET["id"])) {
+				$aantal_leden = mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE verenigingid='{$_GET["id"]}'"));
 				$sql = "SELECT * FROM student JOIN lidmaatschap ON student.studentid=lidmaatschap.studentid WHERE verenigingid='$verenigingid' AND lidmaatschap.studentid IS NOT NULL";
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 				?>
@@ -77,56 +77,56 @@ echo $pagina->getVereisteHTML();
 						<th colspan="2">Info over vereniging</th>
 					</tr>
 					<tr>
-						<th>Adres</th>
+						<td>Adres</td>
 						<td><?php print $row["adres"]; ?></td>
 					</tr>
 					<tr>
-						<th>Postcode</th>
+						<td>Postcode</td>
 						<td><?php print $row["postcode"]; ?></td>
 					</tr>
 					<tr>
-						<th>Plaats</th>
+						<td>Plaats</td>
 						<td><?php print $row["plaats"]; ?></td>
 					</tr>
 					<tr>
-						<th>Aantal Leden</th>
-						<td><?php print $row["aantaleigenleden"]; ?></td>
+						<td>Aantal Leden</td>
+						<td><?php print $aantal_leden; ?></td>
 					</tr>
 					<tr>
-						<th>KVK</th>
+						<td>KVK</td>
 						<td><?php print $row["kvk"]; ?></td>
 					</tr>
 					<tr>
-						<th>Contactpersoon</th>
+						<td>Contactpersoon</td>
 						<td><?php print $row["contactpersoon"]; ?></td>
 					</tr>
 					<tr>
-						<th>Telefoonnummer</th>
+						<td>Telefoonnummer</td>
 						<td><?php print $row["telefoonnr"]; ?></td>
 					</tr>
 					<tr>
-						<th>E-mail adres</th>
+						<td>E-mail adres</td>
 						<td><?php print "<a href=\"mailto:" . $row["emailadres"] . "\">" . $row["emailadres"] . "</a>"; ?></td>
 					</tr>
 				</table>
-				<form action="<?php print $_SERVER["PHP_SELF"]."?id=".$_GET["id"]; ?>" method="post">
-					<input type="hidden" name="id" value="<?php print $_GET["id"];?>" />
+				<form action="<?php print $_SERVER["PHP_SELF"] . "?id=" . $_GET["id"]; ?>" method="post">
+					<input type="hidden" name="id" value="<?php print $_GET["id"]; ?>" />
 					<select name="studentid">
-					<?php
-					$sql = "SELECT * FROM student ORDER BY voornaam";
-					$resultaat_van_server = mysql_query($sql) or die(mysql_error());
-					
-					while ($array = mysql_fetch_array($resultaat_van_server)) {
-						print "<option value=\"" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</option>";
-					}
-					print "</select><input type=\"submit\" name=\"aanmelden\" value=\"Aanmelden\" />";
-					?>
+						<?php
+						$sql = "SELECT * FROM student ORDER BY voornaam";
+						$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+
+						while ($array = mysql_fetch_array($resultaat_van_server)) {
+							print "<option value=\"" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</option>";
+						}
+						print "</select><input type=\"submit\" name=\"aanmelden\" value=\"Aanmelden\" />";
+						?>
 				</form>
 			</div>
 		</div>
 		<?php
 	} else {
-		print "<h3>ERROR</h3>";
+		print "<h3>Oops!</h3>Er is iets fout gegaan! Klik <a href='index.php'>hier</a> om terug naar de hoofdpagina te gaan.";
 	}
 	?>
 	<?php echo $pagina->getFooter(); ?>
