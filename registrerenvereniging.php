@@ -52,22 +52,17 @@ echo $pagina->getVereisteHTML();
 			?>
 			<script type="text/javascript">
 				function clearElements(el) {
-					// variable declaration
 					var x, y, type = null, object = [];
-					// collect form elements
 					object[0] = document.getElementById(el).getElementsByTagName('input');
-					// loop through found form elements
 					for (x = 0; x < object.length; x++) {
 						for (y = 0; y < object[x].length; y++) {
-							// define element type
 							type = object[x][y].type;
 							switch (type) {
 								case 'text':
 									object[x][y].value = '';
 									break;
-							} // end switch
-						} // end for y
-					} // end for x
+						}
+					}
 				}
 			</script>
 			<form method="post" action="registrerenvereniging.php" id="registreer_vereniging">
