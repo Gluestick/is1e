@@ -34,8 +34,8 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<?php if($userid == $_SESSION['user_id']){ ?>
-				<a href="wijzigprofiel.php?id=<?php echo $userid; ?>"> wijzig </a>
+			<?php if(isset($_SESSION['user_id']) && $userid == $_SESSION['user_id']){ ?>
+				<a href="wijzigprofiel.php?id=<?php echo $studentid; ?>"> wijzig </a>
 			<?php } ?>
 
 			<table style="text-align:left;">
@@ -149,9 +149,10 @@ echo $pagina->getVereisteHTML();
 				echo "<table style=\"text-align:left;\">";
 				echo "<tr><th>Groepen die u heeft aangemaakt:</th></tr>";
 				while ($array = mysql_fetch_assoc($resultaat_van_server)) {
-					echo "<tr><td valign=\"middle\"><a href=\"vriendengroep.php?groepid=".$array["groepid"]."\">".$array["naam"]."</a></td></tr>";
+					echo "<tr><td valign=\"middle\"><a href=\"vriendengroep.php?groepid=".$array["groepid"]."\">".$array["naam"]."</a></td><td><a href=\"wijziggroep.php?groepid=".$array["groepid"]."\">Wijzig</a></td><td><a href=\"verwijdergroep.php?groepid=".$array["groepid"]."\">Verwijder</a></td></tr>";
 				}
-				echo "</table>";
+				echo "</table><br /><br />
+					<a href=\"groeptoevoegen.php?id=".$_GET["id"]."\">Groep toevoegen</a>";
 			} else {
 				echo "U heeft nog geen groepen aangemaakt";
 			}

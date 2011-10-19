@@ -51,6 +51,14 @@ class specialetekens {
 		return self::$instantie;
 	}
 	
+	/**
+	 * Deze functie haalt de informatie van de specialetekens class op door de class
+	 * op te halen als een reflectionclass.
+	 * Door door de informatie te loopen en alleen de constanten op te halen waarin
+	 * het woord smiley word gebruikt halen we hier alleen een array met de smiley
+	 * tags op.
+	 * @return array
+	 */
 	public static function getSmileys()
 	{
 		$smileys = array();
@@ -63,6 +71,14 @@ class specialetekens {
 		return $smilies;
 	}
 	
+	/**
+	 * Deze functie haalt de informatie van de specialetekens class op door de class
+	 * op te halen als een reflectionclass.
+	 * Door door de informatie te loopen en alleen de constanten op te halen waarin
+	 * het woord BBCODE word gebruikt halen we hier alleen een array met de bbcode
+	 * tags op.
+	 * @return array
+	 */
 	public static function getBBCODE()
 	{
 		$bbcode = array();
@@ -75,6 +91,13 @@ class specialetekens {
 		return $bbcode;
 	}
 	
+	/**
+	 * Deze functie kijkt of er smilies en bbcode in de meegegeven tekst staat.
+	 * Als deze worden gevonden dan worden ze vervangen door de tags die in de constanten
+	 * van deze class staan.
+	 * @param string $tekst
+	 * @return string
+	 */
 	public static function vervangTekensInTekst($tekst)
 	{
 		foreach (self::getBBCODE() as $array) {
