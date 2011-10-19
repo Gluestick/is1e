@@ -7,13 +7,25 @@ $pagina = pagina::getInstantie();
 database::getInstantie();
 
 $naam = "";
+$error = "";
 if (isset($_GET["groepid"])) {
 	$sql = "SELECT * FROM groep INNER JOIN student ON eigenaar = studentid WHERE groepid = ".mysql_real_escape_string($_GET["groepid"]." LIMIT 1;");
 	$resultaat_van_server = mysql_query($sql);
 	if (mysql_num_rows($resultaat_van_server) > 0) {
 		$array = mysql_fetch_assoc($resultaat_van_server);
+		$naam = " ".$array["naam"]." van ".$array["voornaam"]." ".$array["achternaam"];
 	}
-	$naam = " ".$array["naam"]." van ".$array["voornaam"]." ".$array["achternaam"];
+}
+
+if (isset($_POST["afmelden"])) {
+	if (isset($_POST["student"]) && !empty($_POST["student"]) && is_array($_POST["student"])) {
+		foreach ($_POST["student"] as $key => $val) {
+			$query = "DELETE FROM groeplid WHERE studentid = ".mysql_real_escape_string($val)." AND groepid = ".mysql_real_escape_string($_GET["groepid"]).";";
+			mysql_query($query) or $error .= "<li>".mysql_error()."</li>";
+		}
+	} else {
+		$error .= "<li>Er ging iets fout.</li>";
+	}
 }
 
 $pagina->setTitel("Vriendengroep".$naam);
@@ -27,21 +39,32 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
+			<a href="javascript:history.go(-1);">Terug</a><br />
 			<?php
-			if (isset($_GET["groepid"])) {
-				echo "<table style=\"text-align:left;\">";
-				echo "<tr><th colspan=\"4\">Leden:</th></tr>";
-				echo "<tr><th>Studentennummer</th><th>Naam</th><th>Geslacht</th><th>Geboortedatum</th></tr>";
-
-					$query = "SELECT * FROM groeplid INNER JOIN student ON student.studentid = groeplid.studentid WHERE groepid = ".$array["groepid"];
-					$resultaat = mysql_query($query);
-					while ($rij = mysql_fetch_assoc($resultaat)) {
-						echo "<tr><td>".$rij["studentnr"]."</td><td><a href=\"raadplegenprofiel.php?id=".$rij["studentid"]."\">".$rij["voornaam"]." ".$rij["achternaam"]."</a></td><td>".$rij["geslacht"]."</td><td>".tijd::formatteerTijd($rij["geboortedatum"], "d-m-Y")."</td></tr>";
-					}
-				echo "</table>";
-				echo "<a href=\"aanmeldengroep.php?groepid=".$array["groepid"]."\">Voor groep aanmelden</a>";
+			if ($error != "") {
+				echo $error;
+			}
+			
+			if (isset($_GET["groepid"]) && isset($array)) {
+				$query = "SELECT * FROM groeplid INNER JOIN student ON student.studentid = groeplid.studentid WHERE groepid = ".$array["groepid"];
+				$resultaat = mysql_query($query);
+				if (mysql_num_rows($resultaat) > 0) {
+					echo "<form action=\"vriendengroep.php?groepid=".$_GET["groepid"]."\" method=\"post\">";
+					echo "<table style=\"text-align:left;\">";
+					echo "<tr><th colspan=\"5\">Leden:</th></tr>";
+					echo "<tr><th></th><th>Studentennummer</th><th>Naam</th><th>Geslacht</th><th>Geboortedatum</th></tr>";
+						while ($rij = mysql_fetch_assoc($resultaat)) {
+							echo "<tr><td><input type=\"checkbox\" name=\"student[]\" value=\"".$rij["studentid"]."\" /></td><td>".$rij["studentnr"]."</td><td><a href=\"raadplegenprofiel.php?id=".$rij["studentid"]."\">".$rij["voornaam"]." ".$rij["achternaam"]."</a></td><td>".$rij["geslacht"]."</td><td>".tijd::formatteerTijd($rij["geboortedatum"], "d-m-Y")."</td></tr>";
+						}
+					echo "<tr><td colspan=\"5\" style=\"text-align:right;\"><input type=\"submit\" name=\"afmelden\" value=\"Afmelden voor deze groep\" /></td></tr></table></form>";
+				} else {
+					echo "Er zijn nog geen vrienden aan deze groep gekoppeld.";
+				}
 			} else {
 				echo "Geen resultaten beschikbaar.";
+			}
+			if (isset($array)) {
+				echo "<br /><a href=\"aanmeldengroep.php?groepid=".$array["groepid"]."\">Voor groep aanmelden</a>";
 			}
 			?>
 		</div>
