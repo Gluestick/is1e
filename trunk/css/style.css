@@ -333,3 +333,30 @@ th {
 	border:1px dotted #7b7b7b;
 	padding:0px;
 }
+
+#inbox {
+	float:left;
+	width:100%;
+}
+
+#emails {
+	width:200px;
+	float:left;
+	font-size:12px;
+}
+
+#emails table {
+	border-top:1px solid #000;
+	border-left:1px solid #000;
+}
+
+#emails td {
+	padding:2px;
+	border-right:1px solid #000;
+	border-bottom:1px solid #000;
+}
+
+#emailcontent {
+	width:680px;
+	float:left;
+}
