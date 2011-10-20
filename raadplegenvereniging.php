@@ -23,7 +23,7 @@ echo $pagina->getVereisteHTML();
 	<div id="page">
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
-			<h1><?php echo $pagina->getTitel(); ?></h1>
+			<h1><?php echo $pagina->getTitel(); ?></h1><?php if(isAdmin()){?><p><a href="wijzigvereniging.php?id=<?php if (isset($verenigingid)){ print $verenigingid; }?>">Wijzig vereniging</a><?php }?>
 			<?php
 			if (isset($_POST["aanmelden"])) {
 				$getdatum = getdate();
