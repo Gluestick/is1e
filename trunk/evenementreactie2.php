@@ -45,10 +45,6 @@ echo $pagina->getVereisteHTML();
 					</td>
 				</tr>
 				<tr>
-					<td>Datum </td>
-					<td><?php echo date("d/m/Y"); ?></td>
-				</tr>
-				<tr>
 					<td>Bericht </td>
 					<td>
 						<?php
@@ -71,12 +67,4 @@ echo $pagina->getVereisteHTML();
 
 <?php
 echo $pagina->getVereisteHTMLafsluiting();
-
-//	database::getInstantie();
-//
-//	$sql = "SELECT * FROM `student`;";
-//	$resultaat_van_server = mysql_query($sql);
-//	while($array = mysql_fetch_array($resultaat_van_server)) {
-//		echo $array["voornaam"]."<br />";
-//	}
 ?>

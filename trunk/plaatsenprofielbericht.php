@@ -36,92 +36,71 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel();
-			database::getInstantie();?></h1>
-		<?php
-		$studentid = $_GET["id"];
-		if (isset($_POST["verstuur"])
-				&&($_POST["onderwerp"])
-				&& ($_POST["bericht"])) 
-			{
+		database::getInstantie(); ?></h1>
+			<?php
+			$studentid = $_GET["id"];
+			if (isset($_POST["verstuur"])
+					&& isset($_POST["onderwerp"])
+					&& isset($_POST["bericht"])) {
 
-			$bericht = mysql_real_escape_string($_POST["bericht"]);
-			$onderwerp = mysql_real_escape_string($_POST["onderwerp"]);
-			// $sql= "INSERT INTO  profielbericht VALUES $datum,$onderwerp,$inhoud;";
+				$bericht = mysql_real_escape_string($_POST["bericht"]);
+				$onderwerp = mysql_real_escape_string($_POST["onderwerp"]);
 
+				$sql = "INSERT INTO  profielbericht (datum, onderwerp, inhoud, studentid) VALUES ('" . date("Y-m-d") . "','" . $onderwerp . "','" . $bericht . "', " . $studentid . ")";
 
-			
-			$sql = "INSERT INTO  profielbericht (datum, onderwerp, inhoud, studentid) VALUES ('" . date("Y-m-d") . "','" . $onderwerp . "','" . $bericht . "', " . $studentid . ")";
-
-			if (mysql_query($sql)) {
-				echo"bericht toegevoegd";
+				if (mysql_query($sql)) {
+					echo"bericht toegevoegd";
+				} else {
+					die(mysql_error());
+				}
 			}
-			else {
-					die (mysql_error());
-			}
-			}
-		?>
-
-		<form action="plaatsenprofielbericht.php?id=<?php echo $studentid; ?>" method="POST">
-			<table>
-				<tr>
-					<td>datum: </td> <td><input name="datum" disabled="disabled" type="text" value="<?php /* $b=time(); */ echo date("d/m/Y"); ?>" />  </td>  
-				</tr>
-				<tr>
-					<td>onderwerp: </td> <td> <input name="onderwerp" type="text"/>  </td> 
-				</tr>
-				<tr>
-					<td>bericht: </td> <td> <textarea name="bericht" style="float:left;min-height:200px;min-width:200px;"></textarea>
-					<div id="tekstopties">
-					<div id="smiley">
-						<img src="/project/images/smile.gif" style="float:left;margin-left:8px;margin-top:3px;margin-right:8px;width:15px;height:15px;" />
-					</div>
-					<div class="bold">
-						B
-					</div>
-					<div class="italic">
-						I
-					</div>
-					<div class="underline">
-						U
-					</div>
-				</div>
-				<div id="list">
-					<?php
-					foreach (specialetekens::getSmileys() as $array) {
-						$smiley = explode("_", $array, 2);
-						list($width, $height, $type, $attr) = getimagesize($_SERVER["DOCUMENT_ROOT"]."/project/images/".$smiley[0].".gif");
-						$rwidth = 32 - $width;
-						$marginleft = round(($rwidth / 2),0, PHP_ROUND_HALF_DOWN);
-						$rheight = 22 - $height;
-						$margintop = round(($rheight / 2),0, PHP_ROUND_HALF_DOWN);
-						echo "<span title=\"".$smiley[1]."\"><img src=\"/project/images/".$smiley[0].".gif\" style=\"margin-left:".$marginleft."px;margin-top:".$margintop."px;width:".$width."px;height:".$height."px;\" /></span>";
-					}
-					?>
-				</div></td>
-
-				</tr>
-				<tr>
-					<td> <input type="submit" value="verzenden" name="verstuur"/>   </td><td> <input type="reset" value="wis alles"/> </td>
-
-					<td><a href="raadplegenprofiel.php?id=<?php echo $studentid; ?>"> terug </a></td>
-				</tr>
-			</table>
-		</form>
+			?>
+			<form action="plaatsenprofielbericht.php?id=<?php echo $studentid; ?>" method="POST">
+				<table>
+					<tr>
+						<td>onderwerp: </td> <td> <input name="onderwerp" type="text"/>  </td> 
+					</tr>
+					<tr>
+						<td>bericht: </td> <td> <textarea name="bericht" style="float:left;min-height:200px;min-width:200px;"></textarea>
+							<div id="tekstopties">
+								<div id="smiley">
+									<img src="/project/images/smile.gif" style="float:left;margin-left:8px;margin-top:3px;margin-right:8px;width:15px;height:15px;" />
+								</div>
+								<div class="bold">
+									B
+								</div>
+								<div class="italic">
+									I
+								</div>
+								<div class="underline">
+									U
+								</div>
+							</div>
+							<div id="list">
+								<?php
+								foreach (specialetekens::getSmileys() as $array) {
+									$smiley = explode("_", $array, 2);
+									list($width, $height, $type, $attr) = getimagesize($_SERVER["DOCUMENT_ROOT"] . "/project/images/" . $smiley[0] . ".gif");
+									$rwidth = 32 - $width;
+									$marginleft = round(($rwidth / 2), 0);
+									$rheight = 22 - $height;
+									$margintop = round(($rheight / 2), 0);
+									echo "<span title=\"" . $smiley[1] . "\"><img src=\"/project/images/" . $smiley[0] . ".gif\" style=\"margin-left:" . $marginleft . "px;margin-top:" . $margintop . "px;width:" . $width . "px;height:" . $height . "px;\" /></span>";
+								}
+								?>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><input type="submit" value="verzenden" name="verstuur"/></td><td> <input type="reset" value="wis alles"/></td>
+						<td><a href="raadplegenprofiel.php?id=<?php echo $studentid; ?>"> terug </a></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</div>
-	<?php echo $pagina->getFooter(); ?>
+<?php echo $pagina->getFooter(); ?>
 </div>
-
-
-
 <?php
 echo $pagina->getVereisteHTMLafsluiting();
-
-//	database::getInstantie();
-//
-//	$sql = "SELECT * FROM `student`;";
-//	$resultaat_van_server = mysql_query($sql);
-//	while($array = mysql_fetch_array($resultaat_van_server)) {
-//		echo $array["voornaam"]."<br />";
-//	}
 ?>
