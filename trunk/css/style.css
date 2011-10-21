@@ -359,7 +359,7 @@ th {
 }
 
 #emails tr td {
-	padding:2px;
+	padding:3px;
 	border-bottom:1px solid #BBB;
 }
 
@@ -369,6 +369,7 @@ th {
 	min-height:500px;
 	border:1px solid #BBB;
 }
+
 h1 a {
 	font-size: 12pt;
 	font-weight: normal;
