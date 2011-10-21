@@ -12,7 +12,7 @@ if (isset($_GET["id"]) && intval($_GET["id"])) {
 }
 
 $query = "(SELECT 
-			onderwerp, bericht, CONCAT(voornaam, ' ', achternaam) AS naam, datum 
+			CONCAT('bericht_',berichtid) as id, onderwerp, bericht, CONCAT(voornaam, ' ', achternaam) AS naam, datum 
 		FROM 
 			bericht
 		INNER JOIN 
@@ -34,34 +34,34 @@ $query = "(SELECT
 		UNION
 		(
 		 SELECT
-			afzender as onderwerp, inhoud as bericht, CONCAT(voornaam, ' ', achternaam) AS naam, tijdstip 
+			CONCAT('reactie_',reactieid) as id, afzender as onderwerp, inhoud as bericht, CONCAT(voornaam, ' ', achternaam) AS naam, tijdstip 
+		FROM 
+			`reactie` 
+		INNER JOIN 
+			student
+		ON 
+			afzender_id = studentid 
+		WHERE 
+			afzender_id 
+		IN (
+			SELECT 
+				studentid 
 			FROM 
-				`reactie` 
-			INNER JOIN 
-				student
-			ON 
-				afzender_id = studentid 
+				groeplid 
 			WHERE 
-				afzender_id 
-			IN (
+				groepid 
+			IN 
+				(
 				SELECT 
-					studentid 
-				FROM 
-					groeplid 
-				WHERE 
 					groepid 
-				IN 
-					(
-					SELECT 
-						groepid 
-					FROM 
-						groep 
-					WHERE
-						eigenaar = ".$id.")))
+				FROM 
+					groep 
+				WHERE
+					eigenaar = ".$id.")))
 		UNION
 		(
 		 SELECT 
-			onderwerp, inhoud as bericht, CONCAT(voornaam, ' ', achternaam) AS naam, datum 
+			CONCAT('profielbericht_',profielberichtid) as id, onderwerp, inhoud as bericht, CONCAT(voornaam, ' ', achternaam) AS naam, datum 
 		FROM 
 			`profielbericht` 
 		INNER JOIN 
@@ -76,6 +76,17 @@ $resultaat_van_server = mysql_query($query);
 
 $pagina->setTitel("Inbox");
 $pagina->setCss("style.css");
+$pagina->setJavascript("jquery.js");
+$pagina->setJavascriptCode("
+	$(document).ready(function() {
+		$(\"#emails td\").click(function(){
+			var info = $(this).children(\":first-child\").attr('class');
+			$.post('bericht.php', { informatie: info }, function(data) {
+				$('#emailcontent').html(data);
+			});
+		});
+	});
+");
 
 echo $pagina->getVereisteHTML();
 ?>
@@ -91,8 +102,7 @@ echo $pagina->getVereisteHTML();
 					<?php
 						while ($array = mysql_fetch_assoc($resultaat_van_server)) {
 							?><tr>
-								<td><input type="checkbox" name="bericht[]" /></td>
-								<td><?php echo "<div style=\"width:100%;float:left;\"><div style=\"float:right;\">".tijd::formatteerTijd($array["datum"], "d-m-Y")."</div>".$array["naam"]."</div><div style=\"width:100%;float:left;\">".$array["onderwerp"]."</div>"; ?></td>
+								<td><?php echo "<div class=\"".$array["id"]."\" style=\"width:100%;float:left;\"><div style=\"float:right;\">".tijd::formatteerTijd($array["datum"], "d-m-Y")."</div>".$array["naam"]."</div><div style=\"width:100%;float:left;\">".$array["onderwerp"]."</div>"; ?></td>
 							</tr><?php
 						}
 					?>
