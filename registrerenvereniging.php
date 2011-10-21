@@ -22,7 +22,7 @@ echo $pagina->getVereisteHTML();
 				if (!empty($_POST["vereniging_naam"]) && preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/", $_POST["vereniging_naam"]) != 1) {
 					$error["naam"] = "Ongeldige naam";
 				}
-				if (!empty($_POST["vereniging_plaats"]) && preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù'\s]+$/", $_POST["vereniging_plaats"]) != 1) {
+				if (!empty($_POST["vereniging_plaats"]) && preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù'-\s]+$/", $_POST["vereniging_plaats"]) != 1) {
 					$error["plaats"] = "Ongeldige plaatsnaam";
 				}
 				if (!empty($_POST["vereniging_postcode"]) && preg_match("/^[0-9]{4}[a-zA-Z]{2}$/", $_POST["vereniging_postcode"]) != 1) {
