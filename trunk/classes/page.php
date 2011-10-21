@@ -205,7 +205,7 @@ class pagina
 					<div id="login" class="dropdown">
 						Username + Password:
 						<div class="form">
-						<form action="<?php print($_SERVER["PHP_SELF"]); ?>" method="post">
+							<form action="<?php print($_SERVER["REQUEST_URI"]); ?>" method="post">
 							<input type="submit" name="login" value="Ga!" class="submit" />
 							<input type="text" name="username" class="text" /><br />
 							<input type="password" name="password" class="pass" />
