@@ -5,8 +5,13 @@
  */
 $pagina = pagina::getInstantie();
 database::getInstantie();
+if (isset($_GET["id"]) && intval($_GET["id"])) {
+	$id = mysql_real_escape_string($_GET["id"]);
+} else {
+	$id = "";
+}
 
-$query = "SELECT 
+$query = "(SELECT 
 			onderwerp, bericht, CONCAT(voornaam, ' ', achternaam) AS naam, datum 
 		FROM 
 			bericht
@@ -15,7 +20,7 @@ $query = "SELECT
 		ON
 			van = student.studentid
 		WHERE 
-			naar = ".mysql_real_escape_string($_GET["id"])."
+			naar = ".$id."
 		OR 
 			groepid
 		IN (
@@ -24,12 +29,49 @@ $query = "SELECT
 			FROM
 				groep
 			WHERE
-				eigenaar = ".mysql_real_escape_string($_GET["id"])."
-		);";
-/**
- * SELECT * FROM `reactie` WHERE afzender_id IN (SELECT studentid FROM groeplid WHERE groepid IN (SELECT groepid FROM groep WHERE eigenaar = 1))
- * SELECT * FROM `profielbericht` INNER JOIN student ON afzender = student.studentid WHERE afzender =1
- */
+				eigenaar = ".$id."
+		))
+		UNION
+		(
+		 SELECT
+			afzender as onderwerp, inhoud as bericht, CONCAT(voornaam, ' ', achternaam) AS naam, tijdstip 
+			FROM 
+				`reactie` 
+			INNER JOIN 
+				student
+			ON 
+				afzender_id = studentid 
+			WHERE 
+				afzender_id 
+			IN (
+				SELECT 
+					studentid 
+				FROM 
+					groeplid 
+				WHERE 
+					groepid 
+				IN 
+					(
+					SELECT 
+						groepid 
+					FROM 
+						groep 
+					WHERE
+						eigenaar = ".$id.")))
+		UNION
+		(
+		 SELECT 
+			onderwerp, inhoud as bericht, CONCAT(voornaam, ' ', achternaam) AS naam, datum 
+		FROM 
+			`profielbericht` 
+		INNER JOIN 
+			student 
+		ON 
+			afzender = student.studentid 
+		WHERE 
+			afzender = ".$id.")
+		ORDER BY datum DESC;";
+
 $resultaat_van_server = mysql_query($query);
 
 $pagina->setTitel("Inbox");
