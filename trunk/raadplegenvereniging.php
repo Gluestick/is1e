@@ -3,6 +3,12 @@
  * @author: Joep Kemperman
  * @description: 
  */
+if (isset($_POST["aanmelden"]) && !empty($_GET["id"]) && isset($_SESSION["login"])) {
+	$studentid = mysql_query("SELECT studentid FROM student WHERE studentnr='{$_SESSION["studentnr"]}'");
+	$today = getdate();
+	$date = $today["year"]."-".$today["mon"]."-".$today["mday"];
+	$registreer = mysql_query("INSERT INTO lidmaatschap VALUES ('$studentid', '{$_GET["id"]}', '$date')");
+}
 if (!empty($_GET["id"])) {
 	database::getInstantie();
 	$verenigingid = $_GET["id"];
@@ -23,15 +29,18 @@ echo $pagina->getVereisteHTML();
 	<div id="page">
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
-			<h1><?php echo $pagina->getTitel(); ?></h1><?php if(isAdmin()){?><p><a href="wijzigvereniging.php?id=<?php if (isset($verenigingid)){ print $verenigingid; }?>">Wijzig vereniging</a><?php }?>
+			<h1><?php echo $pagina->getTitel(); if(isAdmin()){?>&nbsp;<a href="wijzigvereniging.php?id=<?php if (isset($verenigingid)){ print $verenigingid; }?>">Wijzig</a><?php } ?></h1>
 			<?php
-			if (isset($_POST["aanmelden"])) {
-				$getdatum = getdate();
-				$datum = $getdatum["year"] . "-" . $getdatum["mon"] . "-" . $getdatum["mday"];
-				$sql = "INSERT INTO lidmaatschap VALUES(" . mysql_real_escape_string($_POST["studentid"]) . ", " . mysql_real_escape_string($_POST["id"]) . ", '$datum')";
-				$result = mysql_query($sql);
-				if ($result != true) {
-					print"Student niet aan vereniging toegevoegd. Misschien ben je al lid?";
+			if (isset($_POST["aanmelden"]) && !empty($_GET["id"]) && isset($_SESSION["login"])) {
+				$studentid = mysql_fetch_assoc(mysql_query("SELECT studentid FROM student WHERE studentnr='{$_SESSION["studentnr"]}'"));
+				$today = getdate();
+				$date = $today["year"]."-".$today["mon"]."-".$today["mday"];
+				$registreer = mysql_query("INSERT INTO lidmaatschap VALUES ('{$studentid["studentid"]}', '{$_GET["id"]}', '$date')");
+				if ($registreer == true) {
+					print "Succesvol lid geworden van {$row["naam"]}!<br/><br/>";
+				}
+				else {
+					print "Kan niet geregistreerd worden.<br/><br/>";
 				}
 			}
 			if (!empty($_GET["id"])) {
@@ -39,9 +48,8 @@ echo $pagina->getVereisteHTML();
 				$sql = "SELECT * FROM student JOIN lidmaatschap ON student.studentid=lidmaatschap.studentid WHERE verenigingid='$verenigingid' AND lidmaatschap.studentid IS NOT NULL";
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 				?>
-				<table>
-					<tr>
-						<th align="left">Leden</th>
+				<table><tr>
+						<th>Leden</th>
 					</tr>
 					<?php
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
@@ -111,16 +119,7 @@ echo $pagina->getVereisteHTML();
 				</table>
 				<form action="<?php print $_SERVER["PHP_SELF"] . "?id=" . $_GET["id"]; ?>" method="post">
 					<input type="hidden" name="id" value="<?php print $_GET["id"]; ?>" />
-					<select name="studentid">
-						<?php
-						$sql = "SELECT * FROM student ORDER BY voornaam";
-						$resultaat_van_server = mysql_query($sql) or die(mysql_error());
-
-						while ($array = mysql_fetch_array($resultaat_van_server)) {
-							print "<option value=\"" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</option>";
-						}
-						print "</select><input type=\"submit\" name=\"aanmelden\" value=\"Aanmelden\" />";
-						?>
+					<?php if(isMember()) { ?><input type="submit" name="aanmelden" value="Aanmelden" /><?php } ?>
 				</form>
 			</div>
 		</div>
