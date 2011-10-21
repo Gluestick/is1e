@@ -6,35 +6,30 @@
 $pagina = pagina::getInstantie();
 database::getInstantie();
 
-$query = "(SELECT 
+$query = "SELECT 
 			onderwerp, bericht, CONCAT(voornaam, ' ', achternaam) AS naam, datum 
 		FROM 
 			bericht
 		INNER JOIN 
 			student
 		ON
-			naar = student.studentid
+			van = student.studentid
 		WHERE 
-			naar = ".mysql_real_escape_string($_GET["id"]).")
-		UNION
-		(SELECT 
-			onderwerp, bericht, naam, datum 
-		FROM 
-			bericht
-		INNER JOIN 
-			groep
-		ON
-			bericht.groepid = groep.groepid
-		WHERE
-			bericht.groepid IN (
-				SELECT 
-					groepid 
-				FROM 
-					groep 
-				WHERE 
-					eigenaar = ".mysql_real_escape_string($_GET["id"])."
-			)
+			naar = ".mysql_real_escape_string($_GET["id"])."
+		OR 
+			groepid
+		IN (
+			SELECT 
+				groepid
+			FROM
+				groep
+			WHERE
+				eigenaar = ".mysql_real_escape_string($_GET["id"])."
 		);";
+/**
+ * SELECT * FROM `reactie` WHERE afzender_id IN (SELECT studentid FROM groeplid WHERE groepid IN (SELECT groepid FROM groep WHERE eigenaar = 1))
+ * SELECT * FROM `profielbericht` INNER JOIN student ON afzender = student.studentid WHERE afzender =1
+ */
 $resultaat_van_server = mysql_query($query);
 
 $pagina->setTitel("Inbox");

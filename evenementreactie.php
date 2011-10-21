@@ -4,7 +4,26 @@
  * @description: 
  */
 $pagina = pagina::getInstantie();
-$id = ($_GET["id"]);
+
+if (isset($_GET["id"])) {
+	$id = $_GET["id"];
+} else {
+	$id = "";
+}
+
+if (isset($_POST["verstuur"])) {
+	database::getInstantie();
+	$naam = $_POST["naam"];
+	$tekstvak = $_POST["tekstvak"];
+	$tijdstip = date("Y-m-d");
+
+	if (!empty($naam) && !empty($tekstvak)) {
+		$query1 = "INSERT INTO reactie (evenementid, afzender, inhoud, tijdstip) 
+	VALUES(".mysql_real_escape_string($id).",'".mysql_real_escape_string($naam)."', '".mysql_real_escape_string($tekstvak)."', '$tijdstip')";
+
+		mysql_query($query1);
+	}
+}
 
 $pagina->setTitel("Eventplaza");
 $pagina->setCss("style.css");
@@ -32,52 +51,48 @@ $pagina->setJavascriptCode("
 echo $pagina->getVereisteHTML();
 ?>
 <div id="container">
-	<?php echo $pagina->getHeader(); ?>
+		<?php echo $pagina->getHeader(); ?>
 	<div id="page">
-		<?php echo $pagina->getMenu(); ?>
+<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 
-			<form action="evenementreactie2.php" method="POST">
+			<form action="evenementreactie.php?id=<?php echo $id; ?>" method="post">
 				<table>
 					<tr>
 						<td>Naam </td>
-						<td><input type="text" name="naam"/><input type ="hidden" name ="evenementid" value = <?php echo $id ?>/></td>
-					</tr>
-					<tr>
-						<td>Datum </td>
-						<td><input type="text" name="datum" readonly="readonly" value="<?php echo date("d/m/Y"); ?>"></td>
+						<td><input type="text" name="naam"/><input type ="hidden" name ="evenementid" value ="<?php echo $id; ?>" /></td>
 					</tr>
 					<tr>
 						<td>Bericht </td>
 						<td><textarea name="tekstvak" style="float:left;min-height:200px;min-width:200px;"></textarea>
-					<div id="tekstopties">
-					<div id="smiley">
-						<img src="/project/images/smile.gif" style="float:left;margin-left:8px;margin-top:3px;margin-right:8px;width:15px;height:15px;" />
-					</div>
-					<div class="bold">
-						B
-					</div>
-					<div class="italic">
-						I
-					</div>
-					<div class="underline">
-						U
-					</div>
-				</div>
-				<div id="list">
-					<?php
-					foreach (specialetekens::getSmileys() as $array) {
-						$smiley = explode("_", $array, 2);
-						list($width, $height, $type, $attr) = getimagesize($_SERVER["DOCUMENT_ROOT"]."/project/images/".$smiley[0].".gif");
-						$rwidth = 32 - $width;
-						$marginleft = round(($rwidth / 2),0, PHP_ROUND_HALF_DOWN);
-						$rheight = 22 - $height;
-						$margintop = round(($rheight / 2),0, PHP_ROUND_HALF_DOWN);
-						echo "<span title=\"".$smiley[1]."\"><img src=\"/project/images/".$smiley[0].".gif\" style=\"margin-left:".$marginleft."px;margin-top:".$margintop."px;width:".$width."px;height:".$height."px;\" /></span>";
-					}
-					?>
-				</div></td>
+							<div id="tekstopties">
+								<div id="smiley">
+									<img src="/project/images/smile.gif" style="float:left;margin-left:8px;margin-top:3px;margin-right:8px;width:15px;height:15px;" />
+								</div>
+								<div class="bold">
+									B
+								</div>
+								<div class="italic">
+									I
+								</div>
+								<div class="underline">
+									U
+								</div>
+							</div>
+							<div id="list">
+								<?php
+								foreach (specialetekens::getSmileys() as $array) {
+									$smiley = explode("_", $array, 2);
+									list($width, $height, $type, $attr) = getimagesize($_SERVER["DOCUMENT_ROOT"] . "/project/images/" . $smiley[0] . ".gif");
+									$rwidth = 32 - $width;
+									$marginleft = round(($rwidth / 2), 0);
+									$rheight = 22 - $height;
+									$margintop = round(($rheight / 2), 0);
+									echo "<span title=\"" . $smiley[1] . "\"><img src=\"/project/images/" . $smiley[0] . ".gif\" style=\"margin-left:" . $marginleft . "px;margin-top:" . $margintop . "px;width:" . $width . "px;height:" . $height . "px;\" /></span>";
+								}
+								?>
+							</div></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -87,19 +102,8 @@ echo $pagina->getVereisteHTML();
 			</form>
 		</div>
 	</div>
-	<?php echo $pagina->getFooter(); ?>
+<?php echo $pagina->getFooter(); ?>
 </div>
-
-
-
 <?php
 echo $pagina->getVereisteHTMLafsluiting();
-
-//	database::getInstantie();
-//
-//	$sql = "SELECT * FROM `student`;";
-//	$resultaat_van_server = mysql_query($sql);
-//	while($array = mysql_fetch_array($resultaat_van_server)) {
-//		echo $array["voornaam"]."<br />";
-//	}
 ?>
