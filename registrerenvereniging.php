@@ -1,6 +1,6 @@
 <?php
 /**
- * @author:
+ * @author: Joep Kemperman
  * @description: Pagina waarop je een vereniging kunt registreren
  */
 $pagina = pagina::getInstantie();
