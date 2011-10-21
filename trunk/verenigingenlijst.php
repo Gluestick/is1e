@@ -1,7 +1,7 @@
 <?php
 /**
  * @author: Joep Kemperman
- * @description: 
+ * @description: Lijst van geregistreerde verenigingen met zoekfunctie.
  */
 $pagina = pagina::getInstantie();
 
@@ -44,8 +44,8 @@ echo $pagina->getVereisteHTML();
 				?>
 				<table>
 				<tr>
-					<td width="125"><b>Vereniging</b></td>
-					<td width="60"><b>Plaats</b></td>
+					<td><b>Vereniging</b></td>
+					<td><b>Plaats</b></td>
 					<td><b>E-mail</b></td>
 				</tr>
 				<?php
