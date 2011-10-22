@@ -33,14 +33,18 @@ $query = "(SELECT
 		))
 		UNION
 		(
-		 SELECT
-			CONCAT('reactie_',reactieid) as id, afzender as onderwerp, inhoud as bericht, CONCAT(voornaam, ' ', achternaam) AS naam, tijdstip 
+		 SELECT DISTINCT
+			CONCAT('reactie_',reactieid) as id, naam as onderwerp, inhoud as bericht, CONCAT(voornaam, ' ', achternaam) AS naam, tijdstip as datum
 		FROM 
 			`reactie` 
 		INNER JOIN 
 			student
 		ON 
 			afzender_id = studentid 
+		INNER JOIN 
+			evenement
+		ON
+			reactie.evenementid = evenement.evenementid
 		WHERE 
 			afzender_id 
 		IN (
@@ -57,7 +61,23 @@ $query = "(SELECT
 				FROM 
 					groep 
 				WHERE
-					eigenaar = ".$id.")))
+					eigenaar = ".$id."
+				)
+			OR
+				groepid
+			IN
+				(
+					SELECT 
+						groepid
+					FROM 
+						groeplid
+					WHERE 
+						studentid = ".$id."
+				)
+			AND 
+				studentid != ".$id."
+			)
+		)
 		UNION
 		(
 		 SELECT 
@@ -71,7 +91,6 @@ $query = "(SELECT
 		WHERE 
 			afzender = ".$id.")
 		ORDER BY datum DESC;";
-
 $resultaat_van_server = mysql_query($query);
 
 $pagina->setTitel("Inbox");
@@ -97,6 +116,7 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<div id="inbox">
+				<?php if (mysql_num_rows($resultaat_van_server) > 0) { ?>
 				<div id="emails">
 					<table style="width:100%;" cellpadding="0" cellspacing="0">
 					<?php
@@ -111,6 +131,9 @@ echo $pagina->getVereisteHTML();
 				<div id="emailcontent">
 					
 				</div>
+				<?php } else { ?>
+				Geen berichten in uw inbox.
+				<?php } ?>
 			</div>
 			<div style="clear:both;"></div>
 		</div>
