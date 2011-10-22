@@ -15,7 +15,7 @@ $sql = "SELECT S.studentId as studentId, U.user_id as user_id, studentnr, voorna
 $resultaat_van_server = mysql_query($sql) or die(mysql_error());
 $array = mysql_fetch_array($resultaat_van_server);
 
-$studentid = $array['studentId'];
+//$studentid = $array['studentId'];
 $userid = $array['user_id'];
 
 $naam = "";
@@ -94,7 +94,7 @@ echo $pagina->getVereisteHTML();
 			<?php
 			database::getInstantie();
 			$id = mysql_real_escape_string($_GET["id"]);
-			$query = "SELECT * FROM profielbericht WHERE studentid = " . $studentid . ";";
+			$query = "SELECT * FROM profielbericht WHERE studentid = ".$studentid.";";
 			$resultaat_van_server = mysql_query($query);
 
 			echo "<table style=\"text-align:left;\">";

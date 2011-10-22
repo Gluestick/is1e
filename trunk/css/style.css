@@ -364,10 +364,38 @@ th {
 }
 
 #emailcontent {
-	width:678px;
+	width:648px;
 	float:left;
 	min-height:500px;
 	border:1px solid #BBB;
+	padding:7px 14px;
+}
+
+#emailcontent .emailheader {
+	background-color: #F3F7FD;
+}
+
+#emailcontent table {
+	width:100%;
+}
+
+#emailcontent .emailheader th {
+	width:73px;
+	border-left:1px solid #BBD8FB;
+	padding:2px;
+}
+
+#emailcontent .emailheader td {
+	border-right:1px solid #BBD8FB;
+	padding:2px;
+}
+
+#emailcontent .emailheader:first-child th, #emailcontent .emailheader:first-child td {
+	border-top:1px solid #BBD8FB;
+}
+
+#emailcontent .last th, #emailcontent .last td {
+	border-bottom:1px solid #BBD8FB;
 }
 
 h1 a {
