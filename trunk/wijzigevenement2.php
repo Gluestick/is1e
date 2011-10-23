@@ -61,7 +61,7 @@ echo $pagina->getVereisteHTML();
 				mysql_query($query4);
 			}
 			?>
-			<a href ="http://localhost:8080/project/wijzigevenement.php?id=1">Update gelukt ga terug</a>
+			<a href ="http://localhost:8080/project/evenementenlijst.php">Update gelukt ga terug</a>
 		</div>
 	</div>
 <?php echo $pagina->getFooter(); ?>
