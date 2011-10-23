@@ -128,4 +128,23 @@ if (isset($_POST["informatie"])) {
 	}
 }
 
+
+if (isset($_POST["optie"])) {
+	?>
+	<table cellpadding="0" cellspacing="0">
+		<tr class="emailheader">
+			<th>Aan:</th><td><input type="text" name="aan" style="width:99%;" /></td>
+		</tr>
+		<tr class="emailheader last">
+			<th>Onderwerp:</th><td><input type="text" name="onderwerp" style="width:99%;" /></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="padding:14px 3px;">
+				<textarea style="width:100%;height:100%;min-width:100%;min-height:400px;resize:none;"></textarea>
+			</td>
+		</tr>
+	</table>
+	<?php
+}
+
 ?>

@@ -49,7 +49,7 @@ function isStudent()
  */
 function isHimSelf()
 {
-	if ($_GET['id'] != $_SESSION['user_id']) {
+	if ($_GET['id'] != $_SESSION['studentid']) {
 		header('Location: index.php');
 	}
 }

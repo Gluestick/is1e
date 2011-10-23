@@ -10,7 +10,7 @@ $studentid = mysql_real_escape_string($_GET["id"]);
 
 $sql = "SELECT S.studentId as studentId, U.user_id as user_id, studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 		FROM student S JOIN user U ON S.studentid = U.studentid
-		WHERE U.user_id = '$studentid' LIMIT 1;";
+		WHERE S.studentid = '$studentid' LIMIT 1;";
 
 $resultaat_van_server = mysql_query($sql) or die(mysql_error());
 $array = mysql_fetch_array($resultaat_van_server);
@@ -81,7 +81,7 @@ echo $pagina->getVereisteHTML();
 				</tr>
 				<tr>
 					<th>  Geboortedatum   </th> 
-					<td><?php echo $array["geboortedatum"]; ?></td>
+					<td><?php echo tijd::formatteerTijd($array["geboortedatum"], "d-m-Y"); ?></td>
 				</tr>
 				<tr>
 					<th>  E-mail   </th> 

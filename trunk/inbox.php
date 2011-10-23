@@ -104,6 +104,13 @@ $pagina->setJavascriptCode("
 				$('#emailcontent').html(data);
 			});
 		});
+		
+		$(\"#emailoptions span\").click(function(){
+			var info = $(this).html();
+			$.post('bericht.php', { optie: info }, function(data) {
+				$('#emailcontent').html(data);
+			});
+		});
 	});
 ");
 
@@ -115,8 +122,11 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
+			<?php if (mysql_num_rows($resultaat_van_server) > 0) { ?>
+			<div id="emailoptions">
+				<span>Nieuw</span>
+			</div>
 			<div id="inbox">
-				<?php if (mysql_num_rows($resultaat_van_server) > 0) { ?>
 				<div id="emails">
 					<table style="width:100%;" cellpadding="0" cellspacing="0">
 					<?php
@@ -131,10 +141,10 @@ echo $pagina->getVereisteHTML();
 				<div id="emailcontent">
 					
 				</div>
-				<?php } else { ?>
-				Geen berichten in uw inbox.
-				<?php } ?>
 			</div>
+			<?php } else { ?>
+				Geen berichten in uw inbox.
+			<?php } ?>
 			<div style="clear:both;"></div>
 		</div>
 	</div>
