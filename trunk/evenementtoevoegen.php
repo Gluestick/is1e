@@ -19,39 +19,64 @@ echo $pagina->getVereisteHTML();
                         <?php 
                         database::getInstantie();
                         if (isset($_POST["submit"])) {
+				if (empty($_POST["naam"]) || preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/", $_POST["naam"]) != 1) {
+					$error["naam"] = "Ongeldige naam";
+				}
+				if (empty($_POST["begindatum"]) || !preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["begindatum"])) {
+				$error["begindatum"] = "Ongeldige begindatum";
+				}
+                                else{
+                                    $datum1 = tijd::formatteerTijd($_POST["begindatum"],"Y-m-d");	
+                                }
+				if (!empty($_POST["einddatum"]) && !preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["einddatum"])) {
+					$error["einddatum"] = "Ongeldige einddatum";
+				}
+                                elseif(!empty($_POST["einddatum"])){
+                                    $datum2 = tijd::formatteerTijd($_POST["einddatum"],"Y-m-d");	
+                                }
+				if (!empty($_POST["omschrijving"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/",$_POST["omschrijving"])) {
+                                        $error["omschrijving"] = "Ongeldige omschrijving";
+				}
 				if (!empty($_POST["naam"]) && isset($_POST["begindatum"]) && isset($_POST["einddatum"]) && isset($_POST["categorie"]) && isset($_POST["organisator"]) && isset($_POST["verplicht"]) && isset($_POST["omschrijving"])) {
                                     if($_POST['einddatum'] < $_POST['begindatum']){
-                                        print("De einddatum mag niet in het verleden liggen van de begindatum");
+                                       $error["velden"] = "Niet alle verplichte velden zijn ingevuld!";
                                     }
-                                    else{
+                                }
+			}
+
+                        if (isset($_POST["submit"]) && !isset($error)) {
+	
+                                    
                                         $id = mysql_fetch_array(mysql_query("SELECT MAX(evenementid) FROM evenement"));
                                         $id["MAX(evenementid)"]++;
 
 
-                                        $sql = "INSERT INTO `evenement` (`evenementid`,`naam`,`begindatum`,`einddatum`,`omschrijving`, `isaanmeldingverplicht`,`categorieid`,`organiserendeverenigingid`) VALUES('" . $id["MAX(evenementid)"] . "','".$_POST['naam']."','".tijd::formatteerTijd($_POST['begindatum'],"Y-m-d")."','".tijd::formatteerTijd($_POST['einddatum'],"Y-m-d")."','".$_POST['omschrijving']."','".$_POST['verplicht']."','".$_POST['categorie']."','".$_POST['organisator']."')";
-
+                                        $sql = "INSERT INTO `evenement` (`evenementid`,`naam`,`begindatum`,`einddatum`,`omschrijving`, `isaanmeldingverplicht`,`categorieid`,`organiserendeverenigingid`) VALUES('" .mysql_real_escape_string($id["MAX(evenementid)"]) . "','".mysql_real_escape_string($_POST['naam'])."','".tijd::formatteerTijd(mysql_real_escape_string($_POST['begindatum']),"Y-m-d")."','".tijd::formatteerTijd(mysql_real_escape_string($_POST['einddatum']),"Y-m-d")."','".mysql_real_escape_string($_POST['omschrijving'])."','".mysql_real_escape_string($_POST['verplicht'])."','".mysql_real_escape_string($_POST['categorie'])."','".mysql_real_escape_string($_POST['organisator'])."')";
                                         $result = mysql_query($sql);
-                                        if ($result != true) {
-                                                print"<h3>MySQL ERROR:</h3>".mysql_error();
-                                        }
-                                        else {
+                                            if ($result == false) {
+                                                    print"<h3>MySQL ERROR:</h3>".mysql_error();
+                                            }
+                                            else {
 
-                                                print"Het evenement is toegevoegd!</h3><br/>";
-                                                print("U wordt over 5 seconden doorgelinked naar de evenementenlijst<br/>");
-                                                print("<a href=\"evenementenlijst.php\">of klik hier om direct naar de evenementenlijst te gaan</a>");
-                                                ?><script language="javascript">
-                                                setTimeout("location.href='./evenementenlijst.php'", 5000);
-                                                </script>
-                                        <?php
-                                            
-                                        }
-					
-                                    }
-                                }
+                                                    print"Het evenement is toegevoegd!</h3><br/>";
+                                                    print("U wordt over 5 seconden doorgelinked naar de evenementenlijst<br/>");
+                                                    print("<a href=\"evenementenlijst.php\">of klik hier om direct naar de evenementenlijst te gaan</a>");
+                                                    ?><script language="javascript">
+                                                    setTimeout("location.href='./evenementenlijst.php'", 5000);
+                                                    </script>
+                                            <?php
+
+                                            }
 			}
-			if (isset($_POST["submit"]) && (empty($_POST["naam"]) || empty($_POST["begindatum"]) || empty($_POST["categorie"]) || empty($_POST["organisator"]) || empty($_POST["verplicht"]))) {
-				print "<h3>Niet alle velden zijn ingevuld!</h3>";
-			}         
+                                                else{
+                                   if(isset($error)){
+                                    foreach($error as $key => $val){
+                                        print($val."<br/>");
+                                    }
+                            }
+
+                        }
+        
             ?>
                         <form action="evenementtoevoegen.php" method="POST">
                             <table>
