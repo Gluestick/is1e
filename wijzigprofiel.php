@@ -115,10 +115,9 @@ echo $pagina->getVereisteHTML();
 			$id = mysql_real_escape_string($_GET["id"]);
 			$query = "SELECT S.studentId, S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email
 				FROM student S JOIN user U ON S.studentId = U.studentId
-				WHERE U.user_id = '$id' LIMIT 1;";
+				WHERE S.studentid = '$id' LIMIT 1;";
 			$resultaat_van_server = mysql_query($query);
 			$array = mysql_fetch_array($resultaat_van_server);
-			$id = mysql_real_escape_string($_GET["id"]);
 			?>
 			<form enctype="multipart/form-data" action="wijzigprofiel.php?id=<?php echo $id; ?>   "method="POST" align="left">
 				<table>

@@ -28,7 +28,7 @@
 			$voornaam = mysql_real_escape_string($_POST['voornaam']);
 			$achternaam = mysql_real_escape_string($_POST['achternaam']);
 			$studentnr = mysql_real_escape_string($_POST['studentnr']);
-			$geboortedatum = mysql_real_escape_string($_POST['geb_dat']);
+			$geboortedatum = mysql_real_escape_string(tijd::formatteerTijd($_POST['geb_dat'], "Y-m-d"));
 			$geslacht = mysql_real_escape_string($_POST['geslacht']);
 			$adres = mysql_real_escape_string($_POST['adres']);
 			$postcode = mysql_real_escape_string($_POST['postcode']);
@@ -162,7 +162,7 @@
 				$error .= "</ul>";
 				header('Location: login.php?error='.$error.'');
 			} else {
-				$query = "SELECT U.user_id as user_id, S.studentnr as studentnr, U.role as role FROM student S JOIN user U ON S.studentId = U.studentId WHERE U.username = '$username';";
+				$query = "SELECT U.user_id as user_id, S.studentid as studentid, S.studentnr as studentnr, U.role as role FROM student S JOIN user U ON S.studentId = U.studentId WHERE U.username = '$username';";
 				$result = mysql_query($query) or die(mysql_error());
 				$row = mysql_fetch_assoc($result);
 				$studentnr = $row['studentnr'];
@@ -170,6 +170,7 @@
 					$_SESSION['studentnr'] = $studentnr;
 				}
 				$_SESSION['user_id'] = $row['user_id'];
+				$_SESSION['studentid'] = $row['studentid'];
 				$_SESSION['role'] = $row['role'];
 				$_SESSION['username'] = $username;
 				$_SESSION['login'] = TRUE;
