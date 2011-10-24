@@ -9,9 +9,9 @@ if (!empty($_GET["id"])) {
 	$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
 	$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 	$row = mysql_fetch_assoc($resultaat_van_server);
-	if (isset($_SESSION)) {
+	if (isMember()) {
 		$sql = "SELECT userid FROM vereniging WHERE verenigingid = " . mysql_real_escape_string($_GET["id"]);
-		$ingelogde = mysql_fetch_assoc(mysql_query($sql));
+		$eigenaar = mysql_fetch_assoc(mysql_query($sql));
 	}
 } else {
 	$row["naam"] = "Vereniging";
@@ -28,11 +28,11 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel();
-		if (isset($ingelogde) && $_SESSION["user_id"] == $ingelogde["userid"]) { ?>&nbsp;<a href="wijzigvereniging.php?id=<?php
+		if (isset($eigenaar)) { if($_SESSION["user_id"] == $eigenaar["userid"] || isAdmin()){ ?>&nbsp;<a href="wijzigvereniging.php?id=<?php
 				if (isset($verenigingid)) {
 					print $verenigingid;
 				}
-			?>">Wijzig</a><?php } ?></h1>
+			?>">Wijzig</a><?php }} ?></h1>
 				<?php
 				if (isset($_POST["aanmelden"]) && !empty($_GET["id"]) && isset($_SESSION["login"]) && isset($_SESSION["studentid"])) {
 					$today = getdate();
@@ -58,6 +58,7 @@ echo $pagina->getVereisteHTML();
 					$aantal_leden = mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE verenigingid='{$_GET["id"]}'"));
 					$sql = "SELECT * FROM student JOIN lidmaatschap ON student.studentid=lidmaatschap.studentid JOIN user ON student.userid = user.user_id WHERE verenigingid='$verenigingid' AND lidmaatschap.studentid IS NOT NULL";
 					$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+					if (mysql_num_rows($resultaat_van_server) > 0) {
 					?>
 				<table><tr>
 						<th>Leden</th>
@@ -68,6 +69,10 @@ echo $pagina->getVereisteHTML();
 					}
 					?>
 				</table><br/>
+				<?php } 
+				$sql = "SELECT * FROM evenement WHERE organiserendeverenigingid=$verenigingid";
+				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+				if(mysql_num_rows($resultaat_van_server) > 0) { ?>
 				<table>
 					<tr>
 						<th colspan="2">Evenementen</th>
@@ -77,8 +82,6 @@ echo $pagina->getVereisteHTML();
 						<th>Begindatum</th>
 					</tr>
 					<?php
-					$sql = "SELECT * FROM evenement WHERE organiserendeverenigingid=$verenigingid";
-					$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 					$format = "d-m-Y";
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
 						$begindatum = tijd::formatteerTijd($array["begindatum"], $format);
@@ -87,6 +90,7 @@ echo $pagina->getVereisteHTML();
 					?>
 				</table><br/>
 				<?php
+				}
 				$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 				$row = mysql_fetch_assoc($resultaat_van_server);

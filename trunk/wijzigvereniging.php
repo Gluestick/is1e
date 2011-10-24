@@ -8,59 +8,45 @@ $pagina = pagina::getInstantie();
 $pagina->setTitel("Wijzigen vereniging");
 $pagina->setCss("style.css");
 
-if(!isset($_GET['id']) && !isset($_POST['verstuur'])){
+if (!isset($_GET['id']) && !isset($_POST['verstuur'])) {
 	header('Location: index.php');
 }
 
 echo $pagina->getVereisteHTML();
-
 ?>
 <div id="container">
 	<?php echo $pagina->getHeader(); ?>
 	<div id="page">
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
-			<h1><?php echo $pagina->getTitel(); ?></h1>
+			<h1><?php echo $pagina->getTitel();
+		if(isset($_GET["id"])) { ?>&nbsp;<a href="raadplegenvereniging.php?id=<?php print $_GET["id"]; ?>">Terug</a><?php } ?></h1>
 			<?php
 			database::getInstantie();
-			
-			if (isset($_POST['verstuur'])) {
-				$naam = $_POST['naam'];
-				$plaats = $_POST['plaats'];
-				$adres = $_POST['adres'];
-				$postcode = $_POST['postcode'];
-				$emailadres = $_POST['emailadres'];
-				$contactpersoon = $_POST['contactpersoon'];
-				$telefoonnr = $_POST['telefoonnr'];
-				$kvk = $_POST['kvk'];
-				$eigenleden = $_POST['eigenleden'];
 
-				$id = $_POST['id'];
+			if (isset($_POST['verstuur'])) {
 				$sql = "UPDATE vereniging SET
-						naam = '$naam', 
-						plaats = '$plaats', 
-						adres = '$adres', 
-						postcode = '$postcode', 
-						emailadres = '$emailadres', 
-						contactpersoon = '$contactpersoon', 
-						telefoonnr = '$telefoonnr', 
-						kvk = '$kvk', 
-						aantaleigenleden = '$eigenleden'
-					WHERE verenigingid = '$id';";
+						naam = '" . mysql_real_escape_string($_POST['naam']) . "', 
+						plaats = '" . mysql_real_escape_string($_POST['plaats']) . "', 
+						adres = '" . mysql_real_escape_string($_POST['adres']) . "', 
+						postcode = '" . mysql_real_escape_string($_POST['postcode']) . "',  
+						telefoonnr = '" . mysql_real_escape_string($_POST['telefoonnr']) . "', 
+						kvk = '" . mysql_real_escape_string($_POST['kvk']) . "'
+						WHERE verenigingid = '" . mysql_real_escape_string($_POST['id']) . "'";
+				$sql2 = "UPDATE user SET email = '" . mysql_real_escape_string($_POST["emailadres"]) . "' WHERE user_id = (SELECT userid FROM vereniging WHERE verenigingid = " . mysql_real_escape_string($_GET["id"]) . ")";
 				$result = mysql_query($sql) or die('Er ging iets fout met de verbinding: ' . mysql_error());
-				if($result){
-					print("Wijzigen succesvol!");
+				$result2 = mysql_query($sql2) or die('Er ging iets fout met de verbinding: ' . mysql_error());
+				if ($result && $result2) {
+					print("Wijzigen succesvol!<br/><br/>");
 				}
 			}
-				
-			
-			
-			$query = "SELECT * FROM vereniging WHERE verenigingid = '" . $_GET['id'] . "';";
+
+
+
+			$query = "SELECT * FROM vereniging V JOIN user U ON V.userid = U.user_id WHERE verenigingid = '" . mysql_real_escape_string($_GET['id']) . "';";
 			$result = mysql_query($query);
-			
+
 			$row = mysql_fetch_assoc($result);
-			
-			
 			?>
 			<form method="post" action="<?php print($_SERVER['PHP_SELF']); ?>?id=<?php print($_GET['id']); ?>">
 				<table class="registreren">
@@ -68,7 +54,7 @@ echo $pagina->getVereisteHTML();
 						<td>*</td>
 						<td>Naam:</td>
 						<td colspan="2">
-							<input type="text" name="id" value="<?php print($_GET['id']); ?>" hidden="hidden" />
+							<input type="hidden" name="id" value="<?php print($_GET['id']); ?>" />
 							<input type="text" name="naam" value="<?php print($row['naam']); ?>" /></td>
 					</tr>
 					<tr>
@@ -89,12 +75,12 @@ echo $pagina->getVereisteHTML();
 					<tr>
 						<td>*</td>
 						<td>E-mail:</td>
-						<td colspan="2"><input type="text" name="emailadres" value="<?php print($row['emailadres']); ?>" /></td>
+						<td colspan="2"><input type="text" name="emailadres" value="<?php print($row['email']); ?>" /></td>
 					</tr>
 					<tr>
 						<td>*</td>
 						<td>Contactpersoon:</td>
-						<td colspan="2"><input type="text" name="contactpersoon" value="<?php print($row['contactpersoon']); ?>" /></td>
+						<td colspan="2"><input type="text" name="contactpersoon" value="TODO. Database update.<?php //print($row['contactpersoon']);  ?>" /></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -108,11 +94,6 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<td></td>
-						<td>Eigen leden:</td>
-						<td colspan="2"><input type="text" name="eigenleden" value="<?php print($row['aantaleigenleden']); ?>" /></td>
-					</tr>
-					<tr>
-						<td></td>
 						<td></td>
 						<td align="center">
 							<input type="submit" name="verstuur" value="Verstuur" />
@@ -123,7 +104,7 @@ echo $pagina->getVereisteHTML();
 			<br/>Velden met "*" zijn verplicht.
 		</div>
 	</div>
-	<?php echo $pagina->getFooter(); ?>
+<?php echo $pagina->getFooter(); ?>
 </div>
 
 
