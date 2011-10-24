@@ -89,14 +89,15 @@
 				$role = NULL;
 				
 				$password = md5($pass1 . "" . $salt);
-
 				
-				$query = "INSERT INTO `student` (`studentId`, `studentnr`, `voornaam`, `achternaam`, `adres`, `postcode`, `woonplaats`, `geslacht`, `geboortedatum`)
-									VALUES ('$studentid', '$studentnr', '$voornaam', '$achternaam', '$adres', '$postcode', '$woonplaats', '$geslacht', '$geboortedatum');";
-				mysql_query($query) or die(mysql_error() . $query);
-				$query2 = " INSERT INTO user (username, password, salt, activation, email, role, studentId)
-										VALUES ('$gebruikersnaam', '$password', '$salt', '$activation', '$email', '$role', '$studentid');";
+				$query2 = " INSERT INTO user (username, password, salt, activation, email, role)
+										VALUES ('$gebruikersnaam', '$password', '$salt', '$activation', '$email', '$role');";
 				mysql_query($query2) or die(mysql_error() . $query2);
+				$row = mysql_fetch_assoc(mysql_query("SELECT last_insert_id() as userid FROM user;"));
+				$userid = $row['userid'];
+				$query = "INSERT INTO `student` (`studentnr`, `voornaam`, `achternaam`, `adres`, `postcode`, `woonplaats`, `geslacht`, `geboortedatum`, `userid`)
+									VALUES ('$studentnr', '$voornaam', '$achternaam', '$adres', '$postcode', '$woonplaats', '$geslacht', '$geboortedatum', '$userid');";
+				mysql_query($query) or die(mysql_error() . $query);
 				$bericht = "<p>U bent succesvol geregistreerd. Binnen 24 uur ontvangt u een mail met daarin de activatie-code.";
 				$bericht .= "Na het activeren kunt u inloggen. Klik <a href=\"index.php\">hier</a> om terug naar de home-pagina te gaan.</p>";
 			}
@@ -106,7 +107,7 @@
 		
 		
 		/****** Kijkt of er van de ingevoerde waarde al een waarde bestaat in een bepaald veld *****/
-		private function checkDubbel($tabel, $waarde, $veldnaam){
+		public function checkDubbel($tabel, $waarde, $veldnaam){
 			database::getInstantie();
 			$query = "SELECT $veldnaam FROM `$tabel` WHERE `$veldnaam` = '$waarde';";
 			$result = mysql_query($query) or die(mysql_error());
@@ -162,18 +163,30 @@
 				$error .= "</ul>";
 				header('Location: login.php?error='.$error.'');
 			} else {
-				$query = "SELECT U.user_id as user_id, S.studentid as studentid, S.studentnr as studentnr, U.role as role FROM student S JOIN user U ON S.studentId = U.studentId WHERE U.username = '$username';";
+				$query =   "SELECT U.user_id as user_id, U.role as role, S.studentnr as studentnr, V.verenigingid as verenigingid
+							FROM user U 
+							LEFT JOIN student S ON (U.user_id = S.userid)
+							LEFT JOIN vereniging V ON (U.user_id = V.userid) 
+							WHERE U.username = '$username';";
 				$result = mysql_query($query) or die(mysql_error());
-				$row = mysql_fetch_assoc($result);
-				$studentnr = $row['studentnr'];
-				if(isset($studentnr)){
-					$_SESSION['studentnr'] = $studentnr;
+				if(mysql_num_rows($result) < 1){
+					die('De username is niet in de database gevonden: <br />' . $query);
 				}
-				$_SESSION['user_id'] = $row['user_id'];
-				$_SESSION['studentid'] = $row['studentid'];
-				$_SESSION['role'] = $row['role'];
-				$_SESSION['username'] = $username;
-				$_SESSION['login'] = TRUE;
+				$row = mysql_fetch_assoc($result);
+				if($result == true){
+					$studentnr = $row['studentnr'];
+					if(isset($studentnr)){
+						$_SESSION['studentnr'] = $studentnr;
+					}
+					$verenigingid = $row['verenigingid'];
+					if(isset($verenigingid)){
+						$_SESSION['verenigingid'] = $verenigingid;
+					}
+					$_SESSION['user_id'] = $row['user_id'];
+					$_SESSION['role'] = $row['role'];
+					$_SESSION['username'] = $username;
+					$_SESSION['login'] = TRUE;
+				}
 			}
 		}
 		

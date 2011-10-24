@@ -10,8 +10,7 @@
  * Returns true als er iemand in is gelogd.
  * @return boolean
  */
-function isMember()
-{
+function isMember(){
 	if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
 		return true;
 	} else {
@@ -23,8 +22,7 @@ function isMember()
  * Returns true als de gebruiker admin is.
  * @return boolean 
  */
-function isAdmin()
-{
+function isAdmin(){
 	if (isMember() && $_SESSION['role'] == 1) {
 		return true;
 	} else {
@@ -35,8 +33,7 @@ function isAdmin()
 /**
  * Returns true als de gebruiker een student is.
  */
-function isStudent()
-{
+function isStudent(){
 	if (isMember() && isset($_SESSION['studennr'])) {
 		return true;
 	} else {
@@ -47,9 +44,22 @@ function isStudent()
 /**
  * Controleert of iemand de gegevens
  */
-function isHimSelf()
-{
-	if ($_GET['id'] != $_SESSION['studentid']) {
+function isHimSelf(){
+	if ($_GET['id'] != $_SESSION['user_id']) {
+		header('Location: index.php');
+	}
+}
+
+function isVereniging(){
+	if(isset($_SESSION['verenigingid']) && $_SESSION['login'] == true){
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isThisVereniging(){
+	if($_GET['id'] != $_SESSION['verenigingid']){
 		header('Location: index.php');
 	}
 }
