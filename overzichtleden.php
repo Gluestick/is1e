@@ -7,12 +7,12 @@ $pagina = pagina::getInstantie();
 database::getInstantie();
 $error = "";
 if (isset($_POST["zoeken"]) && !empty($_POST["zoeknaam"])) {
-	$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging` WHERE naam LIKE '%".mysql_real_escape_string($_POST["zoeknaam"])."%';";
+	$sql = "SELECT `vereniging`.`naam`, COUNT(studentid) as leden FROM `vereniging` LEFT OUTER JOIN `lidmaatschap` ON `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId` WHERE naam LIKE '%".mysql_real_escape_string($_POST["zoeknaam"])."%' GROUP BY `vereniging`.`naam`;";
 } else if (isset($_POST["zoeken"]) && empty($_POST["zoeknaam"])) {
 	$error = "<li>U heeft geen naam ingevuld.</li>";
-	$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging`;";
+	$sql = "SELECT `vereniging`.`naam`, COUNT(studentid) as leden FROM `vereniging` LEFT OUTER JOIN `lidmaatschap` ON `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId` GROUP BY `vereniging`.`naam`;";
 } else {
-	$sql = "SELECT `vereniging`.`naam`, (SELECT COUNT(*) FROM `lidmaatschap` WHERE `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId`) AS totaal FROM `vereniging`;";
+	$sql = "SELECT `vereniging`.`naam`, COUNT(studentid) as leden FROM `vereniging` LEFT OUTER JOIN `lidmaatschap` ON `vereniging`.`verenigingId` = `lidmaatschap`.`verenigingId` GROUP BY `vereniging`.`naam`;";
 }
 $resultaat_van_server = mysql_query($sql);
 
@@ -64,7 +64,7 @@ echo $pagina->getVereisteHTML();
 						<th>Naam</th><th>Leden</th>
 						<?php
 						while($array = mysql_fetch_array($resultaat_van_server)) {
-							echo "<tr><td>".$array["naam"]."</td><td>".$array["totaal"]."</td></tr>";
+							echo "<tr><td>".$array["naam"]."</td><td>".$array["leden"]."</td></tr>";
 						}
 						?>
 					</table>
