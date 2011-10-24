@@ -195,7 +195,11 @@ class pagina
 					?>
 					<a href="#" class="drop">Ingelogd</a>
 					<div id="login" class="dropdown">
-						<div><a href="raadplegenprofiel.php?id=<?php print($_SESSION['user_id']); ?>" class="button">Profiel<br /><font>Je eigen profiel</font></a></div>
+						<?php if(isVereniging()){ ?>
+							<div><a href="raadplegenvereniging.php?id=<?php print($_SESSION['verenigingid']); ?>" class="button">Vereniging<br /><font>Je eigen vereniging</font></a></div>
+						<?php } else { ?>
+							<div><a href="raadplegenprofiel.php?id=<?php print($_SESSION['user_id']); ?>" class="button">Profiel<br /><font>Je eigen profiel</font></a></div>
+						<?php } ?>
 						<div><a href="login.php?logout=true" class="button">Uitloggen<br /><font>De verbinding verbreken</font></a></div>
 					</div>
 					<?php

@@ -168,7 +168,7 @@
 				$error .= "</ul>";
 				header('Location: login.php?error='.$error.'');
 			} else {
-				$query =   "SELECT U.user_id as user_id, U.role as role, S.studentnr as studentnr, V.verenigingid as verenigingid
+				$query =   "SELECT U.user_id as user_id, S.studentid as studentid, U.role as role, S.studentnr as studentnr, V.verenigingid as verenigingid
 							FROM user U 
 							LEFT JOIN student S ON (U.user_id = S.userid)
 							LEFT JOIN vereniging V ON (U.user_id = V.userid) 
@@ -182,6 +182,7 @@
 					$studentnr = $row['studentnr'];
 					if(isset($studentnr)){
 						$_SESSION['studentnr'] = $studentnr;
+						$_SESSION['studentid'] = $row['studentid'];
 					}
 					$verenigingid = $row['verenigingid'];
 					if(isset($verenigingid)){
