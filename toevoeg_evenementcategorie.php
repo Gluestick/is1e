@@ -45,8 +45,13 @@ echo $pagina->getVereisteHTML();
                     $query = mysql_query($sql);
                     if ($query == false) {
                         print mysql_error();
-                    } else { //als het toevoegen is mislukt print dit
+                    } else { //als het toevoegen is gelukt print dit
                         print("Het toevoegen is gelukt!<br/>");
+                        print("U wordt over 5 seconden doorgelinked naar de categorieënpagina</br>");
+                        print("<a href=\"raadpleegevenementcategorieen.php\">Of klik hier om direct naar de categorieënpagina te gaan.</a>");
+                         ?> <script language="javascript">
+                                setTimeout("location.href='./raadpleegevenementcategorieen.php'", 5000);
+                            </script><?php
                     }
                 } Else {
                     print("Gelieve naam in vullen<br/>");
@@ -55,11 +60,9 @@ echo $pagina->getVereisteHTML();
                 Naam: <input type="text" name="naam"/><br>
 
                 <input type="submit" name="submit" value="Toevoegen"/><br>
-                    <script language="javascript">
-                                                    setTimeout("location.href='./raadpleegevenementcategorieen.php'", 5000);
-                                                    </script>
+                 
 
-                <a href="raadpleegevenementcategorieen.php">Terug naar vorige pagina</a>
+                
             </form>
         </div>
     </div>
