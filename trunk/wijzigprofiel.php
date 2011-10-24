@@ -25,15 +25,15 @@ echo $pagina->getVereisteHTML();
 
 				$studentId = $_POST['studentId'];
 
-				$studentnr = $_POST["studentnr"];
-				$voornaam = $_POST["voornaam"];
-				$achternaam = $_POST["achternaam"];
-				$adres = $_POST["adres"];
-				$postcode = $_POST["postcode"];
-				$woonplaats = $_POST["woonplaats"];
-				$geslacht = $_POST["geslacht"];
-				$geboortedatum = $_POST["geboortedatum"];
-				$emailadres = $_POST["emailadres"];
+				$studentnr = mysql_real_escape_string($_POST["studentnr"]);
+				$voornaam = mysql_real_escape_string($_POST["voornaam"]);
+				$achternaam = mysql_real_escape_string($_POST["achternaam"]);
+				$adres = mysql_real_escape_string($_POST["adres"]);
+				$postcode = mysql_real_escape_string($_POST["postcode"]);
+				$woonplaats = mysql_real_escape_string($_POST["woonplaats"]);
+				$geslacht = mysql_real_escape_string($_POST["geslacht"]);
+				$geboortedatum = mysql_real_escape_string($_POST["geboortedatum"]);
+				$emailadres = mysql_real_escape_string($_POST["emailadres"]);
 				
 				if(!empty($_FILES['profielfoto']["name"]) && !empty($_FILES['profielfoto']["type"]) && !empty($_FILES['profielfoto']["tmp_name"]) && !empty($_FILES['profielfoto']["error"]) && !empty($_FILES['profielfoto']["size"])){
 					if (isset($_FILES["profielfoto"]["tmp_name"])) { //heeft de foto een tijdelijke naam?
@@ -101,7 +101,8 @@ echo $pagina->getVereisteHTML();
 		               postcode='" . $postcode . "',
 		               woonplaats='" . $woonplaats . "',
 		               geslacht='" . $geslacht . "',
-		               geboortedatum='" . $geboortedatum . "'
+		               geboortedatum='" . $geboortedatum . "',
+					   studentnr='" . $studentnr . "'
 				WHERE userid=" . $id . ";";
 				
 				$sql2 = "UPDATE user
@@ -119,9 +120,9 @@ echo $pagina->getVereisteHTML();
 						JOIN user U ON S.userid = U.user_id
 						WHERE U.user_id = '$id' LIMIT 1;";
 			$resultaat_van_server = mysql_query($query);
-			$array = mysql_fetch_array($resultaat_van_server);
+			$array = mysql_fetch_assoc($resultaat_van_server);
 			?>
-			<form enctype="multipart/form-data" action="wijzigprofiel.php?id=<?php echo $id; ?>   "method="POST" align="left">
+			<form enctype="multipart/form-data" action="wijzigprofiel.php?id=<?php echo $id; ?>" method="POST" align="left">
 				<table>
 					<tr>
 						<td valign="top">
@@ -143,7 +144,7 @@ echo $pagina->getVereisteHTML();
 						</td>
 						<td>
 							<input type="text" name="studentId" hidden="hidden" value="<?php echo $array['studentId']; ?>" />
-							<input type="text" name="studentnr" value=" <?php echo $array["studentnr"]; ?>" />
+							<input type="text" name="studentnr" value="<?php echo $array["studentnr"]; ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -170,7 +171,7 @@ echo $pagina->getVereisteHTML();
 						<td> Geslacht:	 </td> <td>   <input type="text" name="geslacht" value="<?php echo $array["geslacht"]; ?>" /> </br></td>
 					</tr>	
 					<tr>
-						<td>Geboortedatum: </td> <td>	<input type="text" name="geboortedatum" value="<?php echo $array["geboortedatum"]; ?>" /> </br></td>
+						<td>Geboortedatum: </td> <td>	<input type="text" name="geboortedatum" value="<?php echo $array['geboortedatum']; ?>" /> </br></td>
 					</tr>
 					<tr>
 						<td>	E-mailadres: </td> <td> 	<input type="text" name="emailadres" value="<?php echo $array["email"]; ?>" /> </br></td>

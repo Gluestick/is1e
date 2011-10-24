@@ -30,13 +30,13 @@
 		print($registreer);
 	} else {
 ?>
-	<p>Wil je ook lid worden van deze community? Vul hieronder je gegevens in. Vul je echte e-mailadres in
-		want deze heb je nodig om je account te kunnen activeren. Zonder activeren kun je niet inloggen!</p>
+	<p>Wil je ook lid worden van deze community? Vul hieronder je gegevens in. Alle velden met een * zijn verplicht.</p>
 	
 	<form action="<?php print($_SERVER['PHP_SELF']); ?>" method="post">
 		<table>
 			<tr><td colspan="2"><b>Inlog-informatie:</b></td></tr>
 			<tr>
+				<td>*</td>
 				<td>Gebruikersnaam:</td>
 				<td>
 					<input type="text" name="studentid" hidden="hidden" value="<?php $registreer->getStudentId(); ?>" />
@@ -44,48 +44,59 @@
 				</td>
 			</tr>
 			<tr>
+				<td>*</td>
 				<td>E-mailadres:</td>
 				<td><input type="text" name="email" /></td>
 			</tr>
 			<tr>
+				<td>*</td>
 				<td>Wachtwoord:</td>
 				<td><input type="password" name="pass1" /></td>
 			</tr>
 			<tr>
+				<td>*</td>
 				<td>Opnieuw:</td>
 				<td><input type="password" name="pass2" /></td>
 			</tr>
 			<tr><td colspan="2"><b>Gebruikers-informatie:</b></td></tr>
 			<tr>
+				<td>*</td>
 				<td>Voornaam:</td>
 				<td><input type="text" name="voornaam" /></td>
 			</tr>
 			<tr>
+				<td>*</td>
 				<td>Achternaam:</td>
 				<td><input type="text" name="achternaam" /></td>
 			</tr>
 			<tr>
+				<td>*</td>
 				<td>Student-nummer:</td>
 				<td><input type="text" name="studentnr" /></td>
 			</tr>
 			<tr>
+				<td></td>
 				<td>Geboortedatum:</td>
 				<td><input type="text" name="geb_dat" /></td>
 			</tr>
 			<tr>
+				<td></td>
 				<td>Geslacht:</td>
 				<td><input type="radio" name="geslacht" value="Man" checked="checked" />Man <input type="radio" name="geslacht" value="Vrouw" />Vrouw</td>
 			</tr>
 			<tr><td colspan="2"><b>Adres-gegevens:</b></td></tr>
 			<tr>
+				<td></td>
 				<td>Adres:</td>
 				<td><input type="text" name="adres" /></td>
 			</tr>
 			<tr>
+				<td></td>
 				<td>Postcode:</td>
 				<td><input type="text" name="postcode" /></td>
 			</tr>
 			<tr>
+				<td></td>
 				<td>Woonplaats:</td>
 				<td><input type="text" name="woonplaats" /></td>
 			</tr>
