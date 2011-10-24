@@ -57,7 +57,7 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 
-			<form action="evenementreactie.php?id=<?php echo $id; ?>" method="post">
+			<form action="evenementreactie2.php?id=<?php echo $id; ?>" method="post">
 				<table>
 					<tr>
 						<td>Naam </td>
