@@ -170,14 +170,18 @@ class pagina
 				<a href="verenigingenlijst.php" class="drop button">Verenigingen</a>
 				<div class="dropdown">
 					<div><a href="verenigingenlijst.php" class="button">Overzicht<br /><font>Een lijst van alle verenigingen</font></a></div>
-					<div><a href="registrerenvereniging.php" class="button">Registreer<br /><font>Voeg een vereniging toe</font></a></div>
+					<?php if(!isMember()){ ?>
+						<div><a href="registrerenvereniging.php" class="button">Registreer<br /><font>Voeg een vereniging toe</font></a></div>
+					<?php } ?>
 				</div>
 			</li>
 			<li>
 				<a href="evenementenlijst.php" class="drop button">Evenementen</a>
 				<div class="dropdown">
 					<div><a href="evenementenlijst.php" class="button">Overzicht<br /><font>Een lijst van alle evenementen</font></a></div>
-					<div><a href="evenementtoevoegen.php" class="button">Toevoegen<br /><font>Een evenement toevoegen</font></a></div>
+					<?php if(isVereniging()){ ?>
+						<div><a href="evenementtoevoegen.php" class="button">Toevoegen<br /><font>Een evenement toevoegen</font></a></div>
+					<?php } ?>
 				</div>
 			</li>
 			<?php if (isAdmin()) { ?>

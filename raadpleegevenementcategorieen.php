@@ -48,11 +48,13 @@ echo $pagina->getVereisteHTML();
                                 $_POST["naam"] = "";
                             }
                             
-                            $sql = "SELECT categorie.categorieid,categorie.naam AS categorienaam,evenement.evenementid AS evenementid FROM `categorie` JOIN evenement ON categorie.categorieid = evenement.categorieid WHERE categorie.naam LIKE '%".$_POST["naam"]."%' ORDER BY `categorieid` ;";                                
-                            $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                            $sql = "SELECT DISTINCT categorie.categorieid,categorie.naam AS categorienaam,evenement.evenementid AS evenementid FROM `categorie` JOIN evenement ON categorie.categorieid = evenement.categorieid WHERE categorie.naam LIKE '%".$_POST["naam"]."%' ORDER BY `categorieid` ;";                                
+                            var_dump($sql);
+							$resultaat_van_server = mysql_query($sql) or die(mysql_error());
                             
                             while ($array = mysql_fetch_array($resultaat_van_server)) {
                                $id = $array['evenementid'];
+							   var_dump($array);
                                   echo "<tr><td> </td><td> <a href=\"evenement.php?id=$id\">".$array["categorienaam"]." </a></td> <td>".$array["categorieid"]."</td><td><a href= \"wijzig_evenementcategorie.php?id=".$array["categorieid"]."\">  Wijzig<a href=\"verwijder_evenementcategorie.php?id=" .$array ["categorieid"] . "&verwijder=true\"> Verwijder</tr>";   
                                   
                             
