@@ -220,21 +220,27 @@ body {
 	padding: 8px;
 }
 
-
-
 #login .clear {
 	clear: both;
 	padding-top: 10px;
 }
 
-
 .linkknop {
 	display:block;
 	width:200px;
 	height:200px;
-	border-radius:5px;
 	text-decoration:none;
 	color:#000;
+	text-align:center;
+	border:1px solid #000;
+}
+
+.linkknop .enkel {
+	padding:90px 10px 90px 10px;
+}
+
+.linkknop .dubbel {
+	padding:81px 10px 81px 10px;
 }
 
 /* CONTENT */
@@ -253,7 +259,6 @@ body {
 	background: -moz-linear-gradient(top, #FAFAFA, #D0D0DA);
 	background: -o-linear-gradient(top, #FAFAFA, #D0D0DA);
 	background: -webkit-linear-gradient(top, #FAFAFA, #D0D0DA);
-	
 }
 
 #footer {
