@@ -3,12 +3,12 @@
  * @author: Daniel
  * @description: 
  */
+isHimSelf();
+
 $pagina = pagina::getInstantie();
 
 $pagina->setTitel("wijzig profiel");
 $pagina->setCss("style.css");
-
-isHimSelf();
 
 echo $pagina->getVereisteHTML();
 ?>
@@ -35,7 +35,7 @@ echo $pagina->getVereisteHTML();
 				$geboortedatum = $_POST["geboortedatum"];
 				$emailadres = $_POST["emailadres"];
 				
-				if(!empty($_FILES['profielfoto'])){
+				if(!empty($_FILES['profielfoto']["name"]) && !empty($_FILES['profielfoto']["type"]) && !empty($_FILES['profielfoto']["tmp_name"]) && !empty($_FILES['profielfoto']["error"]) && !empty($_FILES['profielfoto']["size"])){
 					if (isset($_FILES["profielfoto"]["tmp_name"])) { //heeft de foto een tijdelijke naam?
 						$afbeelding = $_FILES['profielfoto'];
 						if (gebruiker::checkValideUpload($afbeelding["error"]) == "") {
@@ -44,21 +44,21 @@ echo $pagina->getVereisteHTML();
 									list($width, $height, $type, $attr) = getimagesize($_FILES['profielfoto']['tmp_name']);
 									if ($width <= 100 && $height <= 100) {
 
-										$bestand = false;
-										if (exif_imagetype($_FILES['profielfoto']['tmp_name']) == IMAGETYPE_GIF) {
-											$bestand = true;
-										} else if (exif_imagetype($_FILES['profielfoto']['tmp_name']) == IMAGETYPE_PNG) {
-											$bestand = true;
-										} else if (exif_imagetype($_FILES['profielfoto']['tmp_name']) == IMAGETYPE_JPEG) {
-											$bestand = true;
-										}
+//										$bestand = false;
+//										if (exif_imagetype($_FILES['profielfoto']['tmp_name']) == IMAGETYPE_GIF) {
+//											$bestand = true;
+//										} else if (exif_imagetype($_FILES['profielfoto']['tmp_name']) == IMAGETYPE_PNG) {
+//											$bestand = true;
+//										} else if (exif_imagetype($_FILES['profielfoto']['tmp_name']) == IMAGETYPE_JPEG) {
+//											$bestand = true;
+//										}
 
-										if ($bestand) {
+//										if ($bestand) {
 											$pointer = fopen($afbeelding['tmp_name'], "rb"); //open het bestand in binary format
 											$afbeelding2 = fread($pointer, filesize($afbeelding['tmp_name'])); //geeft een string terug vam het bestand
 
-											$sql = "UPDATE `student` SET `profielfoto`='" . mysql_real_escape_string(base64_encode($afbeelding2)) . "' WHERE `studentid` = ".mysql_real_escape_string($_GET["id"]);
-											mysql_query($sql) or die(mysql_error());
+											$sql = "UPDATE `student` SET `profielfoto`='" . mysql_real_escape_string(base64_encode($afbeelding2)) . "' WHERE `userid` = ".mysql_real_escape_string($_GET["id"]);
+											mysql_query($sql);
 
 	//										if (!file_exists($_FILES['profielfoto']['name'])) {
 	//											$uploaddir = $_SERVER["DOCUMENT_ROOT"].'/project/profielfoto/';
@@ -74,9 +74,9 @@ echo $pagina->getVereisteHTML();
 	//										} else {
 	//											echo "Een bestand met deze naam bestaat reeds.";
 	//										}
-										} else {
-											echo "Bestand type onjuist";
-										}
+//										} else {
+//											echo "Bestand type onjuist";
+//										}
 									} else {
 										echo "Afbeelding is te groot.";
 									}
@@ -114,7 +114,7 @@ echo $pagina->getVereisteHTML();
 				//header("location:raadplegenprofiel.php?id=".$id);
 			}
 			$id = mysql_real_escape_string($_GET["id"]);
-			$query =   "SELECT U.user_id as user_id, S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email
+			$query =   "SELECT U.user_id as user_id, S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 						FROM student S 
 						JOIN user U ON S.userid = U.user_id
 						WHERE U.user_id = '$id' LIMIT 1;";
@@ -124,10 +124,16 @@ echo $pagina->getVereisteHTML();
 			<form enctype="multipart/form-data" action="wijzigprofiel.php?id=<?php echo $id; ?>   "method="POST" align="left">
 				<table>
 					<tr>
-						<td>
+						<td valign="top">
 							Profielfoto:
 						</td>
 						<td>
+							<?php if (!empty($array["profielfoto"])) { ?>
+								<img src="data:image/png;base64,<?php echo $array["profielfoto"]; ?>" alt="avatar" title="avatar" />
+							<?php } else { ?>
+								Geen profielfoto.
+							<?php } ?>
+								<br />
 							<input type="file" name="profielfoto" />
 						</td>
 					</tr>
