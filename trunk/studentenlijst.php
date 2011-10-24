@@ -40,7 +40,7 @@
 			print("<tr><td><b>Student nr</b></td><td><b>Naam</b></td><td><b>Geslacht</b></td><td><b>Geboortedatum</b></td></tr>");
 			while($row = mysql_fetch_array($result)){
 				print("<tr><td>" . $row['studentnr'] . "</td>");
-				print("<td><a href=\"raadplegenprofiel.php?id=" . $row['studentId'] . "\">" . $row['voornaam'] . " " . $row['achternaam'] . "</a></td>");
+				print("<td><a href=\"raadplegenprofiel.php?id=" . $row['userid'] . "\">" . $row['voornaam'] . " " . $row['achternaam'] . "</a></td>");
 				print("<td>" . $row['geslacht'] . "</td>");
 				print("<td>" . $row['geboortedatum'] . "</td></tr>");
 			}
@@ -75,7 +75,7 @@
 
 		public function makeQuery($aantalrijen, $vanaf){
 			if(!isset($_POST['submit'])){		
-				$query = "SELECT studentId, studentnr, voornaam, achternaam, geslacht, geboortedatum 
+				$query = "SELECT studentId, studentnr, voornaam, achternaam, geslacht, geboortedatum, userid 
 						FROM student WHERE studentnr != '' ";
 			} else {
 				$vind = $_POST['vind'];
