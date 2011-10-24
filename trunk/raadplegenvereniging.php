@@ -9,6 +9,10 @@ if (!empty($_GET["id"])) {
 	$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
 	$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 	$row = mysql_fetch_assoc($resultaat_van_server);
+	if (isset($_SESSION)) {
+		$sql = "SELECT userid FROM vereniging WHERE verenigingid = " . mysql_real_escape_string($_GET["id"]);
+		$ingelogde = mysql_fetch_assoc(mysql_query($sql));
+	}
 } else {
 	$row["naam"] = "Vereniging";
 }
@@ -24,7 +28,7 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel();
-		if (isAdmin()) { ?>&nbsp;<a href="wijzigvereniging.php?id=<?php
+		if (isset($ingelogde) && $_SESSION["user_id"] == $ingelogde["userid"]) { ?>&nbsp;<a href="wijzigvereniging.php?id=<?php
 				if (isset($verenigingid)) {
 					print $verenigingid;
 				}
