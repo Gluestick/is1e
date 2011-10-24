@@ -137,7 +137,7 @@ echo $pagina->getVereisteHTML();
 						</td>
 						<td>
 							<input type="text" name="studentId" hidden="hidden" value="<?php echo $array['studentId']; ?>" />
-							<input type="text" name="studentnr" value=" <?php echo $array["studentnr"]; ?>" readonly="readonly" />
+							<input type="text" name="studentnr" value=" <?php echo $array["studentnr"]; ?>" />
 						</td>
 					</tr>
 					<tr>
