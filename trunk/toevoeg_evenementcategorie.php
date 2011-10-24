@@ -55,6 +55,10 @@ echo $pagina->getVereisteHTML();
                 Naam: <input type="text" name="naam"/><br>
 
                 <input type="submit" name="submit" value="Toevoegen"/><br>
+                    <script language="javascript">
+                                                    setTimeout("location.href='./raadpleegevenementcategorieen.php'", 5000);
+                                                    </script>
+
                 <a href="raadpleegevenementcategorieen.php">Terug naar vorige pagina</a>
             </form>
         </div>
