@@ -82,6 +82,7 @@
 				$error .= "</ul>";
 				$bericht = "Het is niet gelukt om te registreren. Het systeem gaf de volgende foutmeldingen:<br />";
 				$bericht .= $error;
+				return $bericht;
 			} else {
 				//geen error
 				$salt = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',5)),0,32);
@@ -98,11 +99,15 @@
 				$query = "INSERT INTO `student` (`studentnr`, `voornaam`, `achternaam`, `adres`, `postcode`, `woonplaats`, `geslacht`, `geboortedatum`, `userid`)
 									VALUES ('$studentnr', '$voornaam', '$achternaam', '$adres', '$postcode', '$woonplaats', '$geslacht', '$geboortedatum', '$userid');";
 				mysql_query($query) or die(mysql_error() . $query);
-				$bericht = "<p>U bent succesvol geregistreerd. Binnen 24 uur ontvangt u een mail met daarin de activatie-code.";
-				$bericht .= "Na het activeren kunt u inloggen. Klik <a href=\"index.php\">hier</a> om terug naar de home-pagina te gaan.</p>";
-			}
+				?>
+					<script type="text/javascript">
+						setTimeout("location.href='./index.php'", 5000);
+					</script>
+					<h3>Succesvol geregistreerd!</h3>
+					Wacht 5 seconden of <a href="index.php">klik hier</a> om naar de homepage te gaan<p/>
+				<?php	
 			
-			return $bericht;
+			}
 		}
 		
 		
