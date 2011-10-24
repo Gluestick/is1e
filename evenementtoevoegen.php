@@ -3,6 +3,8 @@
  * @author: Arjan Speiard
  * @description: 
  */
+
+
 $pagina = pagina::getInstantie();
 
 $pagina->setTitel("Toevoegen evenement");
@@ -19,28 +21,40 @@ echo $pagina->getVereisteHTML();
                         <?php 
                         database::getInstantie();
                         if (isset($_POST["submit"])) {
-				if (empty($_POST["naam"]) || preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/", $_POST["naam"]) != 1) {
-					$error["naam"] = "Ongeldige naam";
+				if (empty($_POST["naam"])) {
+					$error["naam"] = "Geen naam opgegeven";
 				}
-				if (empty($_POST["begindatum"]) || !preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["begindatum"])) {
-				$error["begindatum"] = "Ongeldige begindatum";
+                                elseif(!preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/", $_POST["naam"])){
+                                    $error["naam"] = "Naam is ongeldig";
+                                }
+				if (empty($_POST["begindatum"])) {   
+				$error["begindatum"] = "Begindatum is leeggelaten";
 				}
+                                elseif(!preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["begindatum"])){
+                                    $error["begindatum"] = "Begindatum is ongeldig";
+                                }
                                 else{
                                     $datum1 = tijd::formatteerTijd($_POST["begindatum"],"Y-m-d");	
                                 }
-				if (!empty($_POST["einddatum"]) && !preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["einddatum"])) {
-					$error["einddatum"] = "Ongeldige einddatum";
+				if (!empty($_POST["einddatum"]) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["einddatum"])) {
+                                        $datum2 = tijd::formatteerTijd($_POST["einddatum"],"Y-m-d");
 				}
-                                elseif(!empty($_POST["einddatum"])){
-                                    $datum2 = tijd::formatteerTijd($_POST["einddatum"],"Y-m-d");	
-                                }
-				if (!empty($_POST["omschrijving"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/",$_POST["omschrijving"])) {
+                                
+				if (!isset($_POST["omschrijving"]) && preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/",$_POST["omschrijving"])) {
                                         $error["omschrijving"] = "Ongeldige omschrijving";
 				}
-				if (!empty($_POST["naam"]) && isset($_POST["begindatum"]) && isset($_POST["einddatum"]) && isset($_POST["categorie"]) && isset($_POST["organisator"]) && isset($_POST["verplicht"]) && isset($_POST["omschrijving"])) {
-                                    if($_POST['einddatum'] < $_POST['begindatum']){
-                                       $error["velden"] = "Niet alle verplichte velden zijn ingevuld!";
-                                    }
+                                if(!empty($_POST["einddatum"])){
+                                if($_POST["einddatum"] < $_POST["begindatum"]){
+                                    $error["datum"] = "Begindatum kan niet na de einddatum zijn";
+                                  
+                                }
+                                }
+				if (!empty($_POST["naam"]) && !isset($_POST["begindatum"])&& !isset($_POST["categorie"]) && !isset($_POST["organisator"]) && !isset($_POST["verplicht"])  ) {
+                                    
+                                       
+                                           $error["velden"] = "Niet alle verplichte velden zijn ingevuld!";
+                                        
+                                    
                                 }
 			}
 
@@ -154,7 +168,6 @@ echo $pagina->getVereisteHTML();
 
 <?php
 echo $pagina->getVereisteHTMLafsluiting();
-
 //	database::getInstantie();
 //
 //	$sql = "SELECT * FROM `student`;";
