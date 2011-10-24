@@ -3,6 +3,11 @@
  * @author: Marissa van Essen
  * @description: 
  */
+if (!isAdmin()) {
+    header("location:index.php");
+}
+
+
 $pagina = pagina::getInstantie();
 
 $pagina->setTitel("Eventplaza");
@@ -11,59 +16,50 @@ $pagina->setCss("style.css");
 echo $pagina->getVereisteHTML();
 ?>
 <div id="container">
-	<?php echo $pagina->getHeader(); ?>
-	<div id="page">
-		<?php echo $pagina->getMenu(); ?>
-		<div id="content">
-			<h1><?php echo $pagina->getTitel(); ?></h1>
-			
-                        <form action="" method="post">
-                        <?php
-                        database::getInstantie();
-                         $sql = "SELECT MAX(categorieid),naam FROM categorie";
-                $resultaat_van_server=mysql_query($sql) or die(mysql_error());
+    <?php echo $pagina->getHeader(); ?>
+    <div id="page">
+        <?php echo $pagina->getMenu(); ?>
+        <div id="content">
+            <h1><?php echo $pagina->getTitel(); ?></h1>
+
+            <form action="" method="post">
+                <?php
+                database::getInstantie();
+                $sql = "SELECT MAX(categorieid),naam FROM categorie";
+                $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                 $row = mysql_fetch_assoc($resultaat_van_server);
-                
+
                 $row["MAX(categorieid)"]++;
-                 $naam= $row ['naam'];
-                  
-                if (isset($_POST['submit'])){
-                        if(!isset($_POST['naam'])){
-                            print("Gelieve naam in te vullen");
-                
-                        }
-                        else{ 
-                    $sql = "INSERT INTO `categorie` (`categorieid`,`naam`)  Values ('". $row["MAX(categorieid)"] ."','". $_POST['naam'] ."')";
-                    print("Het toevoegen is gelukt!<br/>");
-                    
-                    
-                    
+                $naam = $row ['naam'];
+
+
+
+
+
+                if (isset($_POST['submit']) && !empty($_POST["naam"])) { //hier kijkt hij of beide waardes zijn "ingevuld"
+                    $sql = "INSERT INTO `categorie` (`categorieid`,`naam`)  Values ('" . $row["MAX(categorieid)"] . "','" . $_POST['naam'] . "')";
+
+
+
+
                     $query = mysql_query($sql);
-                    if ($query == false){
+                    if ($query == false) {
                         print mysql_error();
-                        
+                    } else { //als het toevoegen is mislukt print dit
+                        print("Het toevoegen is gelukt!<br/>");
                     }
-                     
-                           
-                             
-                            while ($array = mysql_fetch_array($resultaat_van_server)) {
-                                print ("<tr><td>" .$naam. "</td></tr>");
-                                
-                             
-                            }
-                            }
+                } Else {
+                    print("Gelieve naam in vullen<br/>");
                 }
-                          
-                        
-                        ?>
-                       Naam: <input type="text" name="naam"/><br>
-                      
-                        <input type="submit" name="submit" value="Toevoegen"/><br>
-                        <a href="raadpleegevenementcategorieen.php">Terug naar vorige pagina</a>
-                        </form>
-		</div>
-	</div>
-	<?php echo $pagina->getFooter(); ?>
+                ?>
+                Naam: <input type="text" name="naam"/><br>
+
+                <input type="submit" name="submit" value="Toevoegen"/><br>
+                <a href="raadpleegevenementcategorieen.php">Terug naar vorige pagina</a>
+            </form>
+        </div>
+    </div>
+                <?php echo $pagina->getFooter(); ?>
 </div>
 
 
