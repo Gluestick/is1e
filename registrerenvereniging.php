@@ -39,8 +39,8 @@ echo $pagina->getVereisteHTML();
 				if (!empty($_POST["vereniging_postcode"]) && preg_match("/^[0-9]{4}[a-zA-Z]{2}$/", $_POST["vereniging_postcode"]) != 1) {
 					$error["postcode"] = "Ongeldige postcode";
 				}
-				if (!empty($_POST["email"]) && preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $_POST["email"]) != 1) {
-					$error["mail"] = "Ongeldig e-mail adres";
+				if (!empty($_POST["email"]) && preg_match("/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i", $_POST["email"]) != 1) {
+					$error["email"] = "Ongeldig e-mail adres";
 				}
 				if (!empty($_POST["vereniging_adres"]) && preg_match("/^[a-zA-ZäëïöüÄËÏÖÜáéíóúàèìòù'\s]+[0-9]+$/", $_POST["vereniging_adres"]) != 1) {
 					$error["adres"] = "Ongeldig adres";
