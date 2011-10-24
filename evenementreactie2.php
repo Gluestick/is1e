@@ -57,7 +57,7 @@ echo $pagina->getVereisteHTML();
 					</td>
 				</tr>
 			</table>
-			<a href="evenement.php?id<?php echo $studentid; ?>"/> Ga terug</a>
+			<a href="evenement.php?id=<?php echo $id; ?>"/> Ga terug</a>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
