@@ -18,10 +18,10 @@
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<div style="width:500px;margin:0 auto;">
 				<a href="overzichtleden.php" class="linkknop" style="float:left;">
-					Overzicht lezen per vereniging
+					<div class="dubbel">Overzicht lezen per<br /> vereniging</div>
 				</a>
 				<a href="overzichtevenementen.php" class="linkknop" style="float:right;">
-					Overzicht evenementen per vereniging
+					<div class="dubbel">Overzicht evenementen per<br /> vereniging</div>
 				</a>
 			</div>
 			<div style="clear:both;"></div>

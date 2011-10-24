@@ -18,10 +18,10 @@ echo $pagina->getVereisteHTML();
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<div style="width:500px;margin:0 auto;">
 				<a href="raadpleegevenementcategorieen.php" class="linkknop" style="float:left;">
-					Categorieën
+					<div class="enkel">Categorieën</div>
 				</a>
 				<a href="rapport.php" class="linkknop" style="float:right;">
-					Management-rapport
+					<div class="enkel">Management-rapport</div>
 				</a>
 			</div>
 			<div style="clear:both;"></div>
