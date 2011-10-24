@@ -8,7 +8,7 @@ database::getInstantie();
 
 $userid = mysql_real_escape_string($_GET["id"]);
 
-$sql = "SELECT S.studentid as studentid, U.user_id as user_id, studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
+$sql = "SELECT studentid, U.user_id as user_id, studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 		FROM student S JOIN user U ON S.userid = U.user_id
 		WHERE U.user_id = '$userid' LIMIT 1;";
 
@@ -99,7 +99,7 @@ echo $pagina->getVereisteHTML();
 
 			echo "<table style=\"text-align:left;\">";
 			while ($row = mysql_fetch_array($resultaat_van_server)) {
-				echo "<tr><th>datum</th><td> " . $row["datum"] . "</td></tr> ";
+				echo "<tr><th>datum</th><td> ".tijd::formatteerTijd($row["datum"], "d-m-Y")."</td></tr> ";
 				echo "<tr><th>onderwerp</th><td>" . $row["onderwerp"] . "</td></tr> ";
 				echo "<tr><th>bericht</th><td>" . specialetekens::vervangTekensInTekst($row["inhoud"]) . "</td></tr> ";
 			}
