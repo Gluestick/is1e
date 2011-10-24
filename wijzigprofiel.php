@@ -32,7 +32,7 @@ echo $pagina->getVereisteHTML();
 				$postcode = mysql_real_escape_string($_POST["postcode"]);
 				$woonplaats = mysql_real_escape_string($_POST["woonplaats"]);
 				$geslacht = mysql_real_escape_string($_POST["geslacht"]);
-				$geboortedatum = mysql_real_escape_string($_POST["geboortedatum"]);
+				$geboortedatum = mysql_real_escape_string(tijd::formatteerTijd($_POST["geboortedatum"], 'Y-m-d'));
 				$emailadres = mysql_real_escape_string($_POST["emailadres"]);
 				
 				if(!empty($_FILES['profielfoto']["name"]) && !empty($_FILES['profielfoto']["type"]) && !empty($_FILES['profielfoto']["tmp_name"]) && !empty($_FILES['profielfoto']["error"]) && !empty($_FILES['profielfoto']["size"])){
@@ -121,6 +121,11 @@ echo $pagina->getVereisteHTML();
 						WHERE U.user_id = '$id' LIMIT 1;";
 			$resultaat_van_server = mysql_query($query);
 			$array = mysql_fetch_assoc($resultaat_van_server);
+			if($array['geboortedatum'] == '0000-00-00'){
+				$geboortedatum = NULL;
+			} else {
+				$geboortedatum = mysql_real_escape_string(tijd::formatteerTijd($array["geboortedatum"], 'd-m-Y'));
+			}
 			?>
 			<form enctype="multipart/form-data" action="wijzigprofiel.php?id=<?php echo $id; ?>" method="POST" align="left">
 				<table>
@@ -171,7 +176,7 @@ echo $pagina->getVereisteHTML();
 						<td> Geslacht:	 </td> <td>   <input type="text" name="geslacht" value="<?php echo $array["geslacht"]; ?>" /> </br></td>
 					</tr>	
 					<tr>
-						<td>Geboortedatum: </td> <td>	<input type="text" name="geboortedatum" value="<?php echo $array['geboortedatum']; ?>" /> </br></td>
+						<td>Geboortedatum: </td> <td>	<input type="text" name="geboortedatum" value="<?php echo $geboortedatum; ?>" /> </br></td>
 					</tr>
 					<tr>
 						<td>	E-mailadres: </td> <td> 	<input type="text" name="emailadres" value="<?php echo $array["email"]; ?>" /> </br></td>
