@@ -52,7 +52,7 @@ echo $pagina->getVereisteHTML();
 				}
 				if (!empty($_GET["id"])) {
 					$aantal_leden = mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE verenigingid='{$_GET["id"]}'"));
-					$sql = "SELECT * FROM student JOIN lidmaatschap ON student.studentid=lidmaatschap.studentid WHERE verenigingid='$verenigingid' AND lidmaatschap.studentid IS NOT NULL";
+					$sql = "SELECT * FROM student JOIN lidmaatschap ON student.studentid=lidmaatschap.studentid JOIN user ON student.userid = user.user_id WHERE verenigingid='$verenigingid' AND lidmaatschap.studentid IS NOT NULL";
 					$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 					?>
 				<table><tr>
@@ -60,7 +60,7 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<?php
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
-						print "<tr><td><a href=\"raadplegenprofiel.php?id=" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</a></td></tr>";
+						print "<tr><td><a href=\"raadplegenprofiel.php?id=" . $array["user_id"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</a></td></tr>";
 					}
 					?>
 				</table><br/>
