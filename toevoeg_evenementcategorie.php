@@ -27,9 +27,16 @@ echo $pagina->getVereisteHTML();
                 $row["MAX(categorieid)"]++;
                  $naam= $row ['naam'];
                   
-                if (isset($_POST['naam'])){
+                if (isset($_POST['submit'])){
+                        if(!isset($_POST['naam'])){
+                            print("Gelieve naam in te vullen");
+                
+                        }
+                        else{ 
                     $sql = "INSERT INTO `categorie` (`categorieid`,`naam`)  Values ('". $row["MAX(categorieid)"] ."','". $_POST['naam'] ."')";
                     print("Het toevoegen is gelukt!<br/>");
+                    
+                    
                     
                     $query = mysql_query($sql);
                     if ($query == false){
@@ -45,6 +52,8 @@ echo $pagina->getVereisteHTML();
                              
                             }
                             }
+                }
+                          
                         
                         ?>
                        Naam: <input type="text" name="naam"/><br>
