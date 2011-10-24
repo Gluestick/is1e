@@ -3,6 +3,9 @@
  * @author: Marissa van Essen
  * @description: 
  */
+if (!isAdmin()) {
+	header("location:index.php");
+}
 $pagina = pagina::getInstantie();
 
 $pagina->setTitel("Eventplaza");
