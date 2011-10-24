@@ -34,10 +34,10 @@ echo $pagina->getVereisteHTML();
 				<?php
 				database::getInstantie();
 				if (isset($_POST["verstuur"])) {
-					$sql = "SELECT * FROM vereniging WHERE naam LIKE '%{$_POST["naam_vereniging"]}%' AND plaats LIKE'%{$_POST["plaats_vereniging"]}%' ORDER BY naam";
+					$sql = "SELECT V.verenigingid, V.naam, V.plaats, U.email FROM vereniging V JOIN user U ON V.userid = U.user_id WHERE naam LIKE '%{$_POST["naam_vereniging"]}%' AND plaats LIKE'%{$_POST["plaats_vereniging"]}%' ORDER BY naam";
 				}
 				else {
-					$sql = "SELECT * FROM vereniging ORDER BY naam";
+					$sql = "SELECT V.verenigingid, V.naam, V.plaats, U.email FROM vereniging V JOIN user U ON V.userid = U.user_id ORDER BY naam";
 				}
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 				if (mysql_num_rows($resultaat_van_server) >= 1) {
@@ -50,7 +50,7 @@ echo $pagina->getVereisteHTML();
 				</tr>
 				<?php
 				while ($array = mysql_fetch_array($resultaat_van_server)) {
-					echo "<tr><td><a href=\"raadplegenvereniging.php?id=".$array["verenigingid"]."\">" . $array["naam"] . " </a></td><td>" . $array["plaats"] . "</td><td><a href=\"mailto:{$array["emailadres"]}\">{$array["emailadres"]}</a></td></tr>";
+					echo "<tr><td><a href=\"raadplegenvereniging.php?id=".$array["verenigingid"]."\">" . $array["naam"] . " </a></td><td>" . $array["plaats"] . "</td><td><a href=\"mailto:{$array["email"]}\">{$array["email"]}</a></td></tr>";
 				}
 				?>
 				</table>
