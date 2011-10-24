@@ -10,6 +10,9 @@ $pagina->setTitel("Eventplaza");
 $pagina->setCss("style.css");
 
 echo $pagina->getVereisteHTML();
+var_dump($_POST);
+$id = $_POST["evenementid"];
+
 ?>
 <div id="container">
 	<?php echo $pagina->getHeader(); ?>
@@ -17,13 +20,14 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
+			<input type="hidden" name ="evenementid" value = "<?php echo $id ?>"/>
 			<?php
 
 			database::getInstantie();
 
-			$studentenid = $_GET['studentenid'];
+			$studentenid = $_POST['studentenid'];
 
-			$evenementid = 1; // stap 3  tijdelijk ;D
+			$evenementid = $id; // stap 3  tijdelijk ;D
 			$today = date("Y-m-d");
 			$test = "1111-11-11";
 //oke, dus we hebben de gegevens die wij nodig hebben opgehaald, nu moeten we de query schrijven om iets in de database te gooien.
@@ -38,7 +42,7 @@ VALUES('$studentenid' , '$evenementid', '$today')";
 // Waarom je dus name gebruikt, stel je dat je meerdere waardes verstuurd via een form, dan moet je wel weten welke welke is.
 // dus name wordt gebruikt om naar te verijen, ik laat het wel zien.
 			?>
-			Student is aan het evenenement toegevoegd <br/><a href ="aanmeldenevenement.php"> Ga terug</a>
+			Student is aan het evenenement toegevoegd <br/><a href ="evenement.php?id=<?php echo $evenementid; ?>"/> Ga terug</a>
 
 		</div>
 	</div>

@@ -26,7 +26,7 @@ echo $pagina->getVereisteHTML();
             print("<a href=\"wijzigevenement.php?id=$id\">Wijzigen</a><br /><br />");
             
             $id = mysql_real_escape_string($_GET['id']);
-            $sql = "SELECT evenement.naam AS evenementnaam,begindatum,einddatum,categorie.naam AS categorienaam,vereniging.naam AS verenigingnaam,isaanmeldingverplicht,omschrijving FROM `evenement` JOIN `categorie` ON evenement.categorieid = categorie.categorieid JOIN `vereniging` ON `organiserendeverenigingid` = `verenigingid` WHERE evenementid=$id;";
+            $sql = "SELECT evenement.evenementid, evenement.naam AS evenementnaam,begindatum,einddatum,categorie.naam AS categorienaam,vereniging.naam AS verenigingnaam,isaanmeldingverplicht,omschrijving FROM `evenement` JOIN `categorie` ON evenement.categorieid = categorie.categorieid JOIN `vereniging` ON `organiserendeverenigingid` = `verenigingid` WHERE evenementid=$id;";
             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
             while ($array = mysql_fetch_array($resultaat_van_server)) {
 
@@ -71,7 +71,8 @@ echo $pagina->getVereisteHTML();
                         </tr>
                         <tr>
                             <td></td>
-                            <td><input type="submit" name="submit" value="Aanmelden!"/></td>
+                            <td><input type="hidden" name ="evenementid" value = "<?php echo $array["evenementid"]; ?>"/>
+								<input type="submit" name="submit" value="Aanmelden!"/></td>
                         </tr>
                     </table>
                 </form>
