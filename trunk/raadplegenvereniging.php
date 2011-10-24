@@ -113,7 +113,8 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<td>Contactpersoon</td>
-						<td><?php print $row["contactpersoon"]; ?></td>
+						<td><?php $ding = mysql_fetch_assoc(mysql_query("SELECT username, email FROM user JOIN vereniging ON vereniging.userid = user.user_id WHERE vereniging.verenigingid = '".$_GET['id']."';"));
+						print $ding['username']; ?></td>
 					</tr>
 					<tr>
 						<td>Telefoonnummer</td>
@@ -121,13 +122,13 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<td>E-mail adres</td>
-						<td><?php print "<a href=\"mailto:" . $row["emailadres"] . "\">" . $row["emailadres"] . "</a>"; ?></td>
+						<td><?php print "<a href=\"mailto:" . $ding["email"] . "\">" . $ding["email"] . "</a>"; ?></td>
 					</tr>
 				</table>
 				<form action="<?php print $_SERVER["PHP_SELF"] . "?id=" . $_GET["id"]; ?>" method="post">
 					<input type="hidden" name="id" value="<?php print $_GET["id"]; ?>" />
-	<?php if (isMember() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) == 0) { ?><input type="submit" name="aanmelden" value="Aanmelden" /><?php } 
-	elseif (isMember() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) >= 1) { ?><input type="submit" name="afmelden" value="Afmelden" /><?php } ?>
+	<?php if (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) == 0) { ?><input type="submit" name="aanmelden" value="Aanmelden" /><?php } 
+	elseif (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) >= 1) { ?><input type="submit" name="afmelden" value="Afmelden" /><?php } ?>
 				</form>
 			</div>
 		</div>

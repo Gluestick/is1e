@@ -34,7 +34,7 @@ function isAdmin(){
  * Returns true als de gebruiker een student is.
  */
 function isStudent(){
-	if (isMember() && isset($_SESSION['studennr'])) {
+	if (isMember() && isset($_SESSION['studentid'])) {
 		return true;
 	} else {
 		return false;
