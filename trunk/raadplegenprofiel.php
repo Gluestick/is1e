@@ -6,19 +6,16 @@
 $pagina = pagina::getInstantie();
 database::getInstantie();
 
-$studentid1 = $_GET["id"];
 $userid = mysql_real_escape_string($_GET["id"]);
-$getId = mysql_fetch_assoc(mysql_query("SELECT studentid FROM student JOIN user ON student.userid = user.user_id;"));
-$studentid = $getId['studentid'];
 
-$sql = "SELECT S.studentId as studentId, U.user_id as user_id, studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
+$sql = "SELECT S.studentid as studentid, U.user_id as user_id, studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 		FROM student S JOIN user U ON S.userid = U.user_id
 		WHERE U.user_id = '$userid' LIMIT 1;";
 
 $resultaat_van_server = mysql_query($sql) or die(mysql_error());
 $array = mysql_fetch_array($resultaat_van_server);
 
-//$studentid = $array['studentId'];
+$studentid = $array['studentid'];
 $userid = $array['user_id'];
 
 $naam = "";
@@ -115,7 +112,7 @@ echo $pagina->getVereisteHTML();
 					INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid 
 					INNER JOIN vereniging ON vereniging.verenigingid = evenement.organiserendeverenigingid
 					INNER JOIN categorie ON evenement.categorieid = categorie.categorieid
-					WHERE studentid = " . $studentid1 ."
+					WHERE studentid = ".$studentid."
 					AND evenement.begindatum <= CURDATE();";
 			$resultaat_van_server = mysql_query($sql);
 
@@ -135,7 +132,7 @@ echo $pagina->getVereisteHTML();
 					INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid 
 					INNER JOIN vereniging ON vereniging.verenigingid = evenement.organiserendeverenigingid
 					INNER JOIN categorie ON evenement.categorieid = categorie.categorieid
-					WHERE studentid = " . $studentid1 . "
+					WHERE studentid = " . $studentid . "
 					AND evenement.begindatum > CURDATE();";
 			
 			$resultaat_van_server = mysql_query($sql);
