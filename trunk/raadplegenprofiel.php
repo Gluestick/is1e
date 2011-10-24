@@ -6,6 +6,7 @@
 $pagina = pagina::getInstantie();
 database::getInstantie();
 
+$studentid1 = $_GET["id"];
 $userid = mysql_real_escape_string($_GET["id"]);
 $getId = mysql_fetch_assoc(mysql_query("SELECT studentid FROM student JOIN user ON student.userid = user.user_id;"));
 $studentid = $getId['studentid'];
@@ -114,7 +115,7 @@ echo $pagina->getVereisteHTML();
 					INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid 
 					INNER JOIN vereniging ON vereniging.verenigingid = evenement.organiserendeverenigingid
 					INNER JOIN categorie ON evenement.categorieid = categorie.categorieid
-					WHERE studentid = " . $studentid ."
+					WHERE studentid = " . $studentid1 ."
 					AND evenement.begindatum <= CURDATE();";
 			$resultaat_van_server = mysql_query($sql);
 
@@ -134,8 +135,9 @@ echo $pagina->getVereisteHTML();
 					INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid 
 					INNER JOIN vereniging ON vereniging.verenigingid = evenement.organiserendeverenigingid
 					INNER JOIN categorie ON evenement.categorieid = categorie.categorieid
-					WHERE studentid = " . $studentid . "
+					WHERE studentid = " . $studentid1 . "
 					AND evenement.begindatum > CURDATE();";
+			
 			$resultaat_van_server = mysql_query($sql);
 			while ($row = mysql_fetch_array($resultaat_van_server)) {
 				echo "<tr><th>naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["evenementnaam"] . "</a></td></tr> ";

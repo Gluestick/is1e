@@ -3,6 +3,7 @@
  * @author: Daniel
  * @description: 
  */
+$studentid1 = $_GET["id"];
 $pagina = pagina::getInstantie();
 
 $pagina->setTitel("Plaatsen bericht");
