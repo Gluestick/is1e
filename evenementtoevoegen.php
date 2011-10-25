@@ -52,7 +52,7 @@ echo $pagina->getVereisteHTML();
                                 elseif(!empty($einddatum) && !preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$einddatum)){
                                         $error["einddatum"] = "Einddatum is ongeldig";
                                 }
-                                else{
+                                elseif(!empty($einddatum)){
                                         $error["einddatum"] = "Einddatum bestaat niet";
                                 }
                                 
@@ -139,7 +139,7 @@ echo $pagina->getVereisteHTML();
                                 <tr>
                                     <th>*</th>
                                     <th>Is aanmelding verplicht?</th>
-                                    <td>Ja<input type="radio" name="verplicht" value="Ja"/>&nbsp;&nbsp;Nee<input type="radio" name="verplicht" value="Nee"/></td>
+                                    <td>Ja<input type="radio" name="verplicht" value="Ja" checked="Ja"/>&nbsp;&nbsp;Nee<input type="radio" name="verplicht" value="Nee"/></td>
                                     <td><?php if(isset($error["verplicht"])){ print($error["verplicht"]);} ?></td>
                                 </tr>
                                 <tr>
