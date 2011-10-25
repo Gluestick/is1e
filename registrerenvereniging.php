@@ -20,8 +20,13 @@ echo $pagina->getVereisteHTML();
 			database::getInstantie();
 			if (isset($_POST["verstuur"])) {
 				$registreer = registreer::getInstantie();
-				if(!empty($_POST['gebruiker']) && (strlen($_POST['gebruiker']) < 3 || $registreer->checkDubbel("user", $_POST['gebruiker'], "username"))){
-					$error['gebruiker'] = "Ongeldige gebruikersnaam";
+				if(!empty($_POST['gebruiker'])){
+					if (strlen($_POST["gebruiker"]) < 3) {
+						$error["gebruiker"] = "Gebruikersnaam te kort";
+					}
+					elseif ($registreer->checkDubbel("user", $_POST['gebruiker'], "username")) {
+						$error["gebruiker"] = "Gebruikersnaam bestaat al";
+					}
 				}
 				if(!isset($_POST['pass1']) || !isset($_POST['pass2'])){
 					$error['password'] = "U heeft minstens 1 keer geen wachtwoord ingevuld.";
@@ -47,6 +52,14 @@ echo $pagina->getVereisteHTML();
 				}
 				if (!empty($_POST["vereniging_telefoon"]) && preg_match("/^[+]?[0-9]+[-]?[0-9]+$/", $_POST["vereniging_telefoon"]) != 1) {
 					$error["telefoon"] = "Ongeldig telefoonnummer";
+				}
+				if (!empty($_POST["vereniging_contactpersoon"]) && preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/", $_POST["vereniging_contactpersoon"]) != 1) {
+					$error["contactpersoon"] = "Ongeldige naam";
+				}
+				if (!empty($_POST["vereniging_aantal_leden"])) {
+					if(!is_int($_POST["vereniging_aantal_leden"]) && $_POST["vereniging_aantal_leden"] < 1) {
+						$error["aantal_leden"] = "Ongeldig aantal";
+					}
 				}
 				//if (!empty($_POST["vereniging_kvk"]) && preg_match("/^$/", $_POST["vereniging_kvk"])) {
 				//$error["kvk"] = "Ongeldige KVK";
@@ -178,6 +191,18 @@ echo $pagina->getVereisteHTML();
 												   print "<td>{$error["naam"]}</td>";
 											   }
 			?>
+					</tr>
+					<tr>
+						<td>*</td>
+						<td>Contactpersoon:</td>
+						<td><input type="text" name="vereniging_contactpersoon" value="<?php if(isset($_POST["vereniging_contactpersoon"])){ print $_POST["vereniging_contactpersoon"]; } ?>"></td>
+						<td><?php if (isset($error["contactpersoon"])) { print $error["contactpersoon"]; }?></td>
+					</tr>
+					<tr>
+						<td>*</td>
+						<td>Aantal leden:</td>
+						<td><input type="text" name="vereniging_aantal_leden" value="<?php if(isset($_POST["vereniging_aantal_leden"])){ print $_POST["vereniging_aantal_leden"]; } ?>"></td>
+						<td><?php if (isset($error["aantal_leden"])) { print $error["aantal_leden"]; }?></td>
 					</tr>
 					<tr>
 						<td></td>
