@@ -48,7 +48,7 @@ echo $pagina->getVereisteHTML();
                     } else { //als het toevoegen is gelukt print dit
                         print("Het toevoegen is gelukt!<br/>");
                         print("U wordt over 5 seconden doorverzonden naar de categorieënpagina</br>");
-                        print("<a href=\"raadpleegevenementcategorieen.php\">Of klik hier om direct naar de categorieënpagina te gaan.</a><br/>");
+                        print("<a href=\"raadpleegevenementcategorieen.php\">Of klik hier om direct terug te gaan naar de vorige pagina.</a><br/>");
                          ?> <script language="javascript">
                                 setTimeout("location.href='./raadpleegevenementcategorieen.php'", 5000);
                             </script><?php

@@ -32,11 +32,11 @@ echo $pagina->getVereisteHTML();
                     $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                     
                     print("Het verwijderen is gelukt!<br/>");
-                           print("Over 5 seconden wordt u doorverzonden naar de vorige pagina of klik op de volgende link:<br/>") ?>
+                           print("Over 5 seconden wordt u doorverzonden naar de vorige pagina <br/>") ?>
                      <script language="javascript">
                                 setTimeout("location.href='./raadpleegevenementcategorieen.php'", 5000);
                             </script> <?php
-                    echo "<a href=\"raadpleegevenementcategorieen.php\">Terug </a>";
+                    echo "<a href=\"raadpleegevenementcategorieen.php\">Of klik hier om direct terug te gaan naar de vorige pagina </a>";
                 }
        
         
