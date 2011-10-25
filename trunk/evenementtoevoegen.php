@@ -39,8 +39,11 @@ echo $pagina->getVereisteHTML();
 				if (!empty($_POST["einddatum"]) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["einddatum"])) {
                                         $datum2 = tijd::formatteerTijd($_POST["einddatum"],"Y-m-d");
 				}
+                                elseif(!empty($_POST["einddatum"]) && !preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["einddatum"]) ){
+                                        $error["einddatum"] = "Einddatum is ongeldig";
+                                }
                                 
-				if (!isset($_POST["omschrijving"]) && preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/",$_POST["omschrijving"])) {
+				if (!empty($_POST["omschrijving"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/",$_POST["omschrijving"])) {
                                         $error["omschrijving"] = "Ongeldige omschrijving";
 				}
                                 if(!empty($_POST["einddatum"])){
@@ -48,6 +51,9 @@ echo $pagina->getVereisteHTML();
                                     $error["datum"] = "Begindatum kan niet na de einddatum zijn";
                                   
                                 }
+                                }
+                                if(empty($_POST["verplicht"])){
+                                    $error["verplicht"] = "Je moet kiezen";
                                 }
 				if (!empty($_POST["naam"]) && !isset($_POST["begindatum"])&& !isset($_POST["categorie"]) && !isset($_POST["organisator"]) && !isset($_POST["verplicht"])  ) {
                                     
@@ -82,14 +88,7 @@ echo $pagina->getVereisteHTML();
 
                                             }
 			}
-                                                else{
-                                   if(isset($error)){
-                                    foreach($error as $key => $val){
-                                        print($val."<br/>");
-                                    }
-                            }
-
-                        }
+                                               
         
             ?>
                         <form action="evenementtoevoegen.php" method="POST">
@@ -98,16 +97,19 @@ echo $pagina->getVereisteHTML();
                                     <th>*</th>
                                     <th>Naam</th>
                                     <td><input type="text" name="naam"/></td>
+                                    <td><?php if(isset($error["naam"])){ print($error["naam"]);} ?></td>
                                 </tr>
                                 <tr>
                                     <th>*</th>
                                     <th>Begindatum</th>
                                     <td><input type="text" name="begindatum"/></td>
+                                    <td><?php if(isset($error["begindatum"])){ print($error["begindatum"]);} ?></td>
                                 </tr>
                                 <tr>
                                     <th></th>
                                     <th>Einddatum</th>
                                     <td><input type="text" name="einddatum"/></td>
+                                    <td><?php if(isset($error["einddatum"])){ print($error["einddatum"]);} ?></td>
                                 </tr>
                                 <tr><?php
                                 $sql = "SELECT `naam`,`categorieid` FROM `categorie` ORDER BY `naam` ASC;";
@@ -145,11 +147,13 @@ echo $pagina->getVereisteHTML();
                                     <th>*</th>
                                     <th>Is aanmelding verplicht?</th>
                                     <td>Ja<input type="radio" name="verplicht" value="Ja"/>&nbsp;&nbsp;Nee<input type="radio" name="verplicht" value="Nee"/></td>
+                                    <td><?php if(isset($error["verplicht"])){ print($error["verplicht"]);} ?></td>
                                 </tr>
                                 <tr>
                                     <th></th>
                                     <th>Omschrijving</th>
                                     <td><textarea name="omschrijving"></textarea></td>
+                                    <td><?php if(isset($error["omschrijving"])){ print($error["omschrijving"]);} ?></td>
                                 </tr>
                                 <tr>
                                     <td></td>
