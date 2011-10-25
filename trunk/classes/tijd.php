@@ -41,6 +41,8 @@ class tijd {
 					} else {
 						return false;
 					}
+				} else {
+					return false;
 				}
 			} else {
 				return false;
