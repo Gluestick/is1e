@@ -144,18 +144,20 @@ echo $pagina->getVereisteHTML();
 			}
 			echo"</table> ";
 			echo "<br />";
-			$sql = "SELECT * FROM groep WHERE eigenaar = ".mysql_real_escape_string($_GET["id"]);
-			$resultaat_van_server = mysql_query($sql);
-			if (mysql_num_rows($resultaat_van_server) > 0) {
-				echo "<table style=\"text-align:left;\">";
-				echo "<tr><th>Groepen die u heeft aangemaakt:</th></tr>";
-				while ($array = mysql_fetch_assoc($resultaat_van_server)) {
-					echo "<tr><td valign=\"middle\"><a href=\"vriendengroep.php?groepid=".$array["groepid"]."\">".$array["naam"]."</a></td><td><a href=\"wijziggroep.php?groepid=".$array["groepid"]."\">Wijzig</a></td><td><a href=\"verwijdergroep.php?groepid=".$array["groepid"]."\">Verwijder</a></td></tr>";
+			if (isMember()) {
+				$sql = "SELECT * FROM groep WHERE eigenaar = ".mysql_real_escape_string($_GET["id"]);
+				$resultaat_van_server = mysql_query($sql);
+				if (mysql_num_rows($resultaat_van_server) > 0) {
+					echo "<table style=\"text-align:left;\">";
+					echo "<tr><th>Groepen die u heeft aangemaakt:</th></tr>";
+					while ($array = mysql_fetch_assoc($resultaat_van_server)) {
+						echo "<tr><td valign=\"middle\"><a href=\"vriendengroep.php?groepid=".$array["groepid"]."\">".$array["naam"]."</a></td><td><a href=\"wijziggroep.php?groepid=".$array["groepid"]."\">Wijzig</a></td><td><a href=\"verwijdergroep.php?groepid=".$array["groepid"]."\">Verwijder</a></td></tr>";
+					}
+					echo "</table><br /><br />
+						<a href=\"groeptoevoegen.php?id=".$_GET["id"]."\">Groep toevoegen</a>";
+				} else {
+					echo "U heeft nog geen groepen aangemaakt";
 				}
-				echo "</table><br /><br />
-					<a href=\"groeptoevoegen.php?id=".$_GET["id"]."\">Groep toevoegen</a>";
-			} else {
-				echo "U heeft nog geen groepen aangemaakt";
 			}
 
 			?>
