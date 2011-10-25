@@ -39,14 +39,21 @@ echo $pagina->getVereisteHTML();
                                 elseif(!preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$begindatum)){
                                     $error["begindatum"] = "Begindatum is ongeldig";
                                 }
+                                elseif(!tijd::checkCorrectieDatum($begindatum)){
+                                    $error["begindatum"] = "Begindatum bestaat niet";
+                                }
                                 else{
                                     $datum1 = tijd::formatteerTijd($begindatum,"Y-m-d");	
                                 }
-				if (!empty($einddatum) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$einddatum)) {
+                                
+				if (!empty($einddatum) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$einddatum) && tijd::checkCorrectieDatum($einddatum)) {
                                         $datum2 = tijd::formatteerTijd($_POST["einddatum"],"Y-m-d");
 				}
                                 elseif(!empty($einddatum) && !preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$einddatum)){
                                         $error["einddatum"] = "Einddatum is ongeldig";
+                                }
+                                else{
+                                        $error["einddatum"] = "Einddatum bestaat niet";
                                 }
                                 
                                 if(tijd::formatteerTijd($begindatum, 'Y-m-d') < date('Y-m-d')){
