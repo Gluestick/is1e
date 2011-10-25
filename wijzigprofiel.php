@@ -22,7 +22,6 @@ echo $pagina->getVereisteHTML();
 			database::getInstantie();
 
 			if (isset($_POST["wijzig"])) {
-
 				$studentId = $_POST['studentId'];
 
 				$studentnr = mysql_real_escape_string($_POST["studentnr"]);
@@ -31,8 +30,16 @@ echo $pagina->getVereisteHTML();
 				$adres = mysql_real_escape_string($_POST["adres"]);
 				$postcode = mysql_real_escape_string($_POST["postcode"]);
 				$woonplaats = mysql_real_escape_string($_POST["woonplaats"]);
-				$geslacht = mysql_real_escape_string($_POST["geslacht"]);
-				$geboortedatum = mysql_real_escape_string(tijd::formatteerTijd($_POST["geboortedatum"], 'Y-m-d'));
+				if (isset($_POST["geslacht"] ) ) {
+					$geslacht = mysql_real_escape_string($_POST["geslacht"]);
+				} else {
+					$geslacht = NULL; 
+				}
+				if (preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["geboortedatum"])) {
+					$geboortedatum = mysql_real_escape_string(tijd::formatteerTijd($_POST["geboortedatum"], "Y-m-d"));
+				} else {
+					$geboortedatum = "";
+				}
 				$emailadres = mysql_real_escape_string($_POST["emailadres"]);
 				
 				if(!empty($_FILES['profielfoto']["name"]) && !empty($_FILES['profielfoto']["type"]) && !empty($_FILES['profielfoto']["tmp_name"]) && empty($_FILES['profielfoto']["error"]) && !empty($_FILES['profielfoto']["size"])){
@@ -101,9 +108,9 @@ echo $pagina->getVereisteHTML();
 		               postcode='" . $postcode . "',
 		               woonplaats='" . $woonplaats . "',
 		               geslacht='" . $geslacht . "',
-		               geboortedatum='" . $geboortedatum . "',
+		               geboortedatum='".$geboortedatum ."',
 					   studentnr='" . $studentnr . "'
-				WHERE userid=" . $id . ";";
+				WHERE studentid=" . $id . ";";
 				
 				$sql2 = "UPDATE user
 							SET  email='" . $emailadres . "'
@@ -173,7 +180,7 @@ echo $pagina->getVereisteHTML();
 						<td>	Woonplaats:	 </td> <td>   <input type="text" name="woonplaats" value="<?php echo $array["woonplaats"]; ?>" /> </br></td>
 					</tr>
 					<tr>
-						<td> Geslacht:	 </td> <td>   <input type="radio" name="geslacht" value="man" <?php if($array["geslacht"] == "man") {echo "slected='selected'";} ?> /> man <input type="radio" name="geslacht" value="vrouw" <?php if ($array["geslacht"] == "vrouw") { echo "selected='selected'"; } ?> />vrouw  </br> </td>
+						<td> Geslacht:	 </td> <td>   <input type="radio" name="geslacht" value="man" <?php if($array["geslacht"] == "man") {echo "checked='checked'";} ?> /> man <input type="radio" name="geslacht" value="vrouw" <?php if ($array["geslacht"] == "vrouw") { echo "checked='checked'"; } ?> />vrouw  </br> </td>
 					</tr>	
 					<tr>
 						<td>Geboortedatum: </td> <td>	<input type="text" name="geboortedatum" value="<?php echo $geboortedatum; ?>" /> </br></td>
