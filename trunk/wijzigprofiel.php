@@ -148,7 +148,7 @@ echo $pagina->getVereisteHTML();
 							Studentnummer:
 						</td>
 						<td>
-							<input type="text" name="studentId" hidden="hidden" value="<?php echo $array['studentId']; ?>" />
+							<input type="text" name="studentId" hidden="hidden" value="<?php echo $array['studentid']; ?>" />
 							<input type="text" name="studentnr" value="<?php echo $array["studentnr"]; ?>" />
 						</td>
 					</tr>
@@ -173,7 +173,7 @@ echo $pagina->getVereisteHTML();
 						<td>	Woonplaats:	 </td> <td>   <input type="text" name="woonplaats" value="<?php echo $array["woonplaats"]; ?>" /> </br></td>
 					</tr>
 					<tr>
-						<td> Geslacht:	 </td> <td>   <input type="text" name="geslacht" value="<?php echo $array["geslacht"]; ?>" /> </br></td>
+						<td> Geslacht:	 </td> <td>   <input type="radio" name="geslacht" value="man" <?php if($array["geslacht"] == "man") {echo "slected='selected'";} ?> /> man <input type="radio" name="geslacht" value="vrouw" <?php if ($array["geslacht"] == "vrouw") { echo "selected='selected'"; } ?> />vrouw  </br> </td>
 					</tr>	
 					<tr>
 						<td>Geboortedatum: </td> <td>	<input type="text" name="geboortedatum" value="<?php echo $geboortedatum; ?>" /> </br></td>
