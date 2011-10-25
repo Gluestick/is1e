@@ -35,25 +35,25 @@ echo $pagina->getVereisteHTML();
 						$error['password'] = "Uw wachtwoorden komen niet overeen.";
 					}
 				}
-				if (!empty($_POST["vereniging_naam"]) && preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/", $_POST["vereniging_naam"]) != 1) {
+				if (!empty($_POST["vereniging_naam"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s-]+$/", $_POST["vereniging_naam"])) {
 					$error["naam"] = "Ongeldige naam";
 				}
-				if (!empty($_POST["vereniging_plaats"]) && preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù'\s-]+$/", $_POST["vereniging_plaats"]) != 1) {
+				if (!empty($_POST["vereniging_plaats"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù'\s-]+$/", $_POST["vereniging_plaats"])) {
 					$error["plaats"] = "Ongeldige plaatsnaam";
 				}
-				if (!empty($_POST["vereniging_postcode"]) && preg_match("/^[0-9]{4}[a-zA-Z]{2}$/", $_POST["vereniging_postcode"]) != 1) {
+				if (!empty($_POST["vereniging_postcode"]) && !preg_match("/^[0-9]{4}[a-zA-Z]{2}$/", $_POST["vereniging_postcode"])) {
 					$error["postcode"] = "Ongeldige postcode";
 				}
-				if (!empty($_POST["email"]) && preg_match("/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i", $_POST["email"]) != 1) {
+				if (!empty($_POST["email"]) && !preg_match("/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i", $_POST["email"])) {
 					$error["email"] = "Ongeldig e-mail adres";
 				}
-				if (!empty($_POST["vereniging_adres"]) && preg_match("/^[a-zA-ZäëïöüÄËÏÖÜáéíóúàèìòù'\s-]+[0-9]+$/", $_POST["vereniging_adres"]) != 1) {
+				if (!empty($_POST["vereniging_adres"]) && !preg_match("/^[a-zA-ZäëïöüÄËÏÖÜáéíóúàèìòù'\s-]+[0-9]+$/", $_POST["vereniging_adres"])) {
 					$error["adres"] = "Ongeldig adres";
 				}
-				if (!empty($_POST["vereniging_telefoon"]) && preg_match("/^[+]?[0-9]+[-]?[0-9]+$/", $_POST["vereniging_telefoon"]) != 1) {
+				if (!empty($_POST["vereniging_telefoon"]) && !preg_match("/^[+]?[0-9]+[-]?[0-9]+$/", $_POST["vereniging_telefoon"])) {
 					$error["telefoon"] = "Ongeldig telefoonnummer";
 				}
-				if (!empty($_POST["vereniging_contactpersoon"]) && preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/", $_POST["vereniging_contactpersoon"]) != 1) {
+				if (!empty($_POST["vereniging_contactpersoon"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/", $_POST["vereniging_contactpersoon"])) {
 					$error["contactpersoon"] = "Ongeldige naam";
 				}
 				if (!empty($_POST["vereniging_aantal_leden"])) {
@@ -61,11 +61,11 @@ echo $pagina->getVereisteHTML();
 						$error["aantal_leden"] = "Ongeldig aantal";
 					}
 				}
-				//if (!empty($_POST["vereniging_kvk"]) && preg_match("/^$/", $_POST["vereniging_kvk"])) {
-				//$error["kvk"] = "Ongeldige KVK";
-				//}
+				if (!empty($_POST["vereniging_kvk"]) && !preg_match("/^[0-9]{8}$/", $_POST["vereniging_kvk"])) {
+					$error["kvk"] = "Ongeldige KVK";
+				}
 				if (empty($_POST['gebruiker']) || empty($_POST['pass1']) || empty($_POST['pass2']) || empty($_POST["vereniging_naam"]) || empty($_POST["vereniging_plaats"]) || empty($_POST["vereniging_adres"]) || empty($_POST["vereniging_postcode"]) || empty($_POST["email"])) {
-					print $error["velden"] = "Niet alle verplichte velden zijn ingevuld!<p/>";
+					print $error["velden"] = "Niet alle verplichte velden zijn ingevuld!<br/><br/>";
 				}
 			}
 			if (!isset($error) && isset($_POST["verstuur"])) {
@@ -83,7 +83,7 @@ echo $pagina->getVereisteHTML();
 				$sql2 = "INSERT INTO user (`username`, `password`, `salt`, `activation`, `email`, `role`) VALUES('".$_POST['gebruiker']."', '$password', '$salt', '$activation', '$email', '$role');";
 				$resultaat2 = mysql_query($sql2) or die(mysql_error());
 				$lastid = mysql_fetch_assoc(mysql_query("SELECT last_insert_id() as userid FROM user"));
-				$sql = "INSERT INTO vereniging (naam, adres, postcode, plaats, kvk, telefoonnr, userid) VALUES('" . mysql_real_escape_string($_POST["vereniging_naam"]) . "', '" . mysql_real_escape_string($_POST["vereniging_adres"]) . "', '" . mysql_real_escape_string($_POST["vereniging_postcode"]) . "', '" . mysql_real_escape_string($_POST["vereniging_plaats"]) . "'";
+				$sql = "INSERT INTO vereniging (naam, adres, postcode, plaats, aantaleigenleden, kvk, telefoonnr, userid) VALUES('" . mysql_real_escape_string($_POST["vereniging_naam"]) . "', '" . mysql_real_escape_string($_POST["vereniging_adres"]) . "', '" . mysql_real_escape_string($_POST["vereniging_postcode"]) . "', '" . mysql_real_escape_string($_POST["vereniging_plaats"]) . "', '".mysql_real_escape_string($_POST["vereniging_aantal_leden"])."'";
 				if (!empty($_POST["vereniging_kvk"])) {
 					$sql .= ", '" . mysql_real_escape_string($_POST["vereniging_kvk"]) . "'";
 				} else {
@@ -135,11 +135,8 @@ echo $pagina->getVereisteHTML();
 							if (isset($_POST["gebruiker"])) {
 								print $_POST["gebruiker"];
 							}
-			?>" /></td><?php
-						   if (isset($error["gebruiker"])) {
-							   print "<td>{$error["gebruiker"]}</td>";
-						   }
-			?>
+			?>" /></td>
+					<td><?php if (isset($error["gebruiker"])) { print $error["gebruiker"]; } ?></td>
 					</tr>
 					<tr>
 						<td>*</td>
@@ -148,11 +145,8 @@ echo $pagina->getVereisteHTML();
 							if (isset($_POST["pass1"])) {
 								print $_POST["pass1"];
 							}
-			?>" /></td><?php
-						   if (isset($error["password"])) {
-							   print "<td>{$error["password"]}</td>";
-						   }
-			?>
+			?>" /></td>
+					<td><?php if (isset($error["password"])) { print $error["password"]; } ?></td>
 					</tr>
 					<tr>
 						<td>*</td>
@@ -170,11 +164,8 @@ echo $pagina->getVereisteHTML();
 							if (isset($_POST["email"])) {
 								print $_POST["email"];
 							}
-			?>" /></td><?php
-							if (isset($error["email"])) {
-								print "<td>{$error["email"]}</td>";
-							}
-			?>
+			?>" /></td>
+					<td><?php if (isset($error["email"])) { print $error["email"]; } ?></td>
 					</tr>
 					<tr>
 						<td colspan="3"><b>Verenigings-informatie:</b></td>
@@ -186,22 +177,19 @@ echo $pagina->getVereisteHTML();
 			if (isset($_POST["vereniging_naam"])) {
 				print $_POST["vereniging_naam"];
 			}
-			?>"/></td><?php
-											   if (isset($error["naam"])) {
-												   print "<td>{$error["naam"]}</td>";
-											   }
-			?>
+			?>"/></td>
+					<td><?php if (isset($error["naam"])) { print $error["naam"]; } ?></td>
 					</tr>
 					<tr>
 						<td>*</td>
 						<td>Contactpersoon:</td>
-						<td><input type="text" name="vereniging_contactpersoon" value="<?php if(isset($_POST["vereniging_contactpersoon"])){ print $_POST["vereniging_contactpersoon"]; } ?>"></td>
+						<td colspan="2"><input type="text" name="vereniging_contactpersoon" value="<?php if(isset($_POST["vereniging_contactpersoon"])){ print $_POST["vereniging_contactpersoon"]; } ?>"></td>
 						<td><?php if (isset($error["contactpersoon"])) { print $error["contactpersoon"]; }?></td>
 					</tr>
 					<tr>
 						<td>*</td>
 						<td>Aantal leden:</td>
-						<td><input type="text" name="vereniging_aantal_leden" value="<?php if(isset($_POST["vereniging_aantal_leden"])){ print $_POST["vereniging_aantal_leden"]; } ?>"></td>
+						<td colspan="2"><input type="text" name="vereniging_aantal_leden" value="<?php if(isset($_POST["vereniging_aantal_leden"])){ print $_POST["vereniging_aantal_leden"]; } ?>"></td>
 						<td><?php if (isset($error["aantal_leden"])) { print $error["aantal_leden"]; }?></td>
 					</tr>
 					<tr>
@@ -211,11 +199,8 @@ echo $pagina->getVereisteHTML();
 							if (isset($_POST["vereniging_telefoon"])) {
 								print $_POST["vereniging_telefoon"];
 							}
-			?>" /></td><?php
-							if (isset($error["telefoon"])) {
-								print "<td>{$error["telefoon"]}</td>";
-							}
-			?>
+			?>" /></td>
+					<td><?php if (isset($error["telefoon"])) { print $error["telefoon"]; } ?></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -225,6 +210,7 @@ echo $pagina->getVereisteHTML();
 								print $_POST["vereniging_kvk"];
 							}
 			?>" /></td>
+					<td><?php if (isset($error["kvk"])) { print $error["kvk"]; } ?></td>
 					</tr>
 					<tr>
 						<td colspan="3"><b>Adres-gegevens:</b></td>
@@ -236,9 +222,8 @@ echo $pagina->getVereisteHTML();
 							if (isset($_POST["vereniging_adres"])) {
 								print $_POST["vereniging_adres"];
 							}
-			?>"/></td><?php if (isset($error["adres"])) {
-												   print "<td>{$error["adres"]}</td>";
-											   } ?>
+			?>"/></td>
+					<td><?php if (isset($error["adres"])) { print $error["adres"]; } ?></td>
 					</tr>
 					<tr>
 						<td>*</td>
@@ -247,11 +232,8 @@ echo $pagina->getVereisteHTML();
 											   if (isset($_POST["vereniging_postcode"])) {
 												   print $_POST["vereniging_postcode"];
 											   }
-			?>" maxlength="6" /></td><?php
-							if (isset($error["postcode"])) {
-								print "<td>{$error["postcode"]}</td>";
-							}
-			?>
+			?>" maxlength="6" /></td>
+					<td><?php if (isset($error["postcode"])) { print $error["postcode"]; } ?></td>
 					</tr>
 					<tr>
 						<td>*</td>
@@ -260,11 +242,8 @@ echo $pagina->getVereisteHTML();
 							if (isset($_POST["vereniging_plaats"])) {
 								print $_POST["vereniging_plaats"];
 							}
-			?>" /></td><?php
-											   if (isset($error["plaats"])) {
-												   print "<td>{$error["plaats"]}</td>";
-											   }
-			?>
+			?>" /></td>
+					<td><?php if (isset($error["plaats"])) { print $error["plaats"]; } ?></td>
 					</tr>
 					<tr>
 						<td></td>
