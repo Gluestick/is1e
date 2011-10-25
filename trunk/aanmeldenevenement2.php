@@ -10,7 +10,7 @@ $pagina->setTitel("Eventplaza");
 $pagina->setCss("style.css");
 
 echo $pagina->getVereisteHTML();
-var_dump($_POST);
+
 $id = $_POST["evenementid"];
 
 ?>
