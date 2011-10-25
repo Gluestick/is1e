@@ -31,11 +31,11 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<td>Begin </td>	
-						<td><input type="text" name="bdatum" value="<?php echo $array["begindatum"]; ?>"/><i>jjjj-mm-dd</i></td>
+						<td><input type="text" name="bdatum" value="<?php echo tijd::formatteerTijd($array["begindatum"], "d-m-Y"); ?>"/><i>dd-mm-jjjj</i></td>
 					</tr>
 					<tr>
 						<td>Eind </td>
-						<td><input type="text" name="edatum" value="<?php echo $array["einddatum"]; ?>"/><i>jjjj-mm-dd</i></td>
+						<td><input type="text" name="edatum" value="<?php echo tijd::formatteerTijd($array["einddatum"], "d-m-Y"); ?>"/><i>dd-mm-jjjj</i></td>
 					</tr>
 					<tr>
 						<td>Categorie </td>
