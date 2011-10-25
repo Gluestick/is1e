@@ -54,7 +54,7 @@ echo $pagina->getVereisteHTML();
                                 }
                                 if(!empty($einddatum)){
                                 if($einddatum < $begindatum){
-                                    $error["datum"] = "Begindatum kan niet na de einddatum zijn";
+                                    $error["einddatum"] = "Begindatum kan niet na de einddatum zijn";
                                   
                                 }
                                 }
