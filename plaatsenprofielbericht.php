@@ -42,7 +42,14 @@ echo $pagina->getVereisteHTML();
 			$studentid = $_GET["id"];
 			if (isset($_POST["verstuur"])
 					&& isset($_POST["onderwerp"])
-					&& isset($_POST["bericht"])) {
+					&& isset($_POST["bericht"])) 
+			
+			if (($_POST["onderwerp"] == "") || ($_POST["bericht"] == ""  )){
+					
+					echo"alle velden zijn verplicht";
+				}
+				
+			else	{
 
 				$bericht = mysql_real_escape_string($_POST["bericht"]);
 				$onderwerp = mysql_real_escape_string($_POST["onderwerp"]);
@@ -54,7 +61,8 @@ echo $pagina->getVereisteHTML();
 				} else {
 					die(mysql_error());
 				}
-			}
+
+				}
 			?>
 			<form action="plaatsenprofielbericht.php?id=<?php echo $studentid; ?>" method="POST">
 				<table>
