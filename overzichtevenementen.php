@@ -29,13 +29,13 @@ echo $pagina->getVereisteHTML();
 								<label for="beginperiode">Van</label>
 							</th>
 							<td>
-								<input type="text" name="beginperiode" id="beginperiode" />
+								<input type="text" name="beginperiode" id="beginperiode" maxlength="10" />
 							</td>
 							<th>
 								<label for="eindperiode">Tot</label>
 							</th>
 							<td>
-								<input type="text" name="eindperiode" id="eindperiode" />
+								<input type="text" name="eindperiode" id="eindperiode" maxlength="10" />
 							</td>
 							<td>
 								<input type="submit" name="periode" value="Zoek" />
@@ -49,13 +49,12 @@ echo $pagina->getVereisteHTML();
 				<?php
 				
 				database::getInstantie();
-
-				if (isset($_POST["periode"]) && (!empty($_POST["beginperiode"]) || !empty($_POST["eindperiode"]))) {
+				if ((isset($_POST["periode"]) && (!empty($_POST["beginperiode"])) || (isset($_POST["periode"]) && !empty($_POST["eindperiode"]))) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/", $_POST["beginperiode"]) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/", $_POST["eindperiode"])) {
 					if (!empty($_POST["beginperiode"]) && !empty($_POST["eindperiode"])) {
 						$where = "WHERE begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."' AND einddatum <= '".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d")."'";
-					} else if (!empty($_POST["beginperiode"])) {
+					} else if (!empty($_POST["beginperiode"]) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/", $_POST["beginperiode"])) {
 						$where = "WHERE begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."'";
-					} else {
+					} else if (!empty($_POST["eindperiode"]) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/", $_POST["eindperiode"])) {
 						$where = "WHERE einddatum <= ".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d");
 					} 
 					$sql = "SELECT `vereniging`.`naam`, COUNT(evenement.evenementid) AS totaal FROM `vereniging` LEFT OUTER JOIN evenement ON vereniging.verenigingid = evenement.organiserendeverenigingid ".$where." GROUP BY vereniging.naam;";

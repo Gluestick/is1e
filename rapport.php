@@ -22,7 +22,7 @@ echo $pagina->getVereisteHTML();
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<div style="width:500px;margin:0 auto;">
 				<a href="overzichtleden.php" class="linkknop" style="float:left;">
-					<div class="dubbel">Overzicht lezen per<br /> vereniging</div>
+					<div class="dubbel">Overzicht leden per<br /> vereniging</div>
 				</a>
 				<a href="overzichtevenementen.php" class="linkknop" style="float:right;">
 					<div class="dubbel">Overzicht evenementen per<br /> vereniging</div>
