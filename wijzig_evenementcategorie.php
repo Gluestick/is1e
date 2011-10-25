@@ -31,13 +31,13 @@ echo $pagina->getVereisteHTML();
                     $naam1 = $_POST["naam"];
                     $sql = "UPDATE categorie SET `naam` ='".$naam1."' WHERE categorieid = " .$id."";
                     print("Het wijzigen is gelukt!<br>");
-                    print("U wordt over 5 seconden doorverzonden naar de vorige pagina of klik op de volgende link:<br>");
+                    print("U wordt over 5 seconden doorverzonden naar de vorige pagina <br>");
                     $resultaat_van_server = mysql_query($sql) or die(mysql_error());?>
                         <script language="javascript">
                                 setTimeout("location.href='./raadpleegevenementcategorieen.php'", 5000);
                             </script> 
                         <?php
-                        print("<a href=\"raadpleegevenementcategorieen.php\">Terug </a>");
+                        print("<a href=\"raadpleegevenementcategorieen.php\">Of klik hier om direct terug te gaan naar de vorige pagina </a>");
 
                         } 
                         
