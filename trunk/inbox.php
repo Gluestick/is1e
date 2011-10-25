@@ -109,6 +109,11 @@ $pagina->setJavascriptCode("
 			var info = $(this).html();
 			$.post('bericht.php', { optie: info }, function(data) {
 				$('#emailcontent').html(data);
+			}).complete(function() {
+				if ($(\"#emailoptions\").children(\"span\").html() == \"Nieuw\") {
+					$(this).remove();
+					$(\"#emailoptions\").append(\"<span>Opslaan</span><span>Annuleren</span>\");
+				}
 			});
 		});
 	});

@@ -44,8 +44,12 @@ function isStudent(){
 /**
  * Controleert of iemand de gegevens
  */
-function isHimSelf(){
-	if ($_GET['id'] != $_SESSION['user_id']) {
+function isHimSelf($studentid = null){
+	if (!empty($studentid)) {
+		if ($_GET['id'] != $_SESSION['studentid']) {
+			header('Location:index.php');
+		}
+	} else if ($_GET['id'] != $_SESSION['user_id']) {
 		header('Location: index.php');
 	}
 }

@@ -3,6 +3,11 @@
  * @author: Hans-Jurgen Bakkenes
  * @description: 
  */
+
+if (!isAdmin()) {
+	header("location:index.php");
+}
+
 $pagina = pagina::getInstantie();
 database::getInstantie();
 $error = "";
