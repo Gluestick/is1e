@@ -6,6 +6,7 @@ html, body {
 }
 
 body { 
+	background:  #EDF4FF;
 	background: #EDF4FF -moz-linear-gradient(top, #4C92FF, #EDF4FF) no-repeat; 
 	background: #EDF4FF -webkit-linear-gradient(top, #4C92FF, #EDF4FF) no-repeat;
 	background: -o-linear-gradient(top, #4C92FF, #EDF4FF) no-repeat;
@@ -49,7 +50,6 @@ body {
 }
 
 #header img {
-	float:left;
 	border:0;
 }
 
@@ -259,6 +259,7 @@ body {
 	background: -moz-linear-gradient(top, #FAFAFA, #D0D0DA);
 	background: -o-linear-gradient(top, #FAFAFA, #D0D0DA);
 	background: -webkit-linear-gradient(top, #FAFAFA, #D0D0DA);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FAFAFA', endColorstr='#D0D0DA',GradientType=0 );
 }
 
 #footer {
