@@ -115,7 +115,7 @@ echo $pagina->getVereisteHTML();
 				//header("location:raadplegenprofiel.php?id=".$id);
 			}
 			$id = mysql_real_escape_string($_GET["id"]);
-			$query =   "SELECT U.user_id as user_id, S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
+			$query =   "SELECT S.studentid as studentid, U.user_id as user_id, S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 						FROM student S 
 						JOIN user U ON S.userid = U.user_id
 						WHERE S.studentid = '$id' LIMIT 1;";
