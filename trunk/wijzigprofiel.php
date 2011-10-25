@@ -180,7 +180,7 @@ echo $pagina->getVereisteHTML();
 						<td>	Woonplaats:	 </td> <td>   <input type="text" name="woonplaats" value="<?php echo $array["woonplaats"]; ?>" /> </br></td>
 					</tr>
 					<tr>
-						<td> Geslacht:	 </td> <td>   <input type="radio" name="geslacht" value="Man" <?php if($array["geslacht"] == "man") {echo "checked='checked'";} ?> /> Man <input type="radio" name="geslacht" value="Vrouw" <?php if ($array["geslacht"] == "vrouw") { echo "checked='checked'"; } ?> />Vrouw  </br> </td>
+						<td> Geslacht:	 </td> <td>   <input type="radio" name="geslacht" value="Man" <?php if($array["geslacht"] == "Man") {echo "checked='checked'";} ?> /> Man <input type="radio" name="geslacht" value="Vrouw" <?php if ($array["geslacht"] == "Vrouw") { echo "checked='checked'"; } ?> />Vrouw  </br> </td>
 					</tr>	
 					<tr>
 						<td>Geboortedatum: </td> <td>	<input type="text" name="geboortedatum" value="<?php echo $geboortedatum; ?>" /> </br></td>
