@@ -96,7 +96,7 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="reset" value="Wis alles"/> <input type="submit" name="verstuur" value="Verstuur"/></td>
+						<td><input type="reset" value="Wis alles"/> <input type="submit" name="verstuur" value="Verstuur"/> <a href="evenement.php?id=<?php echo $id; ?>"/> Ga terug</a></td>
 					</tr>		
 				</table>
 			</form>
