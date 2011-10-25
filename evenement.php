@@ -29,7 +29,6 @@ echo $pagina->getVereisteHTML();
             $sql = "SELECT evenement.evenementid, evenement.naam AS evenementnaam,begindatum,einddatum,categorie.naam AS categorienaam,vereniging.naam AS verenigingnaam,isaanmeldingverplicht,omschrijving FROM `evenement` JOIN `categorie` ON evenement.categorieid = categorie.categorieid JOIN `vereniging` ON `organiserendeverenigingid` = `verenigingid` WHERE evenementid=$id;";
             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
             while ($array = mysql_fetch_array($resultaat_van_server)) {
-
                 $naam = mysql_real_escape_string($array['evenementnaam']);
                 $begin = mysql_real_escape_string($array['begindatum']);
                 $eind = mysql_real_escape_string($array['einddatum']);
@@ -39,6 +38,7 @@ echo $pagina->getVereisteHTML();
                 $omschrijving = mysql_real_escape_string($array['omschrijving']);
                 $id= mysql_real_escape_string($_GET['id']);
                 print("<form action=\"aanmeldenevenement.php?id=$id\" method=\"POST\">");
+
                 ?>
                     <table>
                         <tr>
@@ -79,22 +79,27 @@ echo $pagina->getVereisteHTML();
 
 
                 <form action="#" method="POST"> 
+                   <?php 
+                   $sql = "SELECT afzender, tijdstip, inhoud FROM reactie WHERE evenementid=$id;";
+                    $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                    if(mysql_num_rows($resultaat_van_server) > 0){
+                   ?>
                     <table border="1">
                         <tr>
                             <th>Door</th>
                             <th>Datum</th>
                             <th>Tekst</th>
                         </tr>
+                   
                         <?php
-                    }
                     $id = $_GET['id'];
                     $sql = "SELECT afzender, tijdstip, inhoud FROM reactie WHERE evenementid=$id;";
                     $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                     while ($array = mysql_fetch_array($resultaat_van_server)) {
 
-                        $naam = mysql_real_escape_string($array['afzender']);
-                        $datum = mysql_real_escape_string($array['tijdstip']);
-                        $inhoud = mysql_real_escape_string($array['inhoud']);
+                        $naam = $array['afzender'];
+                        $datum = $array['tijdstip'];
+                        $inhoud = $array['inhoud'];
                         ?>
 
 
@@ -108,10 +113,11 @@ echo $pagina->getVereisteHTML();
                     }
                     ?>
                 </table>
-
+                    <?php } ?>
             </form>
               <?php 
-              print("<a href=\"evenementreactie.php?id=$id\">Voeg een reactie toe!</a>")
+              print("<a href=\"evenementreactie.php?id=$id\">Voeg een reactie toe!</a>");
+            }
               ?>
         </div>
     </div>
