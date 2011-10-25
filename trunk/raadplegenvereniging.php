@@ -65,7 +65,7 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<?php
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
-						print "<tr><td><a href=\"raadplegenprofiel.php?id=" . $array["user_id"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</a></td></tr>";
+						print "<tr><td><a href=\"raadplegenprofiel.php?id=" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</a></td></tr>";
 					}
 					?>
 				</table><br/>
