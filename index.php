@@ -35,7 +35,7 @@ echo $pagina->getVereisteHTML();
                             </tr>
                             <?php
                             database::getInstantie();
-                            $sql = "SELECT evenementid,evenement.naam AS `evenementnaam`,evenement.begindatum, evenement.einddatum,vereniging.naam AS `verenigingnaam`,categorie.naam AS `categorienaam`
+                            $sql = "SELECT evenementid,evenement.naam AS `evenementnaam`,evenement.begindatum,vereniging.verenigingid as id, evenement.einddatum,vereniging.naam AS `verenigingnaam`,categorie.naam AS `categorienaam`
                                     FROM `evenement` JOIN `vereniging` ON organiserendeverenigingid=verenigingid
                                     JOIN `categorie` ON evenement.categorieid=categorie.categorieid
                                     ORDER BY evenementid DESC
@@ -43,7 +43,8 @@ echo $pagina->getVereisteHTML();
                             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
                                 while ($array = mysql_fetch_array($resultaat_van_server)) {
                                 $id = $array['evenementid'];
-                                echo "<tr><td> <a href=\"evenement.php?id=$id\">" . $array["evenementnaam"] . " </a></td><td>" .tijd::formatteerTijd($array["begindatum"],"d-m-Y") . "</td><td>".tijd::formatteerTijd($array["einddatum"],"d-m-Y") . "</td><td>".$array["verenigingnaam"]."</td><td>".$array["categorienaam"]."</td></tr>";
+                                $id1 = $array['id'];
+                                echo "<tr><td> <a href=\"evenement.php?id=$id\">" . $array["evenementnaam"] . " </a></td><td>" .tijd::formatteerTijd($array["begindatum"],"d-m-Y") . "</td><td>".tijd::formatteerTijd($array["einddatum"],"d-m-Y") . "</td><td><a href=\"raadplegenvereniging.php?id=$id1\">".$array["verenigingnaam"]."</a></td><td>".$array["categorienaam"]."</td></tr>";
     }
                             ?>
                         </table>

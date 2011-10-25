@@ -58,7 +58,7 @@ echo $pagina->getVereisteHTML();
                
                if(isset($_POST['submit'])){
                
-   $sql = "SELECT evenement.naam AS evenementnaam,begindatum,einddatum,omschrijving,vereniging.naam AS verenigingnaam, evenementid,evenement.categorieid AS evenementcategorie,categorie.categorieid AS categorieid1,isaanmeldingverplicht, categorie.naam AS categorienaam 
+   $sql = "SELECT evenement.naam AS evenementnaam,begindatum,einddatum,vereniging.verenigingid as id,omschrijving,vereniging.naam AS verenigingnaam, evenementid,evenement.categorieid AS evenementcategorie,categorie.categorieid AS categorieid1,isaanmeldingverplicht, categorie.naam AS categorienaam 
         FROM `evenement` JOIN vereniging ON organiserendeverenigingid = verenigingid
         JOIN categorie ON evenement.categorieid = categorie.categorieid
         Where evenement.naam LIKE '%" . mysql_real_escape_string($_POST["naam"]) . "%' 
@@ -66,25 +66,35 @@ echo $pagina->getVereisteHTML();
                 AND `einddatum`LIKE '%" . mysql_real_escape_string($_POST["einddatum"]). "%'
                     AND categorie.naam LIKE '%".mysql_real_escape_string($_POST["categorie"])."%'
                     AND verenigingid LIKE '%".mysql_real_escape_string($_POST["vereniging"])."%'
-                        ;";
+                        ORDER BY evenement.evenementid ASC;";
+   
     
-               
-        
     while ($array = mysql_fetch_array($resultaat_van_server)) {
+        
         $id = mysql_real_escape_string($array['evenementid']);
-            echo "<tr><td></td><td> <a href=\"evenement.php?id=$id\">" . mysql_real_escape_string($array["evenementnaam"]) . " </a></td><td>" .tijd::formatteerTijd(mysql_real_escape_string($array["begindatum"]),"d-m-Y") . "</td><td>".tijd::formatteerTijd(mysql_real_escape_string($array["einddatum"]),"d-m-Y") . "</td><td>".mysql_real_escape_string($array["verenigingnaam"])."</td><td>".mysql_real_escape_string($array["categorienaam"])."</td><td>" . mysql_real_escape_string($array["isaanmeldingverplicht"]) . "</td></tr>";
+        $id2= mysql_real_escape_string($array['id']);
+            echo "<tr><td></td><td> <a href=\"evenement.php?id=$id\">" . mysql_real_escape_string($array["evenementnaam"]) . " </a></td><td>" .tijd::formatteerTijd(mysql_real_escape_string($array["begindatum"]),"d-m-Y") . "</td><td>".tijd::formatteerTijd(mysql_real_escape_string($array["einddatum"]),"d-m-Y") . "</td><td><a href=\"raadplegenvereniging.php?id=$id2\">".mysql_real_escape_string($array["verenigingnaam"])."</a></td><td>".mysql_real_escape_string($array["categorienaam"])."</td><td>" . mysql_real_escape_string($array["isaanmeldingverplicht"]) . "</td></tr>";
     }
                }
         
                else {
-	$sql = "SELECT evenement.evenementid, evenement.naam AS evenementnaam,begindatum,einddatum,omschrijving,vereniging.naam AS verenigingnaam, evenementid,evenement.categorieid AS evenementcategorie,categorie.categorieid AS categorieid1,isaanmeldingverplicht, categorie.naam AS categorienaam 
+	$sql = "SELECT evenement.evenementid, evenement.naam AS evenementnaam,begindatum,einddatum,omschrijving,vereniging.verenigingid as id,vereniging.naam AS verenigingnaam, evenementid,evenement.categorieid AS evenementcategorie,categorie.categorieid AS categorieid1,isaanmeldingverplicht, categorie.naam AS categorienaam 
         FROM `evenement` JOIN vereniging ON organiserendeverenigingid = verenigingid
         JOIN categorie ON evenement.categorieid = categorie.categorieid
         ORDER BY evenement.evenementid ASC";
 
-               }     
+               }   
+              
+               
+                   
+               
 ?>
-                    <table>     
+                    
+    <?php
+$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+if(mysql_num_rows($resultaat_van_server)>0){
+               ?>
+                <table>     
                         <tr> 
                             <th align="left" width="150" height="50">Naam</th>
                             <th align="left" width="150" height="50">Begin</th> 
@@ -93,13 +103,14 @@ echo $pagina->getVereisteHTML();
                           <th align="left" width="150" height="50">Categorie</th>
                             <th align="left" width="150" height="50">Aanmelden</th>
                         </tr>
-    <?php
-$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                        <?php
+    }
 while ($array = mysql_fetch_array($resultaat_van_server)) {
+    $id2= mysql_real_escape_string($array['id']);
 	$id = mysql_real_escape_string($array['evenementid']);
-		echo "<tr><td> <a href=\"evenement.php?id=$id\">" . mysql_real_escape_string($array["evenementnaam"]) . " </a></td><td>" .tijd::formatteerTijd(mysql_real_escape_string($array["begindatum"]),"d-m-Y") . "</td><td>".tijd::formatteerTijd(mysql_real_escape_string($array["einddatum"]),"d-m-Y") . "</td><td>".mysql_real_escape_string($array["verenigingnaam"])."</td><td>".mysql_real_escape_string($array["categorienaam"])."</td><td>" . mysql_real_escape_string($array["isaanmeldingverplicht"]) . "</td></tr>";
+		echo "<tr><td> <a href=\"evenement.php?id=$id\">" . mysql_real_escape_string($array["evenementnaam"]) . " </a></td><td>" .tijd::formatteerTijd(mysql_real_escape_string($array["begindatum"]),"d-m-Y") . "</td><td>".tijd::formatteerTijd(mysql_real_escape_string($array["einddatum"]),"d-m-Y") . "</td><td><a href=\"raadplegenvereniging.php?id=$id2\">".mysql_real_escape_string($array["verenigingnaam"])."</a></td><td>".mysql_real_escape_string($array["categorienaam"])."</td><td>" . mysql_real_escape_string($array["isaanmeldingverplicht"]) . "</td></tr>";
 }
-                
+                             
                               
 ?>
 
