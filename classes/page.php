@@ -103,6 +103,7 @@ class pagina
 			$src = "style2.css";
 		}
 		$this->css .= "<link rel=\"" . $rel . "\" href=\"" . config::$csspad . $src . "\" type=\"" . $type . "\" />";
+		$this->css .= "<!--[if IE]><link rel=\"stylesheet\" href=\"" . config::$csspad . "ifie9.css\" type=\"text/css\" /><![endif]-->";
 	}
 
 	public function setTitel($titel)
@@ -149,7 +150,8 @@ class pagina
 	public function getHeader()
 	{
 		return "<div id=\"header\">
-		<h1><a href=\"index.php\">EventPlaza</a></h1>
+			<![if !IE]><h1><a href=\"index.php\">EventPlaza</a></h1><![endif]>
+			<!--[if IE]><a href=\"index.php\"><img src=\"css/image/header.jpg\" alt=\"Eventplaza\" /></a><![endif]-->
 	</div>";
 	}
 
@@ -157,6 +159,7 @@ class pagina
 	{
 		?>
 		<ul id="nav">
+			<!--[if IE]><div class="iewankers"></div><![endif]-->
 			<li class="single">
 				<a href="index.php" class="button">Home</a>
 			</li>
@@ -193,7 +196,8 @@ class pagina
 					</div>
 				</li>
 			<?php } ?>
-			<li class="align_right">
+			<![if !IE]><li class="align_right"><![endif]>
+			<!--[if IE]><li><![endif]-->
 				<?php
 				if (isMember()) {
 					?>
@@ -225,6 +229,7 @@ class pagina
 					</div>
 				<?php } ?>
 			</li>
+			<!--[if IE]><div class="iewankers_eind"></div><![endif]-->
 		</ul>
 		<?php
 	}
