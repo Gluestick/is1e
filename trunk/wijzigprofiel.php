@@ -35,14 +35,14 @@ echo $pagina->getVereisteHTML();
 				$geboortedatum = mysql_real_escape_string(tijd::formatteerTijd($_POST["geboortedatum"], 'Y-m-d'));
 				$emailadres = mysql_real_escape_string($_POST["emailadres"]);
 				
-				if(!empty($_FILES['profielfoto']["name"]) && !empty($_FILES['profielfoto']["type"]) && !empty($_FILES['profielfoto']["tmp_name"]) && !empty($_FILES['profielfoto']["error"]) && !empty($_FILES['profielfoto']["size"])){
+				if(!empty($_FILES['profielfoto']["name"]) && !empty($_FILES['profielfoto']["type"]) && !empty($_FILES['profielfoto']["tmp_name"]) && empty($_FILES['profielfoto']["error"]) && !empty($_FILES['profielfoto']["size"])){
 					if (isset($_FILES["profielfoto"]["tmp_name"])) { //heeft de foto een tijdelijke naam?
 						$afbeelding = $_FILES['profielfoto'];
 						if (gebruiker::checkValideUpload($afbeelding["error"]) == "") {
 							if (filesize($afbeelding['tmp_name']) < 100000) { //is de afbeelding in de temp map, minder dan 100kb?
 								if (getimagesize($_FILES['profielfoto']['tmp_name'])) { //kunnen we eigenschappen ophalen van de afbeelding?
 									list($width, $height, $type, $attr) = getimagesize($_FILES['profielfoto']['tmp_name']);
-									if ($width <= 100 && $height <= 100) {
+									if ($width <= 200 && $height <= 200) {
 
 //										$bestand = false;
 //										if (exif_imagetype($_FILES['profielfoto']['tmp_name']) == IMAGETYPE_GIF) {

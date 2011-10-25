@@ -129,7 +129,7 @@ if (isset($_POST["informatie"])) {
 }
 
 
-if (isset($_POST["optie"])) {
+if (isset($_POST["optie"]) && $_POST["optie"] == "Nieuw") {
 	?>
 	<table cellpadding="0" cellspacing="0">
 		<tr class="emailheader">
