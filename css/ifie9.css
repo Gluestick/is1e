@@ -1,0 +1,51 @@
+#nav {
+	border: none;
+	border-radius: none;
+	box-shadow: none;
+}
+
+#nav, div.iewankers {
+	float: left;
+}
+
+#nav {
+	background: url('image/menu_bg.jpg') repeat;
+	height: 49px;
+	width: 960px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#nav li {
+	margin-top: 10px;
+}
+
+#nav li:hover {
+	background: #FAFAFA;
+}
+
+#nav li:hover div {
+	background: #FAFAFA;
+}
+
+div.iewankers {
+	background: url('image/menu_left_rounded.jpg') no-repeat;
+	width: 11px;
+	height: 49px;
+	margin-right: 10px;
+}
+
+div.iewankers_eind {
+	background: url('image/menu_right_rounded.jpg') no-repeat;
+	width: 12px;
+	height: 49px;
+	float: right;
+}
+
+#content {
+	clear: both;
+}
+
+#header {
+	padding-top: 20px;
+}
