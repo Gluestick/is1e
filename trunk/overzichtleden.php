@@ -48,7 +48,7 @@ echo $pagina->getVereisteHTML();
 								<input type="text" name="zoeknaam" id="zoeknaam" />
 							</td>
 							<td>
-								<input type="submit" name="zoeken" />
+								<input type="submit" name="zoeken" value="zoeken" />
 							</td>
 						</tr>
 					</table>

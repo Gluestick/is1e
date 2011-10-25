@@ -26,6 +26,27 @@ class tijd {
 	}
 	
 	/**
+	 * Deze functie controleert dat als een correct nederlands format is meegegeven
+	 * Of de datum die meegegeven is klopt.
+	 * @param string $datum
+	 * @return bool
+	 */
+	public static function checkCorrectieDatum($datum) {
+		if (strstr($datum, "-")) {
+			if (preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/", $datum)) {
+				$deel = explode("-", $datum);
+				if ($deel[0] >= 1 && $deel[0] <= 31 && $deel[1] >= 1 && $deel[1] <= 12 && $deel[2] >= 2000 && $deel[2] <= 2020) {
+					return checkdate($deel[1], $deel[0], $deel[2]);
+				} else {
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	/**
 	 * Deze functie vervangt bijv. monday door maandag en
 	 * august door augustus
 	 * @param string $datum
