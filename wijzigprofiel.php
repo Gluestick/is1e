@@ -3,7 +3,7 @@
  * @author: Daniel
  * @description: 
  */
-isHimSelf();
+isHimSelf($_GET["id"]);
 
 $pagina = pagina::getInstantie();
 
@@ -57,7 +57,7 @@ echo $pagina->getVereisteHTML();
 											$pointer = fopen($afbeelding['tmp_name'], "rb"); //open het bestand in binary format
 											$afbeelding2 = fread($pointer, filesize($afbeelding['tmp_name'])); //geeft een string terug vam het bestand
 
-											$sql = "UPDATE `student` SET `profielfoto`='" . mysql_real_escape_string(base64_encode($afbeelding2)) . "' WHERE `userid` = ".mysql_real_escape_string($_GET["id"]);
+											$sql = "UPDATE `student` SET `profielfoto`='" . mysql_real_escape_string(base64_encode($afbeelding2)) . "' WHERE `studentid` = ".mysql_real_escape_string($_GET["id"]);
 											mysql_query($sql);
 
 	//										if (!file_exists($_FILES['profielfoto']['name'])) {
@@ -118,7 +118,7 @@ echo $pagina->getVereisteHTML();
 			$query =   "SELECT U.user_id as user_id, S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 						FROM student S 
 						JOIN user U ON S.userid = U.user_id
-						WHERE U.user_id = '$id' LIMIT 1;";
+						WHERE S.studentid = '$id' LIMIT 1;";
 			$resultaat_van_server = mysql_query($query);
 			$array = mysql_fetch_assoc($resultaat_van_server);
 			if($array['geboortedatum'] == '0000-00-00'){

@@ -1,14 +1,18 @@
 <?php
-	/**
-	* @author: Hans-Jurgen Bakkenes
-	* @description: 
-	*/
-	$pagina = pagina::getInstantie();
-	
-	$pagina->setTitel("Management-Rapport");
-	$pagina->setCss("style.css");
-	
-	echo $pagina->getVereisteHTML();
+/**
+ * @author: Hans-Jurgen Bakkenes
+ * @description: 
+ */
+if (!isAdmin()) {
+	header("location:index.php");
+}
+
+$pagina = pagina::getInstantie();
+
+$pagina->setTitel("Management-Rapport");
+$pagina->setCss("style.css");
+
+echo $pagina->getVereisteHTML();
 ?>
 <div id="container">
 	<?php echo $pagina->getHeader(); ?>

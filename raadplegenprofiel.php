@@ -6,11 +6,11 @@
 $pagina = pagina::getInstantie();
 database::getInstantie();
 
-$userid = mysql_real_escape_string($_GET["id"]);
+$studentid = mysql_real_escape_string($_GET["id"]);
 
 $sql = "SELECT studentid, U.user_id as user_id, studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 		FROM student S JOIN user U ON S.userid = U.user_id
-		WHERE U.user_id = '$userid' LIMIT 1;";
+		WHERE S.studentid = '$studentid' LIMIT 1;";
 
 $resultaat_van_server = mysql_query($sql) or die(mysql_error());
 $array = mysql_fetch_array($resultaat_van_server);
@@ -35,7 +35,7 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php if(isset($_SESSION['user_id']) && $userid == $_SESSION['user_id']){ ?>
-				<a href="wijzigprofiel.php?id=<?php echo $userid; ?>"> wijzig </a>
+				<a href="wijzigprofiel.php?id=<?php echo $studentid; ?>"> wijzig </a>
 			<?php } ?>
 
 			<table style="text-align:left;">
