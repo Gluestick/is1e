@@ -21,47 +21,47 @@ echo $pagina->getVereisteHTML();
                         <?php 
                         database::getInstantie();
                         if (isset($_POST["submit"])) {
-				if (empty($_POST["naam"])) {
+                            
+                            $naam = mysql_real_escape_string($_POST["naam"]);
+                            $begindatum = mysql_real_escape_string($_POST["begindatum"]);
+                            $einddatum = mysql_real_escape_string($_POST["einddatum"]);
+                            $verplicht = mysql_real_escape_string($_POST["verplicht"]);
+                            
+				if (empty($naam)) {
 					$error["naam"] = "Geen naam opgegeven";
 				}
-                                elseif(!preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/", $_POST["naam"])){
+                                elseif(!preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù'\s]+$/", $naam)){
                                     $error["naam"] = "Naam is ongeldig";
                                 }
-				if (empty($_POST["begindatum"])) {   
+				if (empty($begindatum)) {   
 				$error["begindatum"] = "Begindatum is leeggelaten";
 				}
-                                elseif(!preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["begindatum"])){
+                                elseif(!preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$begindatum)){
                                     $error["begindatum"] = "Begindatum is ongeldig";
                                 }
                                 else{
-                                    $datum1 = tijd::formatteerTijd($_POST["begindatum"],"Y-m-d");	
+                                    $datum1 = tijd::formatteerTijd($begindatum,"Y-m-d");	
                                 }
-				if (!empty($_POST["einddatum"]) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["einddatum"])) {
+				if (!empty($einddatum) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$einddatum)) {
                                         $datum2 = tijd::formatteerTijd($_POST["einddatum"],"Y-m-d");
 				}
-                                elseif(!empty($_POST["einddatum"]) && !preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["einddatum"]) ){
+                                elseif(!empty($einddatum) && !preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$einddatum)){
                                         $error["einddatum"] = "Einddatum is ongeldig";
                                 }
                                 
-				if (!empty($_POST["omschrijving"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s]+$/",$_POST["omschrijving"])) {
-                                        $error["omschrijving"] = "Ongeldige omschrijving";
-				}
-                                if(!empty($_POST["einddatum"])){
-                                if($_POST["einddatum"] < $_POST["begindatum"]){
+                                if(tijd::formatteerTijd($begindatum, 'Y-m-d') < date('Y-m-d')){
+                                    $error["begindatum"] = "Begindatum is in het verleden";
+                                }
+                                if(!empty($einddatum)){
+                                if($einddatum < $begindatum){
                                     $error["datum"] = "Begindatum kan niet na de einddatum zijn";
                                   
                                 }
                                 }
-                                if(empty($_POST["verplicht"])){
+                                if(empty($verplicht)){
                                     $error["verplicht"] = "Je moet kiezen";
                                 }
-				if (!empty($_POST["naam"]) && !isset($_POST["begindatum"])&& !isset($_POST["categorie"]) && !isset($_POST["organisator"]) && !isset($_POST["verplicht"])  ) {
-                                    
-                                       
-                                           $error["velden"] = "Niet alle verplichte velden zijn ingevuld!";
-                                        
-                                    
-                                }
+				
 			}
 
                         if (isset($_POST["submit"]) && !isset($error)) {
@@ -125,22 +125,8 @@ echo $pagina->getVereisteHTML();
                                             }?>
                                             
                                         </select>
-                                    </td>
-                                </tr>
-                                <tr><?php
-                                $sql = "SELECT `naam`,`verenigingid` FROM `vereniging` ORDER BY `naam` ASC;";
-                                $resultaat_van_server = mysql_query($sql) or die(mysql_error());
-                                    ?>
-                                    <th>*</th>
-                                    <th>Organisator</th>
-                                    <td>
-                                        <select name="organisator">
-                                            <?php 
-                                            while ($array = mysql_fetch_array($resultaat_van_server)) {
-                                            echo "<option value=\"".$array["verenigingid"]."\">" . $array["naam"] . "<br/></option>";
-                                            }?>
-                                            
-                                        </select>
+                                        <input type="text" hidden="hidden" value="<?php print($_SESSION['verenigingid']); ?>" name="organisator" />
+
                                     </td>
                                 </tr>
                                 <tr>
