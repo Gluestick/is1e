@@ -47,13 +47,14 @@ echo $pagina->getVereisteHTML();
                         print mysql_error();
                     } else { //als het toevoegen is gelukt print dit
                         print("Het toevoegen is gelukt!<br/>");
-                        print("U wordt over 5 seconden doorgelinked naar de categorieënpagina</br>");
-                        print("<a href=\"raadpleegevenementcategorieen.php\">Of klik hier om direct naar de categorieënpagina te gaan.</a>");
+                        print("U wordt over 5 seconden doorverzonden naar de categorieënpagina</br>");
+                        print("<a href=\"raadpleegevenementcategorieen.php\">Of klik hier om direct naar de categorieënpagina te gaan.</a><br/>");
                          ?> <script language="javascript">
                                 setTimeout("location.href='./raadpleegevenementcategorieen.php'", 5000);
                             </script><?php
                     }
-                } Else {
+                } Elseif(empty($_POST['naam'])&& isset($_POST['submit'])) {
+                    
                     print("Gelieve naam in vullen<br/>");
                 }
                 ?>
