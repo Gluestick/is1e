@@ -8,6 +8,7 @@ if (!empty($_GET["id"])) {
 	if (mysql_num_rows(mysql_query("SELECT * FROM vereniging WHERE verenigingid = " . mysql_real_escape_string($_GET["id"]) . "")) == 0) {
 		header("Location: index.php");
 	}
+	$ding = mysql_fetch_assoc(mysql_query("SELECT username, email FROM user JOIN vereniging ON vereniging.userid = user.user_id WHERE vereniging.verenigingid = '".$_GET['id']."';"));
 	$verenigingid = $_GET["id"];
 	$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
 	$resultaat_van_server = mysql_query($sql) or die(mysql_error());
@@ -129,8 +130,7 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<td>Contactpersoon</td>
-						<td><?php $ding = mysql_fetch_assoc(mysql_query("SELECT username, email FROM user JOIN vereniging ON vereniging.userid = user.user_id WHERE vereniging.verenigingid = '" . $_GET['id'] . "';"));
-				print $ding['username']; ?></td>
+						<td><?php print $row["contactpersoon"]; ?></td>
 					</tr>
 					<tr>
 						<td>Telefoonnummer</td>
@@ -143,7 +143,7 @@ echo $pagina->getVereisteHTML();
 				</table>
 				<form action="<?php print $_SERVER["PHP_SELF"] . "?id=" . $_GET["id"]; ?>" method="post">
 					<input type="hidden" name="id" value="<?php print $_GET["id"]; ?>" />
-	<?php if (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) == 0) { ?><input type="submit" name="aanmelden" value="Aanmelden" /><?php } elseif (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) >= 1) { ?><input type="submit" name="afmelden" value="Afmelden" /><?php } ?>
+	<?php if (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = ".mysql_real_escape_string($_GET["id"]))) == 0) { ?><input type="submit" name="aanmelden" value="Aanmelden" /><?php } elseif (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) >= 1) { ?><input type="submit" name="afmelden" value="Afmelden" /><?php } ?>
 				</form>
 			</div>
 		</div>
