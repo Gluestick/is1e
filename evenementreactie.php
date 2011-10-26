@@ -1,4 +1,3 @@
-<html>
 <?php
 /**
  * @author: Kay van Bree, Kajel Bhikhoe
@@ -28,8 +27,12 @@ if (isset($_POST["verstuur"])) {
 		mysql_query($query1);
 	}  
 	
-	if ($error["naam"] = "");
-	if ($error["tekstvak"] = ""); 
+	if (empty ($naam)) {
+     $error["naam"] = "";
+	}
+	if (empty ($tekstvak)) {
+	($error["tekstvak"] = ""); 
+	}
 	
 	}
 
@@ -117,4 +120,3 @@ echo $pagina->getVereisteHTML();
 <?php
 echo $pagina->getVereisteHTMLafsluiting();
 ?>
-</html>
