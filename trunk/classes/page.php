@@ -205,7 +205,9 @@ class pagina
 					<div id="login" class="dropdown">
 						<?php if(isVereniging()){ ?>
 							<div><a href="raadplegenvereniging.php?id=<?php print($_SESSION['verenigingid']); ?>" class="button">Vereniging<br /><font>Je eigen vereniging</font></a></div>
-						<?php } else { ?>
+						<?php }
+							if(isStudent()){
+						?>
 							<div><a href="raadplegenprofiel.php?id=<?php print($_SESSION['studentid']); ?>" class="button">Profiel<br /><font>Je eigen profiel</font></a></div>
 							<!--<div><a href="inbox.php?id=<?php print($_SESSION['studentid']); ?>" class="button">Inbox<br /><font>Je berichten</font></a></div>-->
 						<?php } ?>
@@ -214,14 +216,15 @@ class pagina
 					<?php
 				} else {
 					?>
-					<a href="#" class="drop">Inloggen</a>
+					<a href="login.php" class="drop">Inloggen</a>
 					<div id="login" class="dropdown">
 						Username + Password:
 						<div class="form">
-							<form action="<?php print($_SERVER["REQUEST_URI"]); ?>" method="post">
+							<form action="login.php" method="post">
 							<input type="submit" name="login" value="Ga!" class="submit" />
 							<input type="text" name="username" class="text" /><br />
 							<input type="password" name="password" class="pass" />
+							<input type="text" name="url" hidden="hidden" value="<?php print($_SERVER['PHP_SELF']); ?>" />
 							
 						</form>
 						</div>
