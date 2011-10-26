@@ -3,6 +3,7 @@
  * @author: Hans-Jurgen Bakkenes
  * @description: 
  */
+isHimSelf($_GET["id"]);
 $pagina = pagina::getInstantie();
 database::getInstantie();
 
@@ -31,7 +32,6 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<a href="javascript:history.go(-1);">Terug</a><br />
 			<?php
 			$error = "";
 			if (isset($_POST["maakgroep"])) {
@@ -70,6 +70,7 @@ echo $pagina->getVereisteHTML();
 					</tr>
 				</table>
 			</form>
+			<br /><br /><a href="raadplegenprofiel.php?id=<?php echo $_GET["id"]; ?>">Terug</a>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
