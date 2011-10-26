@@ -69,6 +69,7 @@ print("<br><a href=\"toevoeg_evenementcategorie.php\">Toevoegen</a> ");
 ?>
 
             </form>  
+<br /><br /><a href="beheer.php">Terug</a>
 
             <br/>
 
