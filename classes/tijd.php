@@ -28,6 +28,7 @@ class tijd {
 	/**
 	 * Deze functie controleert dat als een correct nederlands format is meegegeven
 	 * Of de datum die meegegeven is klopt.
+	 * HYPERDELUXE!
 	 * @param string $datum
 	 * @return bool
 	 */

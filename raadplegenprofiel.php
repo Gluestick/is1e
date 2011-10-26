@@ -156,7 +156,8 @@ echo $pagina->getVereisteHTML();
 					echo "</table><br /><br />
 						<a href=\"groeptoevoegen.php?id=".$_GET["id"]."\">Groep toevoegen</a>";
 				} else {
-					echo "U heeft nog geen groepen aangemaakt";
+					echo "U heeft nog geen groepen aangemaakt<br /><br />
+						<a href=\"groeptoevoegen.php?id=".$_GET["id"]."\">Groep toevoegen</a>";
 				}
 			}
 

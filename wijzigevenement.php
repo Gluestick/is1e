@@ -1,14 +1,17 @@
 <?php
+/**
+ * @author: Kay van Bree, Kajel Bhikhoe
+ * @description: 
+ */
+if (!isVereniging()) {
+	header("location:index.php");
+}
+$pagina = pagina::getInstantie();
 database::getInstantie();
 $id = ($_GET["id"]);
 $sql = "SELECT * FROM `evenement` where evenementId = $id;";
 $resultaat_van_server = mysql_query($sql);
 $array = mysql_fetch_array($resultaat_van_server);
-/**
- * @author: Kay van Bree, Kajel Bhikhoe
- * @description: 
- */
-$pagina = pagina::getInstantie();
 
 $pagina->setTitel("Eventplaza");
 $pagina->setCss("style.css");
@@ -22,12 +25,11 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<form action="wijzigevenement2.php" method="post">
-				
 				<table>
-						<input type ="hidden" name ="evenementid" value = <?php echo $id ?>/>
 					<tr>
 						<td>Naam </td>
-						<td><input type="text" name="naam" value="<?php echo $array["naam"]; ?>"/></td>
+						<td><input type="text" name="naam" value="<?php echo $array["naam"]; ?>"/>
+						<input type="hidden" name="evenementid" value="<?php echo $id; ?>" /></td>
 					</tr>
 					<tr>
 						<td>Begin </td>	

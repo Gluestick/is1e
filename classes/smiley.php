@@ -12,6 +12,7 @@ class specialetekens {
 	const SMILEY_DEVIL		= "devil_}>";
 	const SMILEY_CRY		= "cry_:'(";
 	const SMILEY_PUH2		= "puh2_:P";
+	const SMILEY_KWIJL		= "kwijl_:9~";
 	const SMILEY_YUMMIE		= "yummie_:9";
 	const SMILEY_SHINY		= "shiny_:*)";
 	const SMILEY_HEART		= "heart_O+";
@@ -22,7 +23,6 @@ class specialetekens {
 	const SMILEY_SADLEY		= "sadley_;(";
 	const SMILEY_COOOL		= "coool_8-)";
 	const SMILEY_CONFUSED	= "confused_:?";
-	const SMILEY_KWIJL		= "kwijl_:9~";
 	const SMILEY_PUH		= "puh_:>";
 	const SMILEY_NOSMILE	= "nosmile_:/";
 	const SMILEY_NOSMILE2	= "nosmile2_:|";

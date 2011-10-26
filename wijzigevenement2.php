@@ -3,6 +3,9 @@
  * @author: Kay van Bree, Kajel Bhikhoe
  * @description: 
  */
+if (!isVereniging()) {
+	header("location:index.php");
+}
 $pagina = pagina::getInstantie();
 
 $pagina->setTitel("Eventplaza");

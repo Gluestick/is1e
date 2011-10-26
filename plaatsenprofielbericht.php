@@ -3,7 +3,9 @@
  * @author: Daniel
  * @description: 
  */
-$studentid = $_GET["id"];
+if (!isStudent()) {
+	header("location:index.php");
+}
 $pagina = pagina::getInstantie();
 
 $pagina->setTitel("Plaatsen bericht");
@@ -36,41 +38,35 @@ echo $pagina->getVereisteHTML();
 	<div id="page">
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
-			<h1><?php echo $pagina->getTitel();
-		database::getInstantie(); ?></h1>
+			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php
-			$studentid = $_GET["id"];
-			if (isset($_POST["verstuur"])
-					&& isset($_POST["onderwerp"])
-					&& isset($_POST["bericht"])) 
-			
-			if (($_POST["onderwerp"] == "") || ($_POST["bericht"] == ""  )){
-					
+			$studentid = $_SESSION["studentid"];
+			if (isset($_POST["verstuur"]) && isset($_POST["onderwerp"]) && isset($_POST["bericht"])) {
+				if (!empty($_POST["onderwerp"]) || !empty($_POST["bericht"])) {
 					echo"alle velden zijn verplicht";
-				}
-				
-			else	{
-
-				$bericht = mysql_real_escape_string($_POST["bericht"]);
-				$onderwerp = mysql_real_escape_string($_POST["onderwerp"]);
-
-				$sql = "INSERT INTO  profielbericht (datum, onderwerp, inhoud, studentid) VALUES ('" . date("Y-m-d") . "','" . $onderwerp . "','" . $bericht . "', " . $studentid . ")";
-
-				if (mysql_query($sql)) {
-					echo"bericht toegevoegd";
 				} else {
-					die(mysql_error());
-				}
+					$bericht = mysql_real_escape_string($_POST["bericht"]);
+					$onderwerp = mysql_real_escape_string($_POST["onderwerp"]);
 
+					$sql = "INSERT INTO  profielbericht (datum, onderwerp, inhoud, studentid) VALUES ('".date("Y-m-d")."','".$onderwerp."','".$bericht."', ".$studentid.")";
+
+					if (mysql_query($sql)) {
+						echo"bericht toegevoegd";
+					} else {
+						die(mysql_error());
+					}
 				}
+			}
 			?>
-			<form action="plaatsenprofielbericht.php?id=<?php echo $studentid; ?>" method="POST">
+			<form action="plaatsenprofielbericht.php?id=<?php echo $studentid; ?>" method="post">
 				<table>
 					<tr>
-						<td>onderwerp: </td> <td> <input name="onderwerp" type="text"/>  </td> 
+						<td>onderwerp:</td>
+						<td><input name="onderwerp" type="text"/></td> 
 					</tr>
 					<tr>
-						<td>bericht: </td> <td> <textarea name="bericht" style="float:left;min-height:200px;min-width:200px;"></textarea>
+						<td>bericht:</td>
+						<td><textarea name="bericht" style="float:left;min-height:200px;min-width:200px;"></textarea>
 							<div id="tekstopties">
 								<div id="smiley">
 									<img src="/project/images/smile.gif" style="float:left;margin-left:8px;margin-top:3px;margin-right:8px;width:15px;height:15px;" />
@@ -101,8 +97,8 @@ echo $pagina->getVereisteHTML();
 						</td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="verzenden" name="verstuur"/></td><td> <input type="reset" value="wis alles"/></td>
-						<td><a href="raadplegenprofiel.php?id=<?php echo $studentid; ?>"> terug </a></td>
+						<td><input type="submit" value="verzenden" name="verstuur" /></td><td><input type="reset" value="wis alles" /></td>
+						<td><a href="raadplegenprofiel.php?id=<?php echo $studentid; ?>">terug</a></td>
 					</tr>
 				</table>
 			</form>
