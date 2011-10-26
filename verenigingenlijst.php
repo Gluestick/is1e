@@ -27,9 +27,10 @@ echo $pagina->getVereisteHTML();
 						<td><input type="text" name="plaats_vereniging" /></td>
 					</tr>
 					<tr>
-						<td><input type="submit" name="verstuur" value="Zoeken" /></td>
+						<td></td>
+						<td align="right"><input type="submit" name="verstuur" value="Zoeken" /></td>
 					</tr>
-				</table>
+				</table><br/>
 			</form>
 				<?php
 				database::getInstantie();

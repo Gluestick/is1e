@@ -8,9 +8,10 @@ $pagina = pagina::getInstantie();
 $pagina->setTitel("Wijzigen vereniging");
 $pagina->setCss("style.css");
 
-if (!isset($_GET['id']) && !isset($_POST['verstuur'])) {
+if (empty($_GET['id'])) {
 	header('Location: index.php');
 }
+isThisVereniging();
 
 echo $pagina->getVereisteHTML();
 ?>
