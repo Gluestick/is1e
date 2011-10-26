@@ -76,6 +76,7 @@ echo $pagina->getVereisteHTML();
 					<?php
 				}
 				?>
+				<br /><br /><a href="rapport.php">Terug</a>
 			</div>
 		</div>
 	</div>

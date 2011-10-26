@@ -29,13 +29,13 @@ echo $pagina->getVereisteHTML();
 								<label for="beginperiode">Van</label>
 							</th>
 							<td>
-								<input type="text" name="beginperiode" id="beginperiode" maxlength="10" />
+								<input type="text" name="beginperiode" id="beginperiode" maxlength="10" value="<?php if (isset($_POST["beginperiode"])) { echo $_POST["beginperiode"]; } ?>" />
 							</td>
 							<th>
 								<label for="eindperiode">Tot</label>
 							</th>
 							<td>
-								<input type="text" name="eindperiode" id="eindperiode" maxlength="10" />
+								<input type="text" name="eindperiode" id="eindperiode" maxlength="10" value="<?php if (isset($_POST["eindperiode"])) { echo $_POST["eindperiode"]; } ?>" />
 							</td>
 							<td>
 								<input type="submit" name="periode" value="Zoek" />
@@ -49,12 +49,12 @@ echo $pagina->getVereisteHTML();
 				<?php
 				
 				database::getInstantie();
-				if ((isset($_POST["periode"]) && (!empty($_POST["beginperiode"])) || (isset($_POST["periode"]) && !empty($_POST["eindperiode"]))) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/", $_POST["beginperiode"]) && preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/", $_POST["eindperiode"])) {
+				if ((isset($_POST["periode"]) && (!empty($_POST["beginperiode"])) || (isset($_POST["periode"]) && !empty($_POST["eindperiode"])))) {
 					$where = "";
 					if (tijd::checkCorrectieDatum($_POST["beginperiode"]) && tijd::checkCorrectieDatum($_POST["eindperiode"])) {
 						if ($_POST["beginperiode"] < $_POST["eindperiode"]) {
 							$where = "WHERE begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."' AND einddatum <= '".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d")."'";
-						}
+						} 
 					} else if (tijd::checkCorrectieDatum($_POST["beginperiode"])) {
 						$where = "WHERE begindatum >= '".tijd::formatteerTijd($_POST["beginperiode"], "Y-m-d")."'";
 					} else if (tijd::checkCorrectieDatum($_POST["eindperiode"])) {
@@ -81,6 +81,7 @@ echo $pagina->getVereisteHTML();
 				}
 				
 				?>
+				<br /><br /><a href="rapport.php">Terug</a>
 			</div>
 		</div>
 	</div>
