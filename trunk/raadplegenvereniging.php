@@ -5,6 +5,9 @@
  */
 if (!empty($_GET["id"])) {
 	database::getInstantie();
+	if (mysql_num_rows(mysql_query("SELECT * FROM vereniging WHERE verenigingid = " . mysql_real_escape_string($_GET["id"]) . "")) == 0) {
+		header("Location: index.php");
+	}
 	$verenigingid = $_GET["id"];
 	$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
 	$resultaat_van_server = mysql_query($sql) or die(mysql_error());
@@ -13,8 +16,9 @@ if (!empty($_GET["id"])) {
 		$sql = "SELECT userid FROM vereniging WHERE verenigingid = " . mysql_real_escape_string($_GET["id"]);
 		$eigenaar = mysql_fetch_assoc(mysql_query($sql));
 	}
-} else {
-	$row["naam"] = "Vereniging";
+}
+if (empty($_GET["id"])) {
+	header("Location: index.php");
 }
 $pagina = pagina::getInstantie();
 $pagina->setTitel($row["naam"]);
@@ -28,11 +32,13 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel();
-		if (isset($eigenaar)) { if($_SESSION["user_id"] == $eigenaar["userid"] || isAdmin()){ ?>&nbsp;<a href="wijzigvereniging.php?id=<?php
+		if (isset($eigenaar)) {
+			if ($_SESSION["user_id"] == $eigenaar["userid"] || isAdmin()) { ?>&nbsp;<a href="wijzigvereniging.php?id=<?php
 				if (isset($verenigingid)) {
 					print $verenigingid;
 				}
-			?>">Wijzig</a><?php }} ?></h1>
+				?>">Wijzig</a><?php }
+		} ?></h1>
 				<?php
 				if (isset($_POST["aanmelden"]) && !empty($_GET["id"]) && isset($_SESSION["login"]) && isset($_SESSION["studentid"])) {
 					$today = getdate();
@@ -43,8 +49,7 @@ echo $pagina->getVereisteHTML();
 					} else {
 						print "Kan niet worden aangemeld.<br/><br/>";
 					}
-				}
-				elseif (isset($_POST["afmelden"]) && !empty($_GET["id"]) && isset($_SESSION["login"]) && isset($_SESSION["studentid"])) {
+				} elseif (isset($_POST["afmelden"]) && !empty($_GET["id"]) && isset($_SESSION["login"]) && isset($_SESSION["studentid"])) {
 					$today = getdate();
 					$date = $today["year"] . "-" . $today["mon"] . "-" . $today["mday"];
 					$afmelden = mysql_query("DELETE FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}");
@@ -55,42 +60,44 @@ echo $pagina->getVereisteHTML();
 					}
 				}
 				if (!empty($_GET["id"])) {
-					$array = mysql_fetch_assoc(mysql_query("SELECT aantaleigenleden FROM vereniging WHERE verenigingid = ".mysql_real_escape_string($_GET["id"]).""));
+					$array = mysql_fetch_assoc(mysql_query("SELECT aantaleigenleden FROM vereniging WHERE verenigingid = " . mysql_real_escape_string($_GET["id"]) . ""));
 					$aantal_leden = $array["aantaleigenleden"];
 					$sql = "SELECT * FROM student JOIN lidmaatschap ON student.studentid=lidmaatschap.studentid JOIN user ON student.userid = user.user_id WHERE verenigingid='$verenigingid' AND lidmaatschap.studentid IS NOT NULL";
 					$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 					if (mysql_num_rows($resultaat_van_server) > 0) {
-					?>
-				<table><tr>
-						<th>Leden</th>
-					</tr>
-					<?php
-					while ($array = mysql_fetch_array($resultaat_van_server)) {
-						print "<tr><td><a href=\"raadplegenprofiel.php?id=" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</a></td></tr>";
-					}
-					?>
-				</table><br/>
-				<?php } 
+						?>
+					<table><tr>
+							<th>Leden</th>
+						</tr>
+						<?php
+						while ($array = mysql_fetch_array($resultaat_van_server)) {
+							print "<tr><td><a href=\"raadplegenprofiel.php?id=" . $array["studentid"] . "\">" . $array["voornaam"] . " " . $array["achternaam"] . "</a></td></tr>";
+						}
+						?>
+					</table><br/>
+				<?php
+				}
 				$sql = "SELECT * FROM evenement WHERE organiserendeverenigingid=$verenigingid";
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
-				if(mysql_num_rows($resultaat_van_server) > 0) { ?>
-				<table>
-					<tr>
-						<th colspan="2">Evenementen</th>
-					</tr>
-					<tr>
-						<th>Naam</th>
-						<th>Begindatum</th>
-					</tr>
-					<?php
-					$format = "d-m-Y";
-					while ($array = mysql_fetch_array($resultaat_van_server)) {
-						$begindatum = tijd::formatteerTijd($array["begindatum"], $format);
-						print"<tr><td><a href=\"evenement.php?id=" . $array["evenementid"] . "\">" . $array["naam"] . "</a></td><td>" . $begindatum . "</td></tr>";
-					}
+				if (mysql_num_rows($resultaat_van_server) > 0) {
 					?>
-				</table><br/>
-				<?php
+					<table>
+						<tr>
+							<th colspan="2">Evenementen</th>
+						</tr>
+						<tr>
+							<th>Naam</th>
+							<th>Begindatum</th>
+						</tr>
+						<?php
+						$format = "d-m-Y";
+						while ($array = mysql_fetch_array($resultaat_van_server)) {
+							$begindatum = tijd::formatteerTijd($array["begindatum"], $format);
+							print"<tr><td><a href=\"evenement.php?id=" . $array["evenementid"] . "\">" . $array["naam"] . "</a></td><td>" . $begindatum . "</td></tr>";
+						}
+						?>
+					</table><br/>
+					<?php
 				}
 				$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
@@ -122,8 +129,8 @@ echo $pagina->getVereisteHTML();
 					</tr>
 					<tr>
 						<td>Contactpersoon</td>
-						<td><?php $ding = mysql_fetch_assoc(mysql_query("SELECT username, email FROM user JOIN vereniging ON vereniging.userid = user.user_id WHERE vereniging.verenigingid = '".$_GET['id']."';"));
-						print $ding['username']; ?></td>
+						<td><?php $ding = mysql_fetch_assoc(mysql_query("SELECT username, email FROM user JOIN vereniging ON vereniging.userid = user.user_id WHERE vereniging.verenigingid = '" . $_GET['id'] . "';"));
+				print $ding['username']; ?></td>
 					</tr>
 					<tr>
 						<td>Telefoonnummer</td>
@@ -136,8 +143,7 @@ echo $pagina->getVereisteHTML();
 				</table>
 				<form action="<?php print $_SERVER["PHP_SELF"] . "?id=" . $_GET["id"]; ?>" method="post">
 					<input type="hidden" name="id" value="<?php print $_GET["id"]; ?>" />
-	<?php if (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) == 0) { ?><input type="submit" name="aanmelden" value="Aanmelden" /><?php } 
-	elseif (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) >= 1) { ?><input type="submit" name="afmelden" value="Afmelden" /><?php } ?>
+	<?php if (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) == 0) { ?><input type="submit" name="aanmelden" value="Aanmelden" /><?php } elseif (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM lidmaatschap WHERE studentid = {$_SESSION["studentid"]} AND verenigingid = {$_GET["id"]}")) >= 1) { ?><input type="submit" name="afmelden" value="Afmelden" /><?php } ?>
 				</form>
 			</div>
 		</div>
