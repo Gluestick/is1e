@@ -37,7 +37,7 @@ echo $pagina->getVereisteHTML();
 
 
                 if (isset($_POST['submit']) && !empty($_POST["naam"])) { //hier kijkt hij of beide waardes zijn "ingevuld"
-                    $sql = "INSERT INTO `categorie` (`categorieid`,`naam`)  Values ('" . $row["MAX(categorieid)"] . "','" . $_POST['naam'] . "')";
+                    $sql = "INSERT INTO `categorie` (`categorieid`,`naam`)  Values ('" . $row["MAX(categorieid)"] . "','" .mysql_real_escape_string($_POST['naam']) . "')";
 
 
 

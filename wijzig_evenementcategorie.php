@@ -25,10 +25,10 @@ echo $pagina->getVereisteHTML();
                         
                       
                        
-                        $id = $_GET["id"];
+                        $id = mysql_real_escape_string ($_GET["id"]);
                         
                         if(isset($_POST['wijzigen'])){
-                    $naam1 = $_POST["naam"];
+                    $naam1 = mysql_real_escape_string ($_POST["naam"]);
                     $sql = "UPDATE categorie SET `naam` ='".$naam1."' WHERE categorieid = " .$id."";
                     print("Het wijzigen is gelukt!<br>");
                     print("U wordt over 5 seconden doorverzonden naar de vorige pagina <br>");
@@ -54,7 +54,8 @@ echo $pagina->getVereisteHTML();
                             <th></th>
                             <tr>
                                 <td> CategorieID:</td>
-                                <td> <input type="text" name="categorieid" value="<?php print ($id1);?>" readonly/>     </td>      
+                                
+                                <td> <center> <?php print ($id1);?></center>     </td>      
                             </tr>
                             
                             <tr>
