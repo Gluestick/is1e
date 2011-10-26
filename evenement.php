@@ -25,18 +25,18 @@ echo $pagina->getVereisteHTML();
             $id = mysql_real_escape_string($_GET['id']);
             print("<a href=\"wijzigevenement.php?id=$id\">Wijzigen</a><br /><br />");
             
-            $id = mysql_real_escape_string($_GET['id']);
+            $id = $_GET['id'];
             $sql = "SELECT evenement.evenementid, evenement.naam AS evenementnaam,begindatum,einddatum,categorie.naam AS categorienaam,vereniging.naam AS verenigingnaam,isaanmeldingverplicht,omschrijving, vereniging.verenigingid as id FROM `evenement` JOIN `categorie` ON evenement.categorieid = categorie.categorieid JOIN `vereniging` ON `organiserendeverenigingid` = `verenigingid` WHERE evenementid=$id;";
             $resultaat_van_server = mysql_query($sql) or die(mysql_error());
             while ($array = mysql_fetch_array($resultaat_van_server)) {
-                $naam = mysql_real_escape_string($array['evenementnaam']);
-                $begin = mysql_real_escape_string($array['begindatum']);
-                $eind = mysql_real_escape_string($array['einddatum']);
-                $categorie = mysql_real_escape_string($array['categorienaam']);
-                $organisator = mysql_real_escape_string($array['verenigingnaam']);
-                $aanmelding = mysql_real_escape_string($array['isaanmeldingverplicht']);
-                $omschrijving = mysql_real_escape_string($array['omschrijving']);
-                $id= mysql_real_escape_string($_GET['id']);
+                $naam = $array['evenementnaam'];
+                $begin = $array['begindatum'];
+                $eind = $array['einddatum'];
+                $categorie = $array['categorienaam'];
+                $organisator = $array['verenigingnaam'];
+                $aanmelding = $array['isaanmeldingverplicht'];
+                $omschrijving = $array['omschrijving'];
+                $id= $_GET['id'];
                 print("<form action=\"aanmeldenevenement.php?id=$id\" method=\"POST\">");
 
                 ?>
