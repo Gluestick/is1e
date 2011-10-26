@@ -78,6 +78,8 @@ echo $pagina->getVereisteHTML();
 						?>
 					</table>
 					<?php
+				} else {
+					echo "Geen gegevens";
 				}
 				
 				?>

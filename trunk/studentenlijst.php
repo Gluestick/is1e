@@ -42,7 +42,7 @@
 				print("<tr><td>" . $row['studentnr'] . "</td>");
 				print("<td><a href=\"raadplegenprofiel.php?id=" . $row['studentid'] . "\">" . $row['voornaam'] . " " . $row['achternaam'] . "</a></td>");
 				print("<td>" . $row['geslacht'] . "</td>");
-				print("<td>" . $row['geboortedatum'] . "</td></tr>");
+				print("<td>" . tijd::formatteerTijd($row['geboortedatum'], "d-m-Y") . "</td></tr>");
 			}
 			$this->printPaginator($page, $total_results, $aantalrijen);
 		}
