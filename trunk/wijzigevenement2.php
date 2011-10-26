@@ -3,7 +3,7 @@
  * @author: Kay van Bree, Kajel Bhikhoe
  * @description: 
  */
-if (!isVereniging()) {
+if (!isAdmin() && !isVereniging()) {
 	header("location:index.php");
 }
 $pagina = pagina::getInstantie();
