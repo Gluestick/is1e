@@ -119,7 +119,7 @@ echo $pagina->getVereisteHTML();
 					<tr>
 						<td>*</td>
 						<td>Contactpersoon:</td>
-						<td colspan="2"><input type="text" name="contactpersoon" value="kolom bestaat niet<?php //print($row['contactpersoon']);  ?>" /></td>
+						<td colspan="2"><input type="text" name="contactpersoon" value="<?php print($row['contactpersoon']);  ?>" /></td>
 						<td><?php if(isset($error["contactpersoon"])){ print $error["contactpersoon"]; } ?></td>
 					</tr>
 					<tr>
