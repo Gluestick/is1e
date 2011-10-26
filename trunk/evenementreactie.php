@@ -1,3 +1,4 @@
+<html>
 <?php
 /**
  * @author: Kay van Bree, Kajel Bhikhoe
@@ -25,7 +26,15 @@ if (isset($_POST["verstuur"])) {
 	VALUES(".mysql_real_escape_string($id).",'".mysql_real_escape_string($naam)."', '".mysql_real_escape_string($tekstvak)."', '$tijdstip')";
 
 		mysql_query($query1);
-	}
+	}  if ($naam != "") {
+		echo $naam;
+		} else {
+			echo "Naam is verplicht!";
+		} if ($tekstvak != "") {
+			echo specialetekens::vervangTekensInTekst($tekstvak);
+		} else {
+			echo "Bericht is verplicht!";
+		}
 }
 
 $pagina->setTitel("Eventplaza");
@@ -60,7 +69,7 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 
-			<form action="evenementreactie2.php?id=<?php echo $id; ?>" method="post">
+			<form action="evenementreactie.php?id=<?php echo $id; ?>" method="post">
 				<table>
 					<tr>
 						<td>Naam </td>
@@ -110,3 +119,4 @@ echo $pagina->getVereisteHTML();
 <?php
 echo $pagina->getVereisteHTMLafsluiting();
 ?>
+</html>
