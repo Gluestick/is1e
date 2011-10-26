@@ -23,7 +23,7 @@ echo $pagina->getVereisteHTML();
             <h1><?php echo $pagina->getTitel(); ?></h1>
             <?php  
             $id = mysql_real_escape_string($_GET['id']);
-            if(!isVereniging() || !isAdmin()){
+            if(isVereniging() || isAdmin()){
             print("<a href=\"wijzigevenement.php?id=$id\">Wijzigen</a><br /><br />");
             }
             $id = $_GET['id'];
