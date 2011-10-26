@@ -28,7 +28,7 @@ echo $pagina->getVereisteHTML();
 				print $error["velden"] = "Niet alle verplichte velden zijn ingevuld!<br/><br/>";
 			}
 			if (!empty($_POST["naam"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù\s-]+$/", $_POST["naam"])) {
-				$error["naam"] = "Ongeldige naams";
+				$error["naam"] = "Ongeldige naam";
 			}
 			if (!empty($_POST["plaats"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù'\s-]+$/", $_POST["plaats"])) {
 				$error["plaats"] = "Ongeldige plaatsnaam";
@@ -50,7 +50,7 @@ echo $pagina->getVereisteHTML();
 					$error["aantal_leden"] = "Ongeldig aantal";
 				}
 			}
-			if (!empty($_POST["telefoon"]) && !preg_match("/^[+]?[0-9]+[-]?[0-9]+$/", $_POST["telefoon"])) {
+			if (!empty($_POST["telefoonnr"]) && !preg_match("/^[+]?[0-9]+[-]?[0-9]+$/", $_POST["telefoonnr"])) {
 				$error["telefoon"] = "Ongeldig telefoonnummer";
 			}
 			if (!empty($_POST["kvk"]) && !preg_match("/^[0-9]{8}$/", $_POST["kvk"])) {
@@ -132,7 +132,7 @@ echo $pagina->getVereisteHTML();
 						<td></td>
 						<td>Telefoonnr:</td>
 						<td colspan="2"><input type="text" name="telefoonnr" value="<?php print($row['telefoonnr']); ?>" /></td>
-						<td><?php if(isset($error["telefoonnr"])){ print $error["telefoonnr"]; } ?></td>
+						<td><?php if(isset($error["telefoon"])){ print $error["telefoon"]; } ?></td>
 					</tr>
 					<tr>
 						<td></td>

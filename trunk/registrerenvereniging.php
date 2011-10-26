@@ -80,8 +80,8 @@ echo $pagina->getVereisteHTML();
 				$password = md5($pass1 . "" . $salt);
 				
 				
-				$sql2 = "INSERT INTO user (`username`, `password`, `salt`, `activation`, `email`, `role`) VALUES('".$_POST['gebruiker']."', '$password', '$salt', '$activation', '$email', '$role');";
-				$resultaat2 = mysql_query($sql2) or die(mysql_error());
+				$sql2 = "INSERT INTO user (`username`, `password`, `salt`, `activation`, `email`, `role`) VALUES('".mysql_real_escape_string($_POST['gebruiker'])."', '$password', '$salt', '$activation', '$email', '$role');";
+				$resultaat2 = mysql_query($sql2);
 				$lastid = mysql_fetch_assoc(mysql_query("SELECT last_insert_id() as userid FROM user"));
 				$sql = "INSERT INTO vereniging (naam, adres, postcode, plaats, aantaleigenleden, kvk, telefoonnr, userid) VALUES('" . mysql_real_escape_string($_POST["vereniging_naam"]) . "', '" . mysql_real_escape_string($_POST["vereniging_adres"]) . "', '" . mysql_real_escape_string($_POST["vereniging_postcode"]) . "', '" . mysql_real_escape_string($_POST["vereniging_plaats"]) . "', '".mysql_real_escape_string($_POST["vereniging_aantal_leden"])."'";
 				if (!empty($_POST["vereniging_kvk"])) {

@@ -35,7 +35,7 @@ echo $pagina->getVereisteHTML();
 				<?php
 				database::getInstantie();
 				if (isset($_POST["verstuur"])) {
-					$sql = "SELECT V.verenigingid, V.naam, V.plaats, U.email FROM vereniging V JOIN user U ON V.userid = U.user_id WHERE naam LIKE '%{$_POST["naam_vereniging"]}%' AND plaats LIKE'%{$_POST["plaats_vereniging"]}%' ORDER BY naam";
+					$sql = "SELECT V.verenigingid, V.naam, V.plaats, U.email FROM vereniging V JOIN user U ON V.userid = U.user_id WHERE naam LIKE '%" . mysql_real_escape_string($_POST["naam_vereniging"]) . "%' AND plaats LIKE'%" . mysql_real_escape_string($_POST["plaats_vereniging"]) . "%' ORDER BY naam";
 				}
 				else {
 					$sql = "SELECT V.verenigingid, V.naam, V.plaats, U.email FROM vereniging V JOIN user U ON V.userid = U.user_id ORDER BY naam";
