@@ -74,7 +74,8 @@ echo $pagina->getVereisteHTML();
                         <tr>
                             <td></td>
                             <td><input type="hidden" name ="evenementid" value = "<?php echo $array["evenementid"]; ?>"/>
-								<input type="submit" name="submit" value="Aanmelden!"/></td>
+								<?php if (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM aanmelding WHERE studentid = {$_SESSION["studentid"]} AND evenementid = {$_GET["id"]}")) == 0) { ?><input type="submit" name="aanmelden" value="Aanmelden" /><?php } 
+	elseif (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM aanmelding WHERE studentid = {$_SESSION["studentid"]} AND evenementid = {$_GET["id"]}")) >= 1) { ?><input type="submit" name="afmelden" value="Afmelden" /><?php } ?>
                         </tr>
                     </table>
                 </form>
