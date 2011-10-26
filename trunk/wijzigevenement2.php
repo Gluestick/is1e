@@ -22,7 +22,7 @@ echo $pagina->getVereisteHTML();
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 
 			<?php
-			$naam = $_POST["naam"];
+			$naam = mysql_real_escape_string($_POST["naam"]);
 			$bdatum = $_POST["bdatum"];
 			$edatum = $_POST["edatum"];
 			$tekstvak = $_POST["tekstvak"];
