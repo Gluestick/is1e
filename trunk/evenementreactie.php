@@ -28,10 +28,10 @@ if (isset($_POST["verstuur"])) {
 		mysql_query($query1);
 	}  
 	
-	$error["naam"] = "";
-	$error["tekstvak"] = ""; 
+	if ($error["naam"] = "");
+	if ($error["tekstvak"] = ""); 
 	
-}
+	}
 
 $pagina->setTitel("Eventplaza");
 $pagina->setCss("style.css");
