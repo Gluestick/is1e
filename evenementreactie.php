@@ -26,15 +26,11 @@ if (isset($_POST["verstuur"])) {
 	VALUES(".mysql_real_escape_string($id).",'".mysql_real_escape_string($naam)."', '".mysql_real_escape_string($tekstvak)."', '$tijdstip')";
 
 		mysql_query($query1);
-	}  if ($naam != "") {
-		echo $naam;
-		} else {
-			echo "Naam is verplicht!";
-		} if ($tekstvak != "") {
-			echo specialetekens::vervangTekensInTekst($tekstvak);
-		} else {
-			echo "Bericht is verplicht!";
-		}
+	}  
+	
+	$error["naam"] = "";
+	$error["tekstvak"] = ""; 
+	
 }
 
 $pagina->setTitel("Eventplaza");
@@ -74,6 +70,7 @@ echo $pagina->getVereisteHTML();
 					<tr>
 						<td>Naam </td>
 						<td><input type="text" name="naam"/><input type ="hidden" name ="evenementid" value ="<?php echo $id; ?>" /></td>
+						<td> <?php if (isset ($error["naam"])) { echo "Naam is verplicht!"; } ?> </td>
 					</tr>
 					<tr>
 						<td>Bericht </td>
@@ -105,6 +102,7 @@ echo $pagina->getVereisteHTML();
 								}
 								?>
 							</div></td>
+							<td> <?php if (isset ($error["tekstvak"])) { echo "Bericht is niet ingevuld!"; } ?> </td>
 					</tr>
 					<tr>
 						<td></td>
