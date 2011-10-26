@@ -21,7 +21,7 @@ if (isset($_POST["afmelden"])) {
 	if (isset($_POST["student"]) && !empty($_POST["student"]) && is_array($_POST["student"])) {
 		foreach ($_POST["student"] as $key => $val) {
 			$query = "DELETE FROM groeplid WHERE studentid = ".mysql_real_escape_string($val)." AND groepid = ".mysql_real_escape_string($_GET["groepid"]).";";
-			mysql_query($query) or $error .= "<li>".mysql_error()."</li>";
+			mysql_query($query);
 		}
 	} else {
 		$error .= "<li>Er ging iets fout.</li>";

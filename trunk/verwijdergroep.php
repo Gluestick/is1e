@@ -3,6 +3,7 @@
  * @author: Hans-Jurgen Bakkenes
  * @description: 
  */
+isHimSelf($_GET["id"]);
 $pagina = pagina::getInstantie();
 database::getInstantie();
 
@@ -28,7 +29,7 @@ $pagina->setTitel("Verwijder vriendengroep".$naam);
 $pagina->setCss("style.css");
 $pagina->setJavascriptCode("
 	function bevestig() {
-		var answer = confirm('Weet u zeker dat u deze groep wilt verwijderen?')
+		var answer = confirm('Weet u zeker dat u deze groep wilt verwijderen?');
 		if (answer) {
 			return true;
 		} else {
@@ -45,7 +46,6 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<a href="javascript:history.go(-1);">Terug</a><br />
 			<?php
 			if ($error != "") {
 				echo $error;
@@ -71,10 +71,8 @@ echo $pagina->getVereisteHTML();
 			} else {
 				echo "Geen resultaten beschikbaar.";
 			}
-			if (isset($array)) {
-				echo "<br /><a href=\"aanmeldengroep.php?groepid=".$array["groepid"]."\">Voor groep aanmelden</a>";
-			}
 			?>
+			<br /><a href="raadplegenprofiel.php?id=<?php echo $_GET["id"]; ?>">Terug</a>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
