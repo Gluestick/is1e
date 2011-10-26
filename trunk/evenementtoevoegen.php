@@ -22,7 +22,7 @@ echo $pagina->getVereisteHTML();
                         database::getInstantie();
                         if (isset($_POST["submit"])) {
                             
-                            $naam = mysql_real_escape_string($_POST["naam"]);
+                            $naam = $_POST["naam"];
                             $begindatum = mysql_real_escape_string($_POST["begindatum"]);
                             $einddatum = mysql_real_escape_string($_POST["einddatum"]);
                             $verplicht = mysql_real_escape_string($_POST["verplicht"]);
@@ -30,7 +30,7 @@ echo $pagina->getVereisteHTML();
 				if (empty($naam)) {
 					$error["naam"] = "Geen naam opgegeven";
 				}
-                                elseif(!preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù'\s]+$/", $naam)){
+                                elseif(!preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìò'&ù\s]+$/", $naam)){
                                     $error["naam"] = "Naam is ongeldig";
                                 }
 				if (empty($begindatum)) {   
