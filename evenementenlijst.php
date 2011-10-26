@@ -54,18 +54,35 @@ echo $pagina->getVereisteHTML();
 
 
                 <?php
-               
-               
-               if(isset($_POST['submit'])){
-               
-   $sql = "SELECT evenement.naam AS evenementnaam,begindatum,einddatum,vereniging.verenigingid as id,omschrijving,vereniging.naam AS verenigingnaam, evenementid,evenement.categorieid AS evenementcategorie,categorie.categorieid AS categorieid1,isaanmeldingverplicht, categorie.naam AS categorienaam 
+                if(isset($_POST['submit'])){
+               $naam = mysql_real_escape_string($_POST["naam"]);
+               if(tijd::checkCorrectieDatum($_POST["begindatum"])){
+               $begindatum = tijd::formatteerTijd(mysql_real_escape_string($_POST["begindatum"]), "Y-m-d");
+               }
+               else{
+                   $begindatum = "";
+                   $error["begindatum"] = "Ongeldige begindatum";
+               }
+               if(tijd::checkCorrectieDatum($_POST["einddatum"])){
+               $einddatum = tijd::formatteerTijd(mysql_real_escape_string($_POST["einddatum"]),"Y-m-d");
+               }
+               else{
+                   $einddatum = "";
+                   $error["einddatum"] = "Ongeldige einddatum";
+               }
+               $categorie = mysql_real_escape_string($_POST["categorie"]);
+               $vereniging = mysql_real_escape_string($_POST["vereniging"]); 
+                }
+               if(isset($_POST['submit']) && !empty($naam) || !empty($begindatum) || !empty($einddatum) || !empty($categorie) || !empty($vereniging)){
+
+    $sql = "SELECT evenement.naam AS evenementnaam,begindatum,einddatum,vereniging.verenigingid as id,omschrijving,vereniging.naam AS verenigingnaam, evenementid,evenement.categorieid AS evenementcategorie,categorie.categorieid AS categorieid1,isaanmeldingverplicht, categorie.naam AS categorienaam 
         FROM `evenement` JOIN vereniging ON organiserendeverenigingid = verenigingid
         JOIN categorie ON evenement.categorieid = categorie.categorieid
-        Where evenement.naam LIKE '%" . mysql_real_escape_string($_POST["naam"]) . "%' 
-            AND `begindatum` LIKE '%" . mysql_real_escape_string($_POST["begindatum"]) . "%' 
-                AND `einddatum`LIKE '%" . mysql_real_escape_string($_POST["einddatum"]). "%'
-                    AND categorie.naam LIKE '%".mysql_real_escape_string($_POST["categorie"])."%'
-                    AND verenigingid LIKE '%".mysql_real_escape_string($_POST["vereniging"])."%'
+        Where evenement.naam LIKE '%" . $naam . "%' 
+            AND `begindatum` LIKE '%" . $begindatum . "%' 
+                AND `einddatum`LIKE '%" . $einddatum. "%'
+                    AND categorie.naam LIKE '%".$categorie."%'
+                    AND verenigingid LIKE '%".$vereniging."%'
                         ORDER BY evenement.evenementid ASC;";
    
     
@@ -94,6 +111,13 @@ echo $pagina->getVereisteHTML();
 $resultaat_van_server = mysql_query($sql) or die(mysql_error());
 if(mysql_num_rows($resultaat_van_server)>0){
                ?>
+                <?php   
+                    if(!empty($_POST["begindatum"]) && isset($error['begindatum'])){
+                        print($error['begindatum']."<br/>"); 
+                    }
+                    if(!empty($_POST["einddatum"]) && isset($error['einddatum'])){
+                        print($error['einddatum']);
+                    }?>
                 <table>     
                         <tr> 
                             <th align="left" width="150" height="50">Naam</th>
