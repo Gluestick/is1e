@@ -132,7 +132,7 @@ echo $pagina->getVereisteHTML();
 			if (mysql_num_rows($resultaat1) > 0) {
 			
 			echo"<table> ";
-			echo"</br>";
+			echo"<br/>";
 				
 			echo"<tr><td> is lid van </td></tr>";
 				
