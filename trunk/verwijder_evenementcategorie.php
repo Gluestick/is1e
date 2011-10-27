@@ -35,7 +35,7 @@ echo $pagina->getVereisteHTML();
                 if (isset($_GET['verwijder'])) {
 
                     $sql = "DELETE FROM categorie WHERE categorieid=$id";
-                    $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                    $resultaat_van_server = mysql_query($sql);
 
                     print("Het verwijderen is gelukt!<br/>");
                     print("Over 5 seconden wordt u doorverzonden naar de vorige pagina <br/>")

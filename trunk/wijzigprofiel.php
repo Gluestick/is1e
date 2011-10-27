@@ -85,7 +85,7 @@ echo $pagina->getVereisteHTML();
 	//
 	//											if (move_uploaded_file($_FILES['profielfoto']['tmp_name'], $uploadfile)) {
 	//												$sql = "UPDATE `student` SET `profielfoto`='".mysql_real_escape_string($uploadfile)."' WHERE `studentid` = 1";
-	//												mysql_query($sql) or die(mysql_error());
+	//												mysql_query($sql);
 	//												echo "Bestand ". $_FILES['profielfoto']['name'] ." is succesvol geupload.\n";
 	//											} else {
 	//												echo "Kon de afbeelding niet uploaden\n\r";

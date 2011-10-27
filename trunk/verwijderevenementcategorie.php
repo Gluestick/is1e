@@ -33,10 +33,10 @@ echo $pagina->getVereisteHTML();
                     $sql3 = "DELETE FROM reactie where evenementid = {$array["evenementid"]}";
                     $sql4 = "DELETE FROM evenement where evenementid = {$array["evenementid"]}";
                     $sql5 = "DELETE FROM categorie WHERE categorieid=$id";
-                    mysql_query($sql2) or die(mysql_error());
-                     mysql_query($sql3) or die(mysql_error());
-                      mysql_query($sql4) or die(mysql_error());
-                       mysql_query($sql5) or die(mysql_error());
+                    mysql_query($sql2);
+                     mysql_query($sql3);
+                      mysql_query($sql4);
+                       mysql_query($sql5);
                 }
 
                 print("Het verwijderen is gelukt!<br/>");

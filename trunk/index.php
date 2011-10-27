@@ -40,7 +40,7 @@ echo $pagina->getVereisteHTML();
 						JOIN `categorie` ON evenement.categorieid=categorie.categorieid
 						ORDER BY evenementid DESC
 						LIMIT 3;";
-				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+				$resultaat_van_server = mysql_query($sql);
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
 					$id = $array['evenementid'];
 					$id1 = $array['id'];
