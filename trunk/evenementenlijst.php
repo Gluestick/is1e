@@ -29,7 +29,7 @@ echo $pagina->getVereisteHTML();
                     <option></option>
                     <?php
                     $sql = "SELECT `verenigingid`,`naam` FROM `vereniging`;";
-                    $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                    $resultaat_van_server = mysql_query($sql);
                     while ($array = mysql_fetch_array($resultaat_van_server)) {
                         echo "<option value=\"".mysql_real_escape_string($array["verenigingid"])."\">" . mysql_real_escape_string($array["naam"]) . "</option>";
                     }

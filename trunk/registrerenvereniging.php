@@ -98,7 +98,7 @@ echo $pagina->getVereisteHTML();
 					$sql .= ", NULL";
 				}
 				$sql .= ", '".$lastid['userid']."');";
-				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+				$resultaat_van_server = mysql_query($sql);
 				if ($resultaat_van_server == true && $resultaat2 == true) {
 					?>
 					<script type="text/javascript">

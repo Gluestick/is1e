@@ -38,7 +38,7 @@ echo $pagina->getVereisteHTML();
 				if (isset($_POST["groepnaam"]) && !empty($_POST["groepnaam"])) {
 					if ($resultaat) {
 						$query = "INSERT INTO groep (naam, eigenaar) VALUES ('".mysql_real_escape_string($_POST["groepnaam"])."', ".mysql_real_escape_string($_GET["id"]).")";
-						mysql_query($query) or $error .= "<li>".mysql_error()."</li>";
+						mysql_query($query);
 					} else {
 						$error .= "<li>Deze gebruiker bestaat niet.</li>";
 					}

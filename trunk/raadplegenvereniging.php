@@ -11,7 +11,7 @@ if (!empty($_GET["id"])) {
 	$ding = mysql_fetch_assoc(mysql_query("SELECT username, email FROM user JOIN vereniging ON vereniging.userid = user.user_id WHERE vereniging.verenigingid = '".$_GET['id']."';"));
 	$verenigingid = $_GET["id"];
 	$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
-	$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+	$resultaat_van_server = mysql_query($sql);
 	$row = mysql_fetch_assoc($resultaat_van_server);
 	if (isMember()) {
 		$sql = "SELECT userid FROM vereniging WHERE verenigingid = " . mysql_real_escape_string($_GET["id"]);

@@ -50,7 +50,7 @@ echo $pagina->getVereisteHTML();
                     }
 
                     $sql = "SELECT * FROM categorie where naam LIKE '%".$_POST["naam"]."%' ORDER BY `categorieid` ;";
-                    $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                    $resultaat_van_server = mysql_query($sql);
 
                     while ($array = mysql_fetch_array($resultaat_van_server)) {
 

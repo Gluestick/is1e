@@ -26,7 +26,7 @@ echo $pagina->getVereisteHTML();
                 <?php
                 database::getInstantie();
                 $sql = "SELECT MAX(categorieid),naam FROM categorie";
-                $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                $resultaat_van_server = mysql_query($sql);
                 $row = mysql_fetch_assoc($resultaat_van_server);
 
                 $row["MAX(categorieid)"]++;
