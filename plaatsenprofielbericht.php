@@ -61,11 +61,11 @@ echo $pagina->getVereisteHTML();
 			<form action="" method="post">
 				<table>
 					<tr>
-						<td>onderwerp:</td>
-						<td><input name="onderwerp" type="text"/></td> 
+						<td>Onderwerp:</td>
+						<td><input name="nderwerp" type="text"/></td> 
 					</tr>
 					<tr>
-						<td>bericht:</td>
+						<td>Bericht:</td>
 						<td><textarea name="bericht" style="float:left;min-height:200px;min-width:200px;"></textarea>
 							<div id="tekstopties">
 								<div id="smiley">
@@ -97,8 +97,8 @@ echo $pagina->getVereisteHTML();
 						</td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="verzenden" name="verstuur" /></td><td><input type="reset" value="wis alles" /></td>
-						<td><a href="raadplegenprofiel.php?id=<?php echo $studentid; ?>">terug</a></td>
+						<td><input type="submit" value="Verzenden" name="verstuur" /></td><td><input type="reset" value="Wis alles" /></td>
+						<td><a href="raadplegenprofiel.php?id=<?php echo $studentid; ?>">Terug</a></td>
 					</tr>
 				</table>
 			</form>

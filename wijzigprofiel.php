@@ -31,7 +31,7 @@ echo $pagina->getVereisteHTML();
 			empty($_POST["woonplaats"]) ||
 			empty($_POST["geboortedatum"])) {
 			
-				echo"alle velden zijn verplicht !";
+				echo"Alle velden zijn verplicht !";
 				
 		} else{
 				$studentId = $_POST['studentId'];
@@ -130,8 +130,7 @@ echo $pagina->getVereisteHTML();
 				$resultaat_van_server2 = mysql_query($sql2);
 				echo"gewijzigd";
 				echo"<a href=\"raadplegenprofiel.php?id=" . $id . "\"> terug </a></br>";
-				print("U wordt over 5 seconden doorgelinked naar je profiel pagina<br/>");
-                                                    print("<a href=\"raadplegenprofiel.php?id=$id\">of klik hier om direct naar de evenementenlijst te gaan</a>");
+			
                                                     
 				//header("location:raadplegenprofiel.php?id=".$id);
 			}
@@ -204,10 +203,10 @@ echo $pagina->getVereisteHTML();
 						<td>	E-mailadres: </td> <td> 	<input type="text" name="emailadres" value="<?php echo $array["email"]; ?>" /> </br></td>
 					</tr>
 					<tr>
-						<td><input type="submit" name="wijzig" value="wijzig"/> </td>
+						<td><input type="submit" name="wijzig" value="Wijzig"/> </td>
 					</tr>
 					<tr>
-						<td><a href="raadplegenprofiel.php?id=<?php echo $id; ?>"> terug </a></td>
+						<td><a href="raadplegenprofiel.php?id=<?php echo $id; ?>"> Terug </a></td>
 					</tr>
 				</table>
 			</form>
