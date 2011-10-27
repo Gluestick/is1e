@@ -62,7 +62,7 @@ echo $pagina->getVereisteHTML();
 				<table>
 					<tr>
 						<td>Onderwerp:</td>
-						<td><input name="nderwerp" type="text"/></td> 
+						<td><input name="onderwerp" type="text"/></td> 
 					</tr>
 					<tr>
 						<td>Bericht:</td>
