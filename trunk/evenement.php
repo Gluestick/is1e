@@ -74,7 +74,7 @@ echo $pagina->getVereisteHTML();
                         </tr>
                         <tr>
                             <td></td>
-                            <td><?php if(tijd::formatteerTijd($begin, "d-m-Y") >= date("d-m-Y")){?>
+                            <td><?php if(tijd::formatteerTijd($begin, "Y-m-d") >= date("Y-m-d")){?>
                                 
                                 <input type="hidden" name ="evenementid" value = "<?php echo $array["evenementid"]; ?>"/>
 								<?php if (isStudent() && mysql_num_rows(mysql_query("SELECT * FROM aanmelding WHERE studentid = {$_SESSION["studentid"]} AND evenementid = {$_GET["id"]}")) == 0) { ?><input type="submit" name="aanmelden" value="Aanmelden" /><?php } 
