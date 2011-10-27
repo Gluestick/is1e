@@ -120,7 +120,7 @@ echo $pagina->getVereisteHTML();
                                 </tr>
                                 <tr><?php
                                 $sql = "SELECT `naam`,`categorieid` FROM `categorie` ORDER BY `naam` ASC;";
-                                $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                                $resultaat_van_server = mysql_query($sql);
                                     ?>
                                     <th>*</th>
                                     <th>Categorie</th>

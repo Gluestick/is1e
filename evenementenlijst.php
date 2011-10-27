@@ -42,7 +42,7 @@ echo $pagina->getVereisteHTML();
                     <?php
                     $sql = "SELECT DISTINCT `naam`, `categorieid` FROM `categorie`;";
 
-                    $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                    $resultaat_van_server = mysql_query($sql);
                     while ($array = mysql_fetch_array($resultaat_van_server)) {
                         echo "<option value\"".mysql_real_escape_string($array["categorieid"])."\">".mysql_real_escape_string($array["naam"])."</option>";
                     }
@@ -109,7 +109,7 @@ echo $pagina->getVereisteHTML();
 ?>
                     
     <?php
-$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+$resultaat_van_server = mysql_query($sql);
 if(mysql_num_rows($resultaat_van_server)>0){
                ?>
                 <?php   

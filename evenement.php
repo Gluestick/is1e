@@ -87,7 +87,7 @@ echo $pagina->getVereisteHTML();
                 <form action="#" method="POST"> 
                    <?php 
                    $sql = "SELECT afzender, tijdstip, inhoud FROM reactie WHERE evenementid=$id;";
-                    $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                    $resultaat_van_server = mysql_query($sql);
                     if(mysql_num_rows($resultaat_van_server) > 0){
                    ?>
                     <table border="1">
@@ -100,7 +100,7 @@ echo $pagina->getVereisteHTML();
                         <?php
                     $id = $_GET['id'];
                     $sql = "SELECT afzender, tijdstip, inhoud FROM reactie WHERE evenementid=$id;";
-                    $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                    $resultaat_van_server = mysql_query($sql);
                     while ($array = mysql_fetch_array($resultaat_van_server)) {
 
                         $naam = $array['afzender'];

@@ -32,7 +32,7 @@ echo $pagina->getVereisteHTML();
                     $sql = "UPDATE categorie SET `naam` ='".$naam1."' WHERE categorieid = " .$id."";
                     print("Het wijzigen is gelukt!<br>");
                     print("U wordt over 5 seconden doorverzonden naar de vorige pagina <br>");
-                    $resultaat_van_server = mysql_query($sql) or die(mysql_error());?>
+                    $resultaat_van_server = mysql_query($sql);?>
                         <script language="javascript">
                                 setTimeout("location.href='./raadpleegevenementcategorieen.php'", 5000);
                             </script> 

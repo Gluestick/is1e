@@ -64,7 +64,7 @@ echo $pagina->getVereisteHTML();
 					$array = mysql_fetch_assoc(mysql_query("SELECT aantaleigenleden FROM vereniging WHERE verenigingid = " . mysql_real_escape_string($_GET["id"]) . ""));
 					$aantal_leden = $array["aantaleigenleden"];
 					$sql = "SELECT * FROM student JOIN lidmaatschap ON student.studentid=lidmaatschap.studentid JOIN user ON student.userid = user.user_id WHERE verenigingid='$verenigingid' AND lidmaatschap.studentid IS NOT NULL";
-					$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+					$resultaat_van_server = mysql_query($sql);
 					if (mysql_num_rows($resultaat_van_server) > 0) {
 						?>
 					<table><tr>
@@ -79,7 +79,7 @@ echo $pagina->getVereisteHTML();
 				<?php
 				}
 				$sql = "SELECT * FROM evenement WHERE organiserendeverenigingid=$verenigingid";
-				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+				$resultaat_van_server = mysql_query($sql);
 				if (mysql_num_rows($resultaat_van_server) > 0) {
 					?>
 					<table>
@@ -101,7 +101,7 @@ echo $pagina->getVereisteHTML();
 					<?php
 				}
 				$sql = "SELECT * FROM vereniging WHERE verenigingid=$verenigingid";
-				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+				$resultaat_van_server = mysql_query($sql);
 				$row = mysql_fetch_assoc($resultaat_van_server);
 				?>
 				<table>

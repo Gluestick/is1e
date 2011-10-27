@@ -12,7 +12,7 @@ $sql = "SELECT studentid, U.user_id as user_id, studentnr, voornaam, achternaam,
 		FROM student S JOIN user U ON S.userid = U.user_id
 		WHERE S.studentid = '$studentid' LIMIT 1;";
 
-$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+$resultaat_van_server = mysql_query($sql);
 $array = mysql_fetch_array($resultaat_van_server);
 
 $studentid = $array['studentid'];
