@@ -77,6 +77,24 @@
 				print("</td></tr>");
 			}
 		}
+		
+		private function addS($studentnr){
+			if(preg_match('/s[0-9]{7}/', $studentnr)){
+				$student = ($studentnr);
+			} elseif(preg_match('/[0-9]{7}/', $studentnr)) {
+				$student = ('s' . $studentnr);
+			}
+			return $student;
+		}
+		
+		private function makeTime($datum){
+			if(preg_match('/[0-9]{2}-[0-9]{2}-[0-9]{4}/', $datum)){
+				$datum = tijd::formatteerTijd($datum, 'Y-m-d');
+			} else {
+				$datum = null;
+			}
+			return $datum;
+		}
 
 		public function makeQuery($aantalrijen, $vanaf){
 			if(!isset($_POST['submit'])){		
@@ -85,7 +103,7 @@
 			} else {
 				$vind = mysql_real_escape_string($_POST['vind']);
 
-				$where = "WHERE studentnr = '$vind' or voornaam LIKE '%$vind%' or achternaam LIKE '%$vind%' or geboortedatum = '". tijd::formatteerTijd($vind, 'Y-m-d') ."' ";
+				$where = "WHERE studentnr = '". $this->addS($vind) ."' or voornaam LIKE '%$vind%' or achternaam LIKE '%$vind%' or geboortedatum = '". $this->makeTime($vind) ."' ";
 
 				$query = "SELECT studentid, studentnr, voornaam, achternaam, geslacht, geboortedatum 
 						FROM student ".$where." ";
