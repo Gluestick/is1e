@@ -21,7 +21,7 @@ if (isset($_GET["groepid"])) {
 if (isset($_POST["wijzig"])) {
 	if (isset($_POST["groepnaam"]) && !empty($_POST["groepnaam"])) {
 		$query = "UPDATE groep SET naam='".mysql_real_escape_string($_POST["groepnaam"])."' WHERE groepid = ".mysql_real_escape_string($_GET["groepid"]).";";
-		mysql_query($query) or $error .= "<li>".mysql_error()."</li>";
+		mysql_query($query);
 	} else {
 		$error .= "<li>Er ging iets mis.</li>";
 	}

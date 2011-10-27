@@ -54,8 +54,6 @@ echo $pagina->getVereisteHTML();
 
 					if (mysql_query($sql)) {
 						echo"bericht toegevoegd";
-					} else {
-						die(mysql_error());
 					}
 				}
 			}

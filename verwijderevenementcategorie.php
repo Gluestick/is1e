@@ -27,7 +27,7 @@ echo $pagina->getVereisteHTML();
             if (isset($_GET['verwijder'])) {
                 $id = mysql_real_escape_string($_GET["id"]);
                 $sql = "Select evenementid from evenement where categorieid = $id";
-                $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                $resultaat_van_server = mysql_query($sql);
                 while ($array = mysql_fetch_assoc($resultaat_van_server)) {
                     $sql2 = "DELETE FROM aanmelding where evenementid = {$array["evenementid"]}";
                     $sql3 = "DELETE FROM reactie where evenementid = {$array["evenementid"]}";

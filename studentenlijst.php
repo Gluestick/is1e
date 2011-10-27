@@ -32,7 +32,7 @@
 			$query = $this->makeQuery($aantalrijen, $vanaf);
 			$limit_query = ($query . "ORDER BY `studentnr` LIMIT ". $vanaf .",". $aantalrijen .";");
 
-			$result = mysql_query($limit_query) or die(mysql_error());
+			$result = mysql_query($limit_query);
 
 			$total_results = mysql_num_rows(mysql_query($query));		
 

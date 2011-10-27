@@ -126,8 +126,8 @@ echo $pagina->getVereisteHTML();
 				$sql2 = "UPDATE user
 							SET  email='" . $emailadres . "'
 						WHERE user_id=" . $id . ";";
-				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
-				$resultaat_van_server2 = mysql_query($sql2) or die(mysql_error());
+				$resultaat_van_server = mysql_query($sql);
+				$resultaat_van_server2 = mysql_query($sql2);
 				echo"gewijzigd";
 				echo"<a href=\"raadplegenprofiel.php?id=" . $id . "\"> terug </a></br>";
 				print("U wordt over 5 seconden doorgelinked naar je profiel pagina<br/>");

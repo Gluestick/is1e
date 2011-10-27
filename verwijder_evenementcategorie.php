@@ -24,7 +24,7 @@ echo $pagina->getVereisteHTML();
             <?php
             database::getInstantie();
             $sql = "SELECT evenement.evenementid, categorie.categorieid from evenement left OUTER join categorie on categorie.categorieid = evenement.categorieid WHERE categorie.categorieid = ".mysql_real_escape_string($_GET["id"])."";
-            $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+            $resultaat_van_server = mysql_query($sql);
             if (mysql_num_rows($resultaat_van_server) > 0) {
                 print("Wanneer u deze categorie verwijderd worden er ook evenementen,<br/> die deze categorie bevatten ook verwijderd.<br/>
                                     <a href=\"raadpleegevenementcategorieen.php\">Ga terug</a>

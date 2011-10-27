@@ -40,7 +40,7 @@ echo $pagina->getVereisteHTML();
 				else {
 					$sql = "SELECT V.verenigingid, V.naam, V.plaats, U.email FROM vereniging V JOIN user U ON V.userid = U.user_id ORDER BY naam";
 				}
-				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
+				$resultaat_van_server = mysql_query($sql);
 				if (mysql_num_rows($resultaat_van_server) >= 1) {
 				?>
 				<table>

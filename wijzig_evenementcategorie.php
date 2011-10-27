@@ -42,7 +42,7 @@ echo $pagina->getVereisteHTML();
                         } 
                         
                         $sql =  "SELECT * FROM `categorie` WHERE `categorieid`=$id";
-                        $resultaat_van_server = mysql_query($sql) or die(mysql_error());
+                        $resultaat_van_server = mysql_query($sql);
                         $row = mysql_fetch_assoc($resultaat_van_server);
                         $id1 = $row["categorieid"];
                         $naam = $row["naam"];
