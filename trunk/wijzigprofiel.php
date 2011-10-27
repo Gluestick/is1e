@@ -20,8 +20,20 @@ echo $pagina->getVereisteHTML();
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php
 			database::getInstantie();
-
-			if (isset($_POST["wijzig"])) {
+		
+	if (isset($_POST["wijzig"])) {
+		if (empty($_POST["studentnr"])||
+			empty($_POST["voornaam"]) || 
+			empty($_POST["achternaam"])|| 
+			empty($_POST["achternaam"])|| 
+			empty($_POST["adres"]) || 
+			empty($_POST["postcode"])||
+			empty($_POST["woonplaats"]) ||
+			empty($_POST["geboortedatum"])) {
+			
+				echo"alle velden zijn verplicht !";
+				
+		} else{
 				$studentId = $_POST['studentId'];
 
 				$studentnr = mysql_real_escape_string($_POST["studentnr"]);
@@ -35,7 +47,7 @@ echo $pagina->getVereisteHTML();
 				} else {
 					$geslacht = NULL; 
 				}
-				if (preg_match("/^[0-9]{1,2}[-]{1}[0-9]{1,2}[-]{1}[0-9]{2,4}$/",$_POST["geboortedatum"])) {
+				if (tijd::checkCorrectieDatum($_POST["geboortedatum"])) {
 					$geboortedatum = mysql_real_escape_string(tijd::formatteerTijd($_POST["geboortedatum"], "Y-m-d"));
 				} else {
 					$geboortedatum = "";
@@ -99,7 +111,6 @@ echo $pagina->getVereisteHTML();
 					}
 				}
 
-
 				$id = mysql_real_escape_string($_GET["id"]);
 				$sql = "UPDATE student 
 				SET voornaam='" . $voornaam . "',
@@ -118,9 +129,13 @@ echo $pagina->getVereisteHTML();
 				$resultaat_van_server = mysql_query($sql) or die(mysql_error());
 				$resultaat_van_server2 = mysql_query($sql2) or die(mysql_error());
 				echo"gewijzigd";
-				echo"<a href=\"raadplegenprofiel.php?id=" . $id . "\"> terug </a>";
+				echo"<a href=\"raadplegenprofiel.php?id=" . $id . "\"> terug </a></br>";
+				print("U wordt over 5 seconden doorgelinked naar je profiel pagina<br/>");
+                                                    print("<a href=\"raadplegenprofiel.php?id=$id\">of klik hier om direct naar de evenementenlijst te gaan</a>");
+                                                    
 				//header("location:raadplegenprofiel.php?id=".$id);
 			}
+	}
 			$id = mysql_real_escape_string($_GET["id"]);
 			$query =   "SELECT S.studentid as studentid, U.user_id as user_id, S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
 						FROM student S 

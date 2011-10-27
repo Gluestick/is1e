@@ -1,4 +1,5 @@
 <?php
+//plaatsenprofielbericht.php?id=<?php echo $studentid; 
 /**
  * @author: Daniel
  * @description: 
@@ -6,6 +7,7 @@
 if (!isStudent()) {
 	header("location:index.php");
 }
+database::getInstantie();
 $pagina = pagina::getInstantie();
 
 $pagina->setTitel("Plaatsen bericht");
@@ -42,7 +44,7 @@ echo $pagina->getVereisteHTML();
 			<?php
 			$studentid = $_SESSION["studentid"];
 			if (isset($_POST["verstuur"]) && isset($_POST["onderwerp"]) && isset($_POST["bericht"])) {
-				if (!empty($_POST["onderwerp"]) || !empty($_POST["bericht"])) {
+				if (empty($_POST["onderwerp"]) || empty($_POST["bericht"])) {
 					echo"alle velden zijn verplicht";
 				} else {
 					$bericht = mysql_real_escape_string($_POST["bericht"]);
@@ -58,7 +60,7 @@ echo $pagina->getVereisteHTML();
 				}
 			}
 			?>
-			<form action="plaatsenprofielbericht.php?id=<?php echo $studentid; ?>" method="post">
+			<form action="" method="post">
 				<table>
 					<tr>
 						<td>onderwerp:</td>

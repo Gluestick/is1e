@@ -98,12 +98,52 @@ echo $pagina->getVereisteHTML();
 			$resultaat_van_server = mysql_query($query);
 
 			echo "<table style=\"text-align:left;\">";
+			
+			$teller = 0;
+			
 			while ($row = mysql_fetch_array($resultaat_van_server)) {
-				echo "<tr><th>datum</th><td> ".tijd::formatteerTijd($row["datum"], "d-m-Y")."</td></tr> ";
+				
+				$teller++;
+				
+				if(is_int($teller/2))
+				{
+					$color = "red";
+				}
+				else
+				{
+					$color = "blue";
+				}
+				
+				echo "<tr style='background-color:".$color."'><th>datum</th><td> ".tijd::formatteerTijd($row["datum"], "d-m-Y")."</td></tr> ";
 				echo "<tr><th>onderwerp</th><td>" . $row["onderwerp"] . "</td></tr> ";
 				echo "<tr><th>bericht</th><td>" . specialetekens::vervangTekensInTekst($row["inhoud"]) . "</td></tr> ";
 			}
-			echo "</table>";
+			echo"</table>";
+			echo"<br/>";
+			
+			
+			$sql1 ="SELECT l.verenigingid, v.naam ,l.studentid
+					FROM lidmaatschap AS l
+					JOIN vereniging AS v
+					ON v.verenigingid = l.verenigingid
+					WHERE l.studentid =" .$studentid.";";
+					$resultaat1 = mysql_query($sql1) ;
+			if (mysql_num_rows($resultaat1) > 0) {
+			
+			echo"<table> ";
+			echo"</br>";
+				
+			echo"<tr><td> is lid van </td></tr>";
+				
+			while( $row= mysql_fetch_array($resultaat1)) {
+				echo"<tr><td>vereniging</td><td><a href=\"raadplegenvereniging.php?id=".$row["verenigingid"]." \">" .$row["naam"]." </a></td></tr> ";
+			}
+			echo"</table>";
+			} else {
+					echo"student is nog geen lid van een vereniging";
+					echo"<br/>";
+				}
+			
 			?>
 			<br />
 			<?php
@@ -150,6 +190,9 @@ echo $pagina->getVereisteHTML();
 					echo"</table> ";
 				}
 			}
+			else{
+				 echo"student heeft zich nog niet aangemeld voor een evenement";
+			}
 			echo "<br />";
 			if(isMember()){
 				$sql = "SELECT * FROM groep WHERE eigenaar = ".mysql_real_escape_string($_GET["id"]);
@@ -168,10 +211,7 @@ echo $pagina->getVereisteHTML();
 			?>
 		</div>
 	</div>
-			<?php echo $pagina->getFooter(); ?>
+	<?php echo $pagina->getFooter(); ?>
 </div>
-
-
-
 <?php
 echo $pagina->getVereisteHTMLafsluiting();
