@@ -85,7 +85,7 @@
 			} else {
 				$vind = mysql_real_escape_string($_POST['vind']);
 
-				$where = "WHERE studentnr = '%$vind%' or voornaam LIKE '%$vind%' or achternaam LIKE '%$vind%' or geboortedatum = '". tijd::formatteerTijd($vind, 'Y-m-d') ."' ";
+				$where = "WHERE studentnr = '$vind' or voornaam LIKE '%$vind%' or achternaam LIKE '%$vind%' or geboortedatum = '". tijd::formatteerTijd($vind, 'Y-m-d') ."' ";
 
 				$query = "SELECT studentid, studentnr, voornaam, achternaam, geslacht, geboortedatum 
 						FROM student ".$where." ";

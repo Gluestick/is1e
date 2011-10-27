@@ -224,7 +224,7 @@ class pagina
 							<input type="submit" name="login" value="Ga!" class="submit" />
 							<input type="text" name="username" class="text" /><br />
 							<input type="password" name="password" class="pass" />
-							<input type="text" name="url" hidden="hidden" value="<?php print($_SERVER['PHP_SELF']); ?>" />
+							<input type="text" name="url" hidden="hidden" value="<?php print($_SERVER['REQUEST_URI']); ?>" />
 							
 						</form>
 						</div>
