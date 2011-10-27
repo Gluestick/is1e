@@ -115,9 +115,9 @@ echo $pagina->getVereisteHTML();
 					$color = "blue";
 				}
 				
-				echo "<tr style='background-color:".$color."'><th>datum</th><td> ".tijd::formatteerTijd($row["datum"], "d-m-Y")."</td></tr> ";
-				echo "<tr><th>onderwerp</th><td>" . $row["onderwerp"] . "</td></tr> ";
-				echo "<tr><th>bericht</th><td>" . specialetekens::vervangTekensInTekst($row["inhoud"]) . "</td></tr> ";
+				echo "<tr style='background-color:".$color."'><th>Datum</th><td> ".tijd::formatteerTijd($row["datum"], "d-m-Y")."</td></tr> ";
+				echo "<tr><th>Onderwerp</th><td>" . $row["onderwerp"] . "</td></tr> ";
+				echo "<tr><th>Bericht</th><td>" . specialetekens::vervangTekensInTekst($row["inhoud"]) . "</td></tr> ";
 			}
 			echo"</table>";
 			echo"<br/>";
@@ -141,7 +141,7 @@ echo $pagina->getVereisteHTML();
 			}
 			echo"</table>";
 			} else {
-					echo"student is nog geen lid van een vereniging";
+					echo"Student is nog geen lid van een vereniging";
 					echo"<br/>";
 				}
 			
@@ -170,10 +170,10 @@ echo $pagina->getVereisteHTML();
 					echo"Evenementen bezocht:";
 					echo"<table style=\"text-align:left;\">";
 					while ($row = mysql_fetch_array($resultaat_van_server1)) {
-						echo "<tr><th>naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["evenementnaam"] . "</a></td></tr> ";
-						echo "<tr><th>begindatum</th><td>" . tijd::formatteerTijd($row["begindatum"], "d-m-Y") . "</td></tr> ";
-						echo "<tr><th>vereniging</th><td>" . $row["verenigingnaam"] . "</td></tr> ";
-						echo "<tr><th>categorie</th><td>" . $row["categorienaam"] . "</td></tr> ";
+						echo "<tr><th>Naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["evenementnaam"] . "</a></td></tr> ";
+						echo "<tr><th>Begindatum</th><td>" . tijd::formatteerTijd($row["begindatum"], "d-m-Y") . "</td></tr> ";
+						echo "<tr><th>Vereniging</th><td>" . $row["verenigingnaam"] . "</td></tr> ";
+						echo "<tr><th>Categorie</th><td>" . $row["categorienaam"] . "</td></tr> ";
 					}
 					echo"</table> ";
 				}
@@ -183,16 +183,16 @@ echo $pagina->getVereisteHTML();
 					echo"<table style=\"text-align:left;\">";
 
 					while ($row = mysql_fetch_array($resultaat_van_server2)) {
-						echo "<tr><th>naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["evenementnaam"] . "</a></td></tr> ";
-						echo "<tr><th>begindatum</th><td>" . tijd::formatteerTijd($row["begindatum"], "d-m-Y") . "</td></tr> ";
-						echo "<tr><th>vereniging</th><td>" . $row["verenigingnaam"] . "</td></tr> ";
-						echo "<tr><th>categorie</th><td>" . $row["categorienaam"] . "</td></tr> ";
+						echo "<tr><th>Naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["evenementnaam"] . "</a></td></tr> ";
+						echo "<tr><th>Begindatum</th><td>" . tijd::formatteerTijd($row["begindatum"], "d-m-Y") . "</td></tr> ";
+						echo "<tr><th>Vereniging</th><td>" . $row["verenigingnaam"] . "</td></tr> ";
+						echo "<tr><th>Categorie</th><td>" . $row["categorienaam"] . "</td></tr> ";
 					}
 					echo"</table> ";
 				}
 			}
 			else{
-				 echo"student heeft zich nog niet aangemeld voor een evenement";
+				 echo"Student heeft zich nog niet aangemeld voor een evenement";
 			}
 			echo "<br />";
 			if(isMember()){
