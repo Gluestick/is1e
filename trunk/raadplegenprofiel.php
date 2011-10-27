@@ -202,7 +202,7 @@ echo $pagina->getVereisteHTML();
 					echo "<table style=\"text-align:left;\">";
 					echo "<tr><th>Groepen:</th></tr>";
 					while ($array = mysql_fetch_assoc($resultaat_van_server)) {
-						echo "<tr><td valign=\"middle\"><a href=\"vriendengroep.php?groepid=".$array["groepid"]."\">".$array["naam"]."</a></td><td>"; if (isset($_SESSION['user_id']) && $userid == $_SESSION['user_id']) { echo "<a href=\"wijziggroep.php?id=".$_GET["id"]."&groepid=".$array["groepid"]."\">Wijzig</a>"; } echo "</td><td>"; if (isset($_SESSION['user_id']) && $userid == $_SESSION['user_id']) { echo "<a href=\"verwijdergroep.php?id=".$_GET["id"]."&groepid=".$array["groepid"]."\">Verwijder</a>"; } echo "</td></tr>";
+						echo "<tr><td valign=\"middle\"><a href=\"vriendengroep.php?id=".$_GET["id"]."&groepid=".$array["groepid"]."\">".$array["naam"]."</a></td><td>"; if (isset($_SESSION['user_id']) && $userid == $_SESSION['user_id']) { echo "<a href=\"wijziggroep.php?id=".$_GET["id"]."&groepid=".$array["groepid"]."\">Wijzig</a>"; } echo "</td><td>"; if (isset($_SESSION['user_id']) && $userid == $_SESSION['user_id']) { echo "<a href=\"verwijdergroep.php?id=".$_GET["id"]."&groepid=".$array["groepid"]."\">Verwijder</a>"; } echo "</td></tr>";
 					}
 					echo "</table><br /><br />";
 				}
