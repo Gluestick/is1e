@@ -106,43 +106,50 @@ echo $pagina->getVereisteHTML();
 			echo "</table>";
 			?>
 			<br />
-			<b>Evenementen</b><br />
 			<?php
-			$sql = "SELECT aanmelding.evenementid, evenement.begindatum, evenement.naam AS evenementnaam, vereniging.naam AS verenigingnaam, categorie.naam AS categorienaam FROM aanmelding 
+			$sql1 = "SELECT aanmelding.evenementid, evenement.begindatum, evenement.naam AS evenementnaam, vereniging.naam AS verenigingnaam, categorie.naam AS categorienaam FROM aanmelding 
 					INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid 
 					INNER JOIN vereniging ON vereniging.verenigingid = evenement.organiserendeverenigingid
 					INNER JOIN categorie ON evenement.categorieid = categorie.categorieid
 					WHERE studentid = ".$studentid."
 					AND evenement.begindatum <= CURDATE();";
-			$resultaat_van_server = mysql_query($sql);
-
-			echo"Evenementen bezocht:";
-			echo"<table style=\"text-align:left;\">";
-			while ($row = mysql_fetch_array($resultaat_van_server)) {
-				echo "<tr><th>naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["evenementnaam"] . "</a></td></tr> ";
-				echo "<tr><th>begindatum</th><td>" . tijd::formatteerTijd($row["begindatum"], "d-m-Y") . "</td></tr> ";
-				echo "<tr><th>vereniging</th><td>" . $row["verenigingnaam"] . "</td></tr> ";
-				echo "<tr><th>categorie</th><td>" . $row["categorienaam"] . "</td></tr> ";
-			}
-			echo"</table> ";
-
-			echo"<br />Evenementen nog te bezoeken:";
-			echo"<table style=\"text-align:left;\">";
-			$sql = "SELECT aanmelding.evenementid, evenement.begindatum, evenement.naam AS evenementnaam, vereniging.naam AS verenigingnaam, categorie.naam AS categorienaam FROM aanmelding 
+			$resultaat_van_server1 = mysql_query($sql1);
+			
+			$sql2 = "SELECT aanmelding.evenementid, evenement.begindatum, evenement.naam AS evenementnaam, vereniging.naam AS verenigingnaam, categorie.naam AS categorienaam FROM aanmelding 
 					INNER JOIN evenement ON evenement.evenementid = aanmelding.evenementid 
 					INNER JOIN vereniging ON vereniging.verenigingid = evenement.organiserendeverenigingid
 					INNER JOIN categorie ON evenement.categorieid = categorie.categorieid
 					WHERE studentid = " . $studentid . "
 					AND evenement.begindatum > CURDATE();";
+			$resultaat_van_server2 = mysql_query($sql2);
 			
-			$resultaat_van_server = mysql_query($sql);
-			while ($row = mysql_fetch_array($resultaat_van_server)) {
-				echo "<tr><th>naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["evenementnaam"] . "</a></td></tr> ";
-				echo "<tr><th>begindatum</th><td>" . tijd::formatteerTijd($row["begindatum"], "d-m-Y") . "</td></tr> ";
-				echo "<tr><th>vereniging</th><td>" . $row["verenigingnaam"] . "</td></tr> ";
-				echo "<tr><th>categorie</th><td>" . $row["categorienaam"] . "</td></tr> ";
+			if ((mysql_num_rows($resultaat_van_server1) > 0) || (mysql_num_rows($resultaat_van_server2) > 0)) {
+				echo "<b>Evenementen</b><br />";
+				if (mysql_num_rows($resultaat_van_server1) > 0) {
+					echo"Evenementen bezocht:";
+					echo"<table style=\"text-align:left;\">";
+					while ($row = mysql_fetch_array($resultaat_van_server1)) {
+						echo "<tr><th>naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["evenementnaam"] . "</a></td></tr> ";
+						echo "<tr><th>begindatum</th><td>" . tijd::formatteerTijd($row["begindatum"], "d-m-Y") . "</td></tr> ";
+						echo "<tr><th>vereniging</th><td>" . $row["verenigingnaam"] . "</td></tr> ";
+						echo "<tr><th>categorie</th><td>" . $row["categorienaam"] . "</td></tr> ";
+					}
+					echo"</table> ";
+				}
+				
+				if (mysql_num_rows($resultaat_van_server2) > 0) {
+					echo"<br />Evenementen nog te bezoeken:";
+					echo"<table style=\"text-align:left;\">";
+
+					while ($row = mysql_fetch_array($resultaat_van_server2)) {
+						echo "<tr><th>naam</th><td><a href=\"evenement.php?id=" . $row["evenementid"] . "\">" . $row["evenementnaam"] . "</a></td></tr> ";
+						echo "<tr><th>begindatum</th><td>" . tijd::formatteerTijd($row["begindatum"], "d-m-Y") . "</td></tr> ";
+						echo "<tr><th>vereniging</th><td>" . $row["verenigingnaam"] . "</td></tr> ";
+						echo "<tr><th>categorie</th><td>" . $row["categorienaam"] . "</td></tr> ";
+					}
+					echo"</table> ";
+				}
 			}
-			echo"</table> ";
 			echo "<br />";
 			if(isMember()){
 				$sql = "SELECT * FROM groep WHERE eigenaar = ".mysql_real_escape_string($_GET["id"]);
