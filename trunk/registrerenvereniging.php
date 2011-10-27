@@ -27,6 +27,9 @@ echo $pagina->getVereisteHTML();
 					elseif ($registreer->checkDubbel("user", $_POST['gebruiker'], "username")) {
 						$error["gebruiker"] = "Gebruikersnaam bestaat al";
 					}
+					elseif(preg_match("/['\"[]{}~`!@#$%^&*()?!.,;:\|/", $_POST["gebruiker"])) {
+						$error["gebruiker"] = "Ongeldige gebruikersnaam";
+					}
 				}
 				if(!isset($_POST['pass1']) || !isset($_POST['pass2'])){
 					$error['password'] = "U heeft minstens 1 keer geen wachtwoord ingevuld.";
