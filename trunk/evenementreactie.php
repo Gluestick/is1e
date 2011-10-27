@@ -18,14 +18,7 @@ if (isset($_POST["verstuur"])) {
 	database::getInstantie();
 	$naam = $_POST["naam"];
 	$tekstvak = $_POST["tekstvak"];
-	$tijdstip = date("Y-m-d");
-
-	if (!empty($naam) && !empty($tekstvak)) {
-		$query1 = "INSERT INTO reactie (evenementid, afzender, inhoud, tijdstip) 
-	VALUES(".mysql_real_escape_string($id).",'".mysql_real_escape_string($naam)."', '".mysql_real_escape_string($tekstvak)."', '$tijdstip')";
-
-		mysql_query($query1);
-	}  
+	$tijdstip = date("Y-m-d");  
 	
 	if (empty ($naam)) {
      $error["naam"] = "";
@@ -67,7 +60,14 @@ echo $pagina->getVereisteHTML();
 <?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-
+			<?php
+			if (!empty($naam) && !empty($tekstvak)) {
+		$query1 = "INSERT INTO reactie (evenementid, afzender, inhoud, tijdstip) 
+	VALUES(".mysql_real_escape_string($id).",'".mysql_real_escape_string($naam)."', '".mysql_real_escape_string($tekstvak)."', '$tijdstip')";
+		echo"Reactie is toegevoegd!";
+		mysql_query($query1);
+	}
+	?>
 			<form action="evenementreactie.php?id=<?php echo $id; ?>" method="post">
 				<table>
 					<tr>
