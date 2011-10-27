@@ -39,7 +39,6 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<a href="javascript:history.go(-1);">Terug</a><br />
 			<?php
 			if ($error != "") {
 				echo $error;
@@ -67,6 +66,7 @@ echo $pagina->getVereisteHTML();
 				echo "<br /><a href=\"aanmeldengroep.php?groepid=".$array["groepid"]."\">Voor groep aanmelden</a>";
 			}
 			?>
+			<br /><br /><a href="raadplegenprofiel.php?id=<?php echo $_GET["id"]; ?>">Terug</a>
 		</div>
 	</div>
 	<?php echo $pagina->getFooter(); ?>
