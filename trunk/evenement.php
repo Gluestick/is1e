@@ -122,7 +122,9 @@ echo $pagina->getVereisteHTML();
                     <?php } ?>
             </form>
               <?php 
-              print("<a href=\"evenementreactie.php?id=$id\">Voeg een reactie toe!</a>");
+			  if(isStudent()){
+				  print("<a href=\"evenementreactie.php?id=$id\">Voeg een reactie toe!</a>");
+			  }
             }
               ?>
         </div>
