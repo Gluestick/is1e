@@ -39,7 +39,7 @@
 			$achternaam = mysql_real_escape_string($_POST['achternaam']);
 			$studentnr = mysql_real_escape_string($_POST['studentnr']);
 			$geboortedatum = mysql_real_escape_string($_POST['geb_dat']);
-			$geslacht = mysql_real_escape_string($_POST['geslacht']);
+			if(!empty($_POST['geslacht'])){ $geslacht = mysql_real_escape_string($_POST['geslacht']); }
 			$adres = mysql_real_escape_string($_POST['adres']);
 			$postcode = mysql_real_escape_string($_POST['postcode']);
 			$woonplaats = mysql_real_escape_string($_POST['woonplaats']);
@@ -79,6 +79,10 @@
 				} else {
 					$this->error['studentnr'] = "Je studentnummer moet beginnen met een s en 7 cijfers bevatten.";
 				}
+			}
+			
+			if(empty($geslacht)){
+				$this->error['geslacht'] = "Geen geslacht!?";
 			}
 			
 			$today = date('Y-m-d');
@@ -150,7 +154,7 @@
 		
 		public function getForm(){
 ?>
-	<p>Wil je ook lid worden van deze community? Vul hieronder je gegevens in. Alle velden met een * zijn verplicht.</p>
+	<p>Wil je ook lid worden van deze community? Vul hieronder je gegevens in.</p>
 	<form action="<?php print($_SERVER['PHP_SELF']); ?>" method="post">
 		<table>
 			<tr><td colspan="2"><b>Inlog-informatie:</b></td></tr>
@@ -210,7 +214,7 @@
 				<td></td>
 				<td>Geslacht:</td>
 				<td><input type="radio" name="geslacht" value="Man" checked="checked" />Man <input type="radio" name="geslacht" value="Vrouw" />Vrouw</td>
-				<td></td>
+				<td><?php if(isset($this->error['geslacht'])){ print $this->error['geslacht']; } ?></td>
 			</tr>
 			<tr><td colspan="2"><b>Adres-gegevens:</b></td></tr>
 			<tr>
@@ -240,6 +244,7 @@
 
 		</table>
 	</form>
+	<br />Velden met "*" zijn verplicht.
 <?php
 		}
 	}
