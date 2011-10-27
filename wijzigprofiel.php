@@ -129,7 +129,7 @@ echo $pagina->getVereisteHTML();
 				$resultaat_van_server = mysql_query($sql);
 				$resultaat_van_server2 = mysql_query($sql2);
 				echo"gewijzigd";
-				echo"<a href=\"raadplegenprofiel.php?id=" . $id . "\"> terug </a></br>";
+				echo"<a href=\"raadplegenprofiel.php?id=" . $id . "\"> Terug </a><br/><br/>";
 			
                                                     
 				//header("location:raadplegenprofiel.php?id=".$id);
