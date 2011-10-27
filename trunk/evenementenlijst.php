@@ -55,6 +55,7 @@ echo $pagina->getVereisteHTML();
 
                 <?php
                 if(isset($_POST['submit'])){
+                   
                $naam = mysql_real_escape_string($_POST["naam"]);
                if(tijd::checkCorrectieDatum($_POST["begindatum"])){
                $begindatum = tijd::formatteerTijd(mysql_real_escape_string($_POST["begindatum"]), "Y-m-d");
@@ -117,7 +118,8 @@ if(mysql_num_rows($resultaat_van_server)>0){
                     }
                     if(!empty($_POST["einddatum"]) && isset($error['einddatum'])){
                         print($error['einddatum']);
-                    }?>
+                    }
+                    ?>
                 <table>     
                         <tr> 
                             <th align="left" width="150" height="50">Naam</th>
