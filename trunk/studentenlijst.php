@@ -42,10 +42,11 @@
 			$this->printPaginator($page, $total_results, $aantalrijen);
 				print("<tr><td><b>Student nr</b></td><td><b>Naam</b></td><td><b>Geslacht</b></td><td><b>Geboortedatum</b></td></tr>");
 				while($row = mysql_fetch_array($result)){
+					$geboortedatum = tijd::formatteerTijd($row['geboortedatum'], 'd-m-Y');
 					print("<tr><td>" . $row['studentnr'] . "</td>");
 					print("<td><a href=\"raadplegenprofiel.php?id=" . $row['studentid'] . "\">" . $row['voornaam'] . " " . $row['achternaam'] . "</a></td>");
 					print("<td>" . $row['geslacht'] . "</td>");
-					print("<td>" . $row['geboortedatum'] . "</td></tr>");
+					print("<td>" . $geboortedatum . "</td></tr>");
 				}
 				$this->printPaginator($page, $total_results, $aantalrijen);
 			}
@@ -84,7 +85,7 @@
 			} else {
 				$vind = mysql_real_escape_string($_POST['vind']);
 
-				$where = "WHERE studentnr = '%$vind%' or voornaam LIKE '%$vind%' or achternaam LIKE '%$vind%' ";
+				$where = "WHERE studentnr = '%$vind%' or voornaam LIKE '%$vind%' or achternaam LIKE '%$vind%' or geboortedatum = '". tijd::formatteerTijd($vind, 'Y-m-d') ."' ";
 
 				$query = "SELECT studentid, studentnr, voornaam, achternaam, geslacht, geboortedatum 
 						FROM student ".$where." ";
