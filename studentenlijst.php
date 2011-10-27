@@ -83,6 +83,8 @@
 				$student = ($studentnr);
 			} elseif(preg_match('/[0-9]{7}/', $studentnr)) {
 				$student = ('s' . $studentnr);
+			} else {
+				$student = "";
 			}
 			return $student;
 		}
