@@ -20,10 +20,10 @@ $userid = $array['user_id'];
 
 $naam = "";
 if (mysql_num_rows($resultaat_van_server) > 0) {
-	$naam = "van " . $array["voornaam"] . " " . $array["achternaam"];
+	$naam = $array["voornaam"] . " " . $array["achternaam"];
 }
 
-$pagina->setTitel("Studenten profiel " . $naam);
+$pagina->setTitel($naam);
 $pagina->setCss("style.css");
 
 echo $pagina->getVereisteHTML();
@@ -33,10 +33,11 @@ echo $pagina->getVereisteHTML();
 	<div id="page">
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
-			<h1><?php echo $pagina->getTitel(); ?></h1>
+			<h1><?php echo $pagina->getTitel(); ?>&nbsp;
 			<?php if(isset($_SESSION['user_id']) && $userid == $_SESSION['user_id']){ ?>
 				<a href="wijzigprofiel.php?id=<?php echo $studentid; ?>"> wijzig </a>
 			<?php } ?>
+			</h1>
 
 			<table style="text-align:left;">
 				<tr>
