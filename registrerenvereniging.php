@@ -252,8 +252,8 @@ echo $pagina->getVereisteHTML();
 						<td></td>
 						<td></td>
 						<td align="center">
-							<input type="button" name="reset_button" value="Herstellen"  onclick="clearElements('registreer_vereniging')" />
 							<input type="submit" name="verstuur" value="Verstuur"/>
+							<input type="button" name="reset_button" value="Herstellen"  onclick="clearElements('registreer_vereniging')" />
 						</td>
 					</tr>
 				</table>
