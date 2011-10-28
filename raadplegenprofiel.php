@@ -55,10 +55,14 @@ $pagina->setJavascriptCode("
 					$(\"#inline_content .accept, #inline_content .ignore\").click(function(){
 					var index = $(this).parent().parent().parent().parent();
 					var actie = $(this).html();
-					$.post('uitnodiging.php', { studentid: ".$_GET["id"].", groepid: $(this).parent().parent().parent().parent().attr('class'), action: actie }, function(data) {
+					$.post('uitnodiging.php', { studentid: ".$_GET["id"].", groepid: index.attr('class'), action: actie }, function(data) {
 					}).complete(function() {
 						if ($(\"#inline_content table\").length > 1) {
 							index.remove();
+							var aantal = $(\"#teaccepteren\").html().match(/\\((.*?)\\)/);
+							var number = aantal[1];
+							var newnumber = number - 1;
+							$(\"#teaccepteren\").html($(\"#teaccepteren\").html().replace(number, newnumber));
 						} else {
 							$.colorbox.close();
 							$(\"#teaccepteren\").remove();
