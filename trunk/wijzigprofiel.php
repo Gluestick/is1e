@@ -22,18 +22,33 @@ echo $pagina->getVereisteHTML();
 			database::getInstantie();
 		
 	if (isset($_POST["wijzig"])) {
-		if (empty($_POST["studentnr"])||
-			empty($_POST["voornaam"]) || 
-			empty($_POST["achternaam"])|| 
-			empty($_POST["achternaam"])|| 
-			empty($_POST["adres"]) || 
-			empty($_POST["postcode"])||
-			empty($_POST["woonplaats"]) ||
-			empty($_POST["geboortedatum"])) {
-			
-				echo"Alle velden zijn verplicht !";
-				
-		} else{
+		if (empty($_POST["studentnr"])){
+			$error["studentnr"] = "Studentnummer is niet ingevuld";
+		}	
+		if (	empty($_POST["voornaam"])){
+			 $error["voornaam"] = "Voornaam is niet ingevuld";
+		}
+		if (	empty($_POST["achternaam"])) {
+			$error["achternaam"] = "Achternaam is niet ingevuld";
+		} 
+		if (	empty($_POST["adres"])){
+			$error["adres"] = "Adres is niet ingevuld";
+		} 
+		if (	empty($_POST["postcode"])) {
+			$error["postcode"] = "Postcode is niet ingevuld";
+		}
+		if (	empty($_POST["geslacht"])) {
+			$error["geslacht"] = "Geslacht is niet ingevuld";
+		}
+		if (	empty($_POST["woonplaats"])) {
+			$error["woonplaats"] = "Woonplaats is niet ingevuld";
+		}
+		if (	empty($_POST["geboortedatum"])){
+			$error["geboortedatum"] = "Geboortedatum is niet ingevuld";
+		}	
+				if (empty($_POST["studentnr"] ) || empty($_POST["voornaam"] ) || empty($_POST["achternaam"])|| empty($_POST["adres"])|| empty($_POST["postcode"])|| empty($_POST["woonplaats"])|| empty($_POST["geslacht"])) {echo"Alle velden zijn verplicht!";
+	}else {			
+		
 				$studentId = $_POST['studentId'];
 
 				$studentnr = mysql_real_escape_string($_POST["studentnr"]);
@@ -128,12 +143,13 @@ echo $pagina->getVereisteHTML();
 						WHERE user_id=" . $id . ";";
 				$resultaat_van_server = mysql_query($sql);
 				$resultaat_van_server2 = mysql_query($sql2);
-				echo"gewijzigd";
+				echo"Gewijzigd";
 				echo"<a href=\"raadplegenprofiel.php?id=" . $id . "\"> Terug </a><br/><br/>";
 			
                                                     
 				//header("location:raadplegenprofiel.php?id=".$id);
-			}
+	
+	}
 	}
 			$id = mysql_real_escape_string($_GET["id"]);
 			$query =   "SELECT S.studentid as studentid, U.user_id as user_id, S.studentnr as studentnr, voornaam, achternaam, adres, postcode, woonplaats, geslacht, geboortedatum, email, profielfoto
@@ -177,6 +193,8 @@ echo $pagina->getVereisteHTML();
 							<input type="text" name="studentId" hidden="hidden" value="<?php echo $array['studentid']; ?>" />
 							<input type="text" name="studentnr" value="<?php echo $array["studentnr"]; ?>" />
 						</td>
+						<td><?php if(isset($error["studentnr"])) { echo$error["studentnr"];} ?></td>
+							
 					</tr>
 					<tr>
 						<td>
@@ -185,27 +203,35 @@ echo $pagina->getVereisteHTML();
 						<td>
 							<input type="text" name="voornaam"  value="<?php echo $array["voornaam"]; ?>"/>
 						</td>
+						<td> <?php if(isset($error["voornaam"])){echo$error["voornaam"];} ?> </td>
 					</tr>
 					<tr>
 						<td> Achternaam: </td>	<td>    <input type="text" name="achternaam" value="<?php echo $array["achternaam"]; ?>"/>  </br> </td>
+						<td> <?php if(isset($error["achternaam"])){ echo$error["achternaam"];} ?> </td> 
 					</tr>
 					<tr>
 						<td>	Adres: 	 </td>   <td>    <input type="text" name="adres" value="<?php echo $array["adres"]; ?>" /> </br></td>
+						<td> <?php if(isset($error["adres"])){echo$error["adres"];} ?> </td>
 					</tr>
 					<tr>
 						<td>	Postcode: </td> <td>	    <input type="text" name="postcode" value="<?php echo $array["postcode"]; ?>" /> </br></td>
+						<td> <?php if(isset($error["postcode"])){echo$error["postcode"];} ?> </td>
 					</tr>
 					<tr>
 						<td>	Woonplaats:	 </td> <td>   <input type="text" name="woonplaats" value="<?php echo $array["woonplaats"]; ?>" /> </br></td>
+						<td> <?php if(isset($error["woonplaats"])){echo$error["woonplaats"];} ?> </td>
 					</tr>
 					<tr>
 						<td> Geslacht:	 </td> <td>   <input type="radio" name="geslacht" value="Man" <?php if($array["geslacht"] == "Man") {echo "checked='checked'";} ?> /> Man <input type="radio" name="geslacht" value="Vrouw" <?php if ($array["geslacht"] == "Vrouw") { echo "checked='checked'"; } ?> />Vrouw  </br> </td>
+						<td> <?php if(isset($error["geslacht"])){echo$error["geslacht"];} ?> </td>
 					</tr>	
 					<tr>
 						<td>Geboortedatum: </td> <td>	<input type="text" name="geboortedatum" value="<?php echo $geboortedatum; ?>" /> </br></td>
+						<td> <?php if(isset($error["geboortedatum"])){echo$error["geboortedatum"];} ?> </td>
 					</tr>
 					<tr>
 						<td>	E-mailadres: </td> <td> 	<input type="text" name="emailadres" value="<?php echo $array["email"]; ?>" /> </br></td>
+						<td> <?php if(isset($error["emailadres"])){echo$error["emailadres"];} ?> </td>
 					</tr>
 					<tr>
 						<td><input type="submit" name="wijzig" value="Wijzig"/> </td>
