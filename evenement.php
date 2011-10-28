@@ -3,13 +3,18 @@
  * @author: Arjan Speiard
  * @description: 
  */
+
 $pagina = pagina::getInstantie();
 database::getInstantie();
-$id=$_GET['id'];
-$sql = "SELECT evenement.naam From evenement where evenementid=".$id."";
-$resultaat_van_server = mysql_query($sql);
-$array = mysql_fetch_array($resultaat_van_server);
-$evenement = $array["naam"];
+$evenement = "Evenement";
+if (isset($_GET["id"]) && !empty($_GET["id"])) {
+	$id=$_GET['id'];
+	$sql = "SELECT evenement.naam From evenement where evenementid=".$id."";
+	$resultaat_van_server = mysql_query($sql);
+	$array = mysql_fetch_array($resultaat_van_server);
+	$evenement .= ": ".$array["naam"];
+}
+
 $pagina->setTitel($evenement);
 $pagina->setCss("style.css");
 
@@ -21,7 +26,8 @@ echo $pagina->getVereisteHTML();
         <?php echo $pagina->getMenu(); ?>
         <div id="content">
             <h1><?php echo $pagina->getTitel(); ?></h1>
-            <?php  
+            <?php
+			if (isset($_GET["id"]) && !empty($_GET["id"])) {
             $id = mysql_real_escape_string($_GET['id']);
             if(isVereniging() || isAdmin()){
             print("<a href=\"wijzigevenement.php?id=$id\">Wijzigen</a><br /><br />");
@@ -126,6 +132,9 @@ echo $pagina->getVereisteHTML();
 				  print("<a href=\"evenementreactie.php?id=$id\">Voeg een reactie toe!</a>");
 			  }
             }
+			} else {
+				echo "Geen gegevens beschikbaar";
+			}
               ?>
         </div>
     </div>

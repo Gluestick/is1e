@@ -3,6 +3,10 @@
  * @author: Hans-Jurgen Bakkenes
  * @description: 
  */
+
+if (!isMember()) {
+	header("location:index.php");
+}
 $pagina = pagina::getInstantie();
 database::getInstantie();
 
