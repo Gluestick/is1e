@@ -31,7 +31,12 @@ $pagina->setJavascript("jquery.js");
 $pagina->setJavascriptCode("
 	$(document).ready(function() {
 		$(\".invite\").click(function(){
-			alert('bla');
+			$.post('bericht.php', { id: $(this).prev('span').attr('class') }, function(data) {
+				alert($(this).prev().attr('class'));
+				$('#emailcontent').html(data);
+			}).complete(function() {
+				
+			});
 		});
 		$(\".uitnodiging\").click(function(){
 			
