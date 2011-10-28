@@ -36,6 +36,9 @@ echo $pagina->getVereisteHTML();
 			if (mysql_num_rows($resultaat_van_server) == 0) {
 				$error .= "<li>Geen resultaten.</li>";
 			}
+			if ($error != "") {
+				echo "<ul>".$error."</ul>";
+			}
 			?>
 			<div class="zoeken">
 				<form action="" method="post">
@@ -55,11 +58,6 @@ echo $pagina->getVereisteHTML();
 				</form>
 				<br />
 			</div>
-			<?php
-			if ($error != "") {
-				echo "<ul>".$error."</ul>";
-			}
-			?>
 			<div class="gegevens">
 				<?php
 				
