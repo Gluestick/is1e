@@ -63,7 +63,7 @@ echo $pagina->getVereisteHTML();
 				echo "Geen resultaten beschikbaar.";
 			}
 			if (isset($array)) {
-				echo "<br /><a href=\"aanmeldengroep.php?groepid=".$array["groepid"]."\">Voor groep aanmelden</a>";
+				echo "<br /><a href=\"aanmeldengroep.php?id=".$_GET["id"]."&groepid=".$array["groepid"]."\">Voor groep aanmelden</a>";
 			}
 			?>
 			<br /><br /><a href="raadplegenprofiel.php?id=<?php echo $_GET["id"]; ?>">Terug</a>

@@ -3,6 +3,8 @@
  * @author: Hans-Jurgen Bakkenes
  * @description: 
  */
+isHimSelf($_GET["id"]);
+
 $pagina = pagina::getInstantie();
 database::getInstantie();
 
@@ -30,10 +32,9 @@ echo $pagina->getVereisteHTML();
 		<?php echo $pagina->getMenu(); ?>
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
-			<a href="javascript:history.go(-1);">Terug</a><br />
 			<?php
 			$error = "";
-			if (isset($_GET["groepid"])) {
+			if (isset($_GET["groepid"]) && isset($_GET["id"])) {
 				if (isset($_POST["aanmelden"]) && isset($_GET["groepid"])) {
 					if (!empty($_POST["student"])) {
 						if (intval($_GET["groepid"]) && intval($_POST["student"])) {
@@ -87,6 +88,7 @@ echo $pagina->getVereisteHTML();
 				</table>
 			</form>
 			<?php
+				echo "<br /><br /><a href=\"vriendengroep.php?id=".$_GET["id"]."&groepid=".$array["groepid"]."\">Terug</a>";
 			}
 			?>
 		</div>

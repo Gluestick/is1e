@@ -38,6 +38,32 @@ echo $pagina->getVereisteHTML();
 				<a href="wijzigprofiel.php?id=<?php echo $studentid; ?>"> wijzig </a>
 			<?php } ?>
 			</h1>
+			<?php
+			if (isset($_SESSION['user_id']) && $userid != $_SESSION['user_id']) {
+				$query = "SELECT * FROM groep WHERE eigenaar = ".$_SESSION["studentid"]." AND groepid NOT IN (SELECT groepid FROM groeplid WHERE studentid = ".  mysql_real_escape_string($_GET["id"]).");";
+				$resultaat = mysql_query($query);
+				if ($resultaat && mysql_num_rows($resultaat) > 0) {
+			?>
+			<div style="float:right;">
+				Uitnodigen voor vriendengroep: 
+				<?php if (mysql_num_rows($resultaat) > 1) { ?>
+				<select>
+					<?php
+					while ($groep = mysql_fetch_assoc($resultaat)) {
+						echo "<option value=\"".$groep["groepid"]."\">".$groep["naam"]."</option>";
+					}
+					?>
+				</select>
+				<?php } else { 
+					$groep = mysql_fetch_assoc($resultaat);
+					echo "<span class=\"".$groep["groepid"]."\">".$groep["naam"]."</span>";
+				} ?>
+				<a href="">Uitnodigen</a>
+			</div>
+			<?php
+				}
+			}
+			?>
 
 			<table style="text-align:left;">
 				<tr>

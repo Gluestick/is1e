@@ -97,16 +97,16 @@ echo $pagina->getVereisteHTML();
 //											echo "Bestand type onjuist";
 //										}
 									} else {
-										echo "Afbeelding is te groot.";
+										$error["afbeelding"] = "Afbeelding is te groot.";
 									}
 								} else {
-									echo "Onjuist afbeelding bestand";
+									$error["afbeelding"] = "Onjuist afbeelding bestand";
 								}
 							} else {
-								echo "Te groot bestand.";
+								$error["afbeelding"] = "Te groot bestand.";
 							}
 						} else {
-							echo gebruiker::checkValideUpload($afbeelding["error"]);
+							$error["afbeelding"] = gebruiker::checkValideUpload($afbeelding["error"]);
 						}
 					}
 				}
@@ -163,6 +163,11 @@ echo $pagina->getVereisteHTML();
 								<br />
 							<input type="file" name="profielfoto" />
 						</td>
+						<?php
+						if (isset($error["afbeelding"])) {
+							echo "<td>".$error["afbeelding"]."</td>";
+						}
+						?>
 					</tr>
 					<tr>	
 						<td>
