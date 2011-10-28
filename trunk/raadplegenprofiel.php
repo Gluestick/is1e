@@ -28,17 +28,43 @@ if (mysql_num_rows($resultaat_van_server) > 0) {
 }
 
 $pagina->setJavascript("jquery.js");
+$pagina->setJavascript("jquery.colorbox-min.js");
 $pagina->setJavascriptCode("
 	$(document).ready(function() {
 		$(\".invite\").click(function(){
-			$.post('bericht.php', { id: $(this).prev('span').attr('class') }, function(data) {
-				alert($(this).prev().attr('class'));
-				$('#emailcontent').html(data);
+			var vriendengroep = '';
+			var verwijder = false;
+			if ($(\"#vriendengroep span:first-child\").length != 0) {
+				vriendengroep = $(\"#vriendengroep span:first-child\").attr('class');
+				verwijder = true;
+			} else {
+				vriendengroep = $(\"#vriendengroep select\").val();
+			}
+		
+			$.post('uitnodiging.php', { studentid: ".$_GET["id"].", groepid: vriendengroep }, function(data) {
+				alert(data);
 			}).complete(function() {
-				
+				if (verwijder) {
+					$(\"#vriendengroep\").remove();
+				}
 			});
 		});
-		$(\".uitnodiging\").click(function(){
+		$(\".accept\").click(function(){
+			$.colorbox({href:\"accepteren.php\"});
+				$(document).bind('cbox_complete', function(){
+					$(\"#inline_content table td span\").click(function(){
+					var actie = $(this).html();
+					$.post('uitnodiging.php', { studentid: ".$_GET["id"].", groepid: $(this).parent().parent().parent().parent().attr('class'), action: actie }, function(data) {
+					}).complete(function() {
+						if ($(\"#inline_content table\").length > 1) {
+							$(this).parent().parent().parent().parent().remove();
+						} else {
+							$.colorbox.close();
+							$(\"#teaccepteren\").remove();
+						}
+					});
+				});
+			});
 			
 		});
 	});
@@ -46,6 +72,7 @@ $pagina->setJavascriptCode("
 
 $pagina->setTitel($naam);
 $pagina->setCss("style.css");
+$pagina->setCss("colorbox.css");
 
 echo $pagina->getVereisteHTML();
 ?>
@@ -65,7 +92,7 @@ echo $pagina->getVereisteHTML();
 				$resultaat = mysql_query($query);
 				if ($resultaat && mysql_num_rows($resultaat) > 0) {
 			?>
-			<div style="float:right;">
+			<div style="float:right;" id="vriendengroep">
 				Uitnodigen voor vriendengroep: 
 				<?php if (mysql_num_rows($resultaat) > 1) { ?>
 				<select>
@@ -82,6 +109,26 @@ echo $pagina->getVereisteHTML();
 				<span class="invite" style="color:blue;text-decoration:underline;cursor:pointer;">Uitnodigen</span>
 			</div>
 			<?php
+				}
+			}
+			?>
+			
+			<?php
+			if (isset($userid) && !empty($userid) && intval($userid) && isset($_SESSION["user_id"]) && isset($_SESSION['user_id']) && $userid == $_SESSION['user_id']) {
+				$query = "SELECT COUNT(*) AS aantal FROM groeplid WHERE studentid = ".$_SESSION["studentid"]." AND lid=0;";
+				$resultaat = mysql_query($query);
+				if ($resultaat) {
+					$groep = mysql_fetch_assoc($resultaat);
+					if ($groep["aantal"] > 0) {
+						?>
+						<div style="float:right;" id="teaccepteren">
+							Uitnodiging<?php if (mysql_num_rows($resultaat) > 0) { echo "en "; }
+								echo "(".$groep["aantal"].")";
+								?>
+							<span class="accept" style="color:blue;text-decoration:underline;cursor:pointer;">Bekijken</span>
+						</div>
+						<?php
+					}
 				}
 			}
 			?>
@@ -246,6 +293,17 @@ echo $pagina->getVereisteHTML();
 			}
 			if(isMember()){
 				if (isset($_GET["id"]) && !empty($_GET["id"]) && intval($_GET["id"])) {
+					$groeplidquery = "SELECT * FROM groeplid INNER JOIN student ON groeplid.studentid = student.studentid INNER JOIN groep ON groeplid.groepid = groep.groepid WHERE groeplid.studentid = ".$_GET["id"]." AND groeplid.lid = 1;";
+					$groeplidresult = mysql_query($groeplidquery);
+					if ($groeplidresult && mysql_num_rows($groeplidresult) > 0) {
+						echo "<br />Deze persoon is lid van de groepen van:<br />";
+						echo "<table><tr><th>Groepnaam</th><th>Van</th></tr>";
+						while ($groeplid = mysql_fetch_assoc($groeplidresult)) {
+							echo "<tr><td><a href=\"vriendengroep.php?id=".$groeplid["eigenaar"]."&groepid=".$groeplid["groepid"]."\">".$groeplid["naam"]."</a></td><td><a href=\"raadplegenprofiel.php?id=".$groeplid["eigenaar"]."\">".$groeplid["voornaam"]." ".$groeplid["achternaam"]."</a></td></tr>";
+						}
+					}
+					
+					
 					$sql = "SELECT * FROM groep WHERE eigenaar = ".mysql_real_escape_string($_GET["id"]);
 					$resultaat_van_server = mysql_query($sql);
 					if (mysql_num_rows($resultaat_van_server) > 0) {
