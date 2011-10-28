@@ -6,7 +6,7 @@
 $pagina = pagina::getInstantie();
 database::getInstantie();
 
-if (!isset($_GET["id"]) || empty($_GET["id"]) || !is_int($_GET["id"])) {
+if (!isset($_GET["id"]) || empty($_GET["id"]) || !intval($_GET["id"])) {
 	header("location:index.php");
 }
 
