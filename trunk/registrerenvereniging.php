@@ -27,7 +27,7 @@ echo $pagina->getVereisteHTML();
 					elseif ($registreer->checkDubbel("user", $_POST['gebruiker'], "username")) {
 						$error["gebruiker"] = "Gebruikersnaam bestaat al";
 					}
-					elseif(preg_match("/['\"[]{}~`!@#$%^&*()?!.,;:\|/", $_POST["gebruiker"])) {
+					if(preg_match("/'%\"/", $_POST["gebruiker"])) {
 						$error["gebruiker"] = "Ongeldige gebruikersnaam";
 					}
 				}
