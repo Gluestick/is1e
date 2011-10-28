@@ -61,14 +61,15 @@ echo $pagina->getVereisteHTML();
 						$where = "WHERE einddatum <= ".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d");
 					} else {
 						if (!tijd::checkCorrectieDatum($_POST["beginperiode"])) {
-							$error["beginperiode"] = "U heeft een onjuiste begindatum ingevuld";
+							$error["beginperiode"] = "<ul><li>U heeft een onjuiste begindatum ingevuld</li></ul>";
 						}
 						if (!tijd::checkCorrectieDatum($_POST["eindperiode"])) {
-							$error["eindperiode"] = "U heeft een onjuiste begindatum ingevuld";
+							$error["eindperiode"] = "<ul><li>U heeft een onjuiste begindatum ingevuld</li></ul>";
 						}
 					}
 					$sql = "SELECT `vereniging`.`naam`, COUNT(evenement.evenementid) AS totaal FROM `vereniging` LEFT OUTER JOIN evenement ON vereniging.verenigingid = evenement.organiserendeverenigingid ".$where." GROUP BY vereniging.naam;";
 				} else {
+					echo "<ul><li>U heeft niks ingevuld</li></ul>";
 					$sql = "SELECT `vereniging`.`naam`, COUNT(evenement.evenementid) AS totaal FROM `vereniging` LEFT OUTER JOIN evenement ON vereniging.verenigingid = evenement.organiserendeverenigingid GROUP BY vereniging.naam;";
 				}
 				
@@ -81,7 +82,7 @@ echo $pagina->getVereisteHTML();
 					echo $error["eindperiode"]."<br />";
 				}
 				if ($resultaat_van_server && mysql_num_rows($resultaat_van_server) == 0) {
-					echo "Geen resultaten";
+					echo "<ul><li>Geen resultaten</li></ul>";
 				}
 				
 				if ($resultaat_van_server && mysql_num_rows($resultaat_van_server) > 0) {

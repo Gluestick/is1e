@@ -61,7 +61,7 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php
-			if (!empty($naam) && !empty($tekstvak)) {
+			if (!empty($id) && !empty($naam) && !empty($tekstvak)) {
 		$query1 = "INSERT INTO reactie (evenementid, afzender, inhoud, tijdstip) 
 	VALUES(".mysql_real_escape_string($id).",'".mysql_real_escape_string($naam)."', '".mysql_real_escape_string($tekstvak)."', '$tijdstip')";
 		echo"Reactie is toegevoegd!";
