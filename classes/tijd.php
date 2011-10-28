@@ -21,7 +21,7 @@ class tijd {
 	 * @return string 
 	 */
 	public static function formatteerTijd($tijd, $format) {
-		if ($tijd != "0000-00-00") {
+		if (!empty($tijd) && $tijd != "0000-00-00") {
 			$datum = new DateTime($tijd);
 			return $datum->format($format);
 		} else {
