@@ -45,7 +45,13 @@ echo $pagina->getVereisteHTML();
 			$studentid = $_SESSION["studentid"];
 			if (isset($_POST["verstuur"]) && isset($_POST["onderwerp"]) && isset($_POST["bericht"])) {
 				if (empty($_POST["onderwerp"]) || empty($_POST["bericht"])) {
-					echo"alle velden zijn verplicht";
+					if (isset($_POST["onderwerp"])){
+						$error["onderwerp"] = "Onderwerp is niet ingevuld ";
+						}
+					if(isset($_POST["bericht"])){
+						$error["bericht"] = "Bericht is leeg ";
+					}	
+						echo"alle velden zijn verplicht";
 				} else {
 					$bericht = mysql_real_escape_string($_POST["bericht"]);
 					$onderwerp = mysql_real_escape_string($_POST["onderwerp"]);
@@ -53,7 +59,7 @@ echo $pagina->getVereisteHTML();
 					$sql = "INSERT INTO  profielbericht (datum, onderwerp, inhoud, studentid) VALUES ('".date("Y-m-d")."','".$onderwerp."','".$bericht."', ".$studentid.")";
 
 					if (mysql_query($sql)) {
-						echo"bericht toegevoegd";
+						echo"Bericht toegevoegd";
 					}
 				}
 			}
@@ -63,10 +69,12 @@ echo $pagina->getVereisteHTML();
 					<tr>
 						<td>Onderwerp:</td>
 						<td><input name="onderwerp" type="text"/></td> 
+						<td><?php if(isset($error["onderwerp"])) { echo$error["onderwerp"];} ?></td>
 					</tr>
 					<tr>
 						<td>Bericht:</td>
 						<td><textarea name="bericht" style="float:left;min-height:200px;min-width:200px;"></textarea>
+							
 							<div id="tekstopties">
 								<div id="smiley">
 									<img src="/project/images/smile.gif" style="float:left;margin-left:8px;margin-top:3px;margin-right:8px;width:15px;height:15px;" />
@@ -95,6 +103,7 @@ echo $pagina->getVereisteHTML();
 								?>
 							</div>
 						</td>
+						<td><?php if(isset($error["bericht"])) { echo$error["bericht"];} ?></td>
 					</tr>
 					<tr>
 						<td><input type="submit" value="Verzenden" name="verstuur" /></td><td><input type="reset" value="Wis alles" /></td>
