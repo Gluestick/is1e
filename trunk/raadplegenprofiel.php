@@ -39,7 +39,7 @@ echo $pagina->getVereisteHTML();
 			<?php } ?>
 			</h1>
 			<?php
-			if (isset($_SESSION['user_id']) && $userid != $_SESSION['user_id']) {
+			if (isset($userid) && !empty($userid) && intval($userid) && isset($_SESSION['user_id']) && $userid != $_SESSION['user_id']) {
 				$query = "SELECT * FROM groep WHERE eigenaar = ".$_SESSION["studentid"]." AND groepid NOT IN (SELECT groepid FROM groeplid WHERE studentid = ".  mysql_real_escape_string($_GET["id"]).");";
 				$resultaat = mysql_query($query);
 				if ($resultaat && mysql_num_rows($resultaat) > 0) {
