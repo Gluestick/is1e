@@ -155,7 +155,23 @@
 		public function getForm(){
 ?>
 	<p>Wil je ook lid worden van deze community? Vul hieronder je gegevens in.</p>
-	<form action="<?php print($_SERVER['PHP_SELF']); ?>" method="post">
+	<script type="text/javascript">
+		function clearElements(el) {
+			var x, y, type = null, object = [];
+			object[0] = document.getElementById(el).getElementsByTagName('input');
+			for (x = 0; x < object.length; x++) {
+				for (y = 0; y < object[x].length; y++) {
+					type = object[x][y].type;
+					switch (type) {
+						case 'text':
+							object[x][y].value = '';
+							break;
+					}
+				}
+			}
+		}
+	</script>
+	<form action="<?php print($_SERVER['PHP_SELF']); ?>" method="post" id="registratie">
 		<table>
 			<tr><td colspan="2"><b>Inlog-informatie:</b></td></tr>
 			<tr>
@@ -238,7 +254,7 @@
 			<tr>
 				<td></td>
 				<td></td>
-				<td><input type="submit" name="submit" value="Registreer!" /></td>
+				<td><input type="button" name="reset_button" value="Herstellen"  onclick="clearElements('registratie')" /><input type="submit" name="submit" value="Verstuur" /></td>
 				<td></td>
 			</tr>
 
