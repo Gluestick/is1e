@@ -254,7 +254,7 @@
 			<tr>
 				<td></td>
 				<td></td>
-				<td><input type="button" name="reset_button" value="Herstellen"  onclick="clearElements('registratie')" /><input type="submit" name="submit" value="Verstuur" /></td>
+				<td><input type="submit" name="submit" value="Verstuur" /><input type="button" name="reset_button" value="Herstellen"  onclick="clearElements('registratie')" /></td>
 				<td></td>
 			</tr>
 
