@@ -52,12 +52,13 @@ $pagina->setJavascriptCode("
 		$(\".accept\").click(function(){
 			$.colorbox({href:\"accepteren.php\"});
 				$(document).bind('cbox_complete', function(){
-					$(\"#inline_content table td span\").click(function(){
+					$(\"#inline_content .accept, #inline_content .ignore\").click(function(){
+					var index = $(this).parent().parent().parent().parent();
 					var actie = $(this).html();
 					$.post('uitnodiging.php', { studentid: ".$_GET["id"].", groepid: $(this).parent().parent().parent().parent().attr('class'), action: actie }, function(data) {
 					}).complete(function() {
 						if ($(\"#inline_content table\").length > 1) {
-							$(this).parent().parent().parent().parent().remove();
+							index.remove();
 						} else {
 							$.colorbox.close();
 							$(\"#teaccepteren\").remove();
