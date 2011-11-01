@@ -1,7 +1,7 @@
 <?php
 /**
- * @author:
- * @description: Pagina waarop je een vereniging kunt registreren
+ * @author: Joep Kemperman
+ * @description: Pagina waarop je een vereniging kunt wijzigen
  */
 $pagina = pagina::getInstantie();
 
@@ -11,7 +11,9 @@ $pagina->setCss("style.css");
 if (empty($_GET['id'])) {
 	header('Location: index.php');
 }
-isThisVereniging();
+if($_SESSION['role'] != 1) {
+	isThisVereniging();
+}
 
 echo $pagina->getVereisteHTML();
 ?>
