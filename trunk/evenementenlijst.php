@@ -57,6 +57,7 @@ echo $pagina->getVereisteHTML();
                 if(isset($_POST['submit'])){
                    
                $naam = mysql_real_escape_string($_POST["naam"]);
+               
                if(tijd::checkCorrectieDatum($_POST["begindatum"])){
                $begindatum = tijd::formatteerTijd(mysql_real_escape_string($_POST["begindatum"]), "Y-m-d");
                }
@@ -68,7 +69,11 @@ echo $pagina->getVereisteHTML();
                $einddatum = tijd::formatteerTijd(mysql_real_escape_string($_POST["einddatum"]),"Y-m-d");
                }
                else{
-                   $einddatum = "";
+                   $array = mysql_fetch_row(mysql_query("SELECT MAX(einddatum) From evenement;"));
+                   
+                   foreach($array as $index => $waarde){
+                   $einddatum = $waarde;
+                   }
                    $error["einddatum"] = "Ongeldige einddatum";
                }
                $categorie = mysql_real_escape_string($_POST["categorie"]);
@@ -80,21 +85,14 @@ echo $pagina->getVereisteHTML();
         FROM `evenement` JOIN vereniging ON organiserendeverenigingid = verenigingid
         JOIN categorie ON evenement.categorieid = categorie.categorieid
         Where evenement.naam LIKE '%" . $naam . "%' 
-            AND `begindatum` LIKE '%" . $begindatum . "%' 
-                AND `einddatum`LIKE '%" . $einddatum. "%'
+            AND `begindatum` >= '" . $begindatum . "' 
+                AND `einddatum` <= '" .$einddatum. "'
                     AND categorie.naam LIKE '%".$categorie."%'
                     AND verenigingid LIKE '%".$vereniging."%'
                         ORDER BY evenement.evenementid ASC;";
-	$first = true;
-	if (!empty($naam)) {
-		if ($first) {
-			$first = false;
-			$sql .= " WHERE";
-		} else {
-			$sql .= " AND";
-		}
-		$sql .= " evenement.naam LIKE '%".$naam."%'";
-	}
+    
+	
+        
    
     
     while ($array = mysql_fetch_array($resultaat_van_server)) {
