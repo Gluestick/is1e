@@ -69,7 +69,9 @@ echo $pagina->getVereisteHTML();
 					}
 					$sql = "SELECT `vereniging`.`naam`, COUNT(evenement.evenementid) AS totaal FROM `vereniging` LEFT OUTER JOIN evenement ON vereniging.verenigingid = evenement.organiserendeverenigingid ".$where." GROUP BY vereniging.naam;";
 				} else {
-					echo "<ul><li>U heeft niks ingevuld</li></ul>";
+					if (isset($_POST["periode"])) {
+						echo "<ul><li>U heeft niks ingevuld</li></ul>";
+					}
 					$sql = "SELECT `vereniging`.`naam`, COUNT(evenement.evenementid) AS totaal FROM `vereniging` LEFT OUTER JOIN evenement ON vereniging.verenigingid = evenement.organiserendeverenigingid GROUP BY vereniging.naam;";
 				}
 				

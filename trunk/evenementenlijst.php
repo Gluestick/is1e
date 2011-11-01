@@ -85,6 +85,16 @@ echo $pagina->getVereisteHTML();
                     AND categorie.naam LIKE '%".$categorie."%'
                     AND verenigingid LIKE '%".$vereniging."%'
                         ORDER BY evenement.evenementid ASC;";
+	$first = true;
+	if (!empty($naam)) {
+		if ($first) {
+			$first = false;
+			$sql .= " WHERE";
+		} else {
+			$sql .= " AND";
+		}
+		$sql .= " evenement.naam LIKE '%".$naam."%'";
+	}
    
     
     while ($array = mysql_fetch_array($resultaat_van_server)) {
