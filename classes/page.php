@@ -240,7 +240,7 @@ class pagina
 	public function getFooter()
 	{
 		return "<div id=\"footer\">
-				<p><a href=\"#\">eventplaza</a> is ontworpen door <a href=\"#\">is1e gfy</a>, in opdracht van <a href=\"#\">zoen</a></p>
+				<p>eventplaza is ontworpen door is1e gfy, in opdracht van zoen</p>
 			</div>";
 	}
 
