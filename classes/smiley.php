@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Hans-Jurgen
+ */
 
 class specialetekens {
 	
