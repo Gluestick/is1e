@@ -52,12 +52,11 @@ echo $pagina->getVereisteHTML();
 			} else if (isset($_POST["verwijder"]) && $error == "") {
 				header("location:raadplegenprofiel.php?id=".$_POST["eigenaar"]);
 			}
-			
+			echo "<form action=\"verwijdergroep.php?groepid=".$_GET["groepid"]."\" method=\"post\">";
 			if (isset($_GET["groepid"]) && isset($array)) {
 				$query = "SELECT * FROM groeplid INNER JOIN student ON student.studentid = groeplid.studentid WHERE groeplid.groepid = ".$array["groepid"].";";
 				$resultaat = mysql_query($query);
 				if (mysql_num_rows($resultaat) > 0) {
-					echo "<form action=\"verwijdergroep.php?groepid=".$_GET["groepid"]."\" method=\"post\">";
 					echo "<table style=\"text-align:left;\">";
 					echo "<tr><th colspan=\"4\">Groep ".$array["naam"]." met leden:</th></tr>";
 					echo "<tr><th>Studentennummer</th><th>Naam</th><th>Geslacht</th><th>Geboortedatum</th></tr>";
@@ -66,7 +65,7 @@ echo $pagina->getVereisteHTML();
 						}
 					echo "<tr><td colspan=\"4\" style=\"text-align:right;\"><input type=\"hidden\" name=\"eigenaar\" value=\"".$array["eigenaar"]."\" /><input type=\"submit\" name=\"verwijder\" value=\"Verwijder groep\" onclick=\"return bevestig();\" /></td></tr></table></form>";
 				} else {
-					echo "Er zijn nog geen vrienden aan deze groep gekoppeld.";
+					echo "Er zijn nog geen vrienden aan deze groep gekoppeld.<br /><br /><br /><input type=\"submit\" name=\"verwijder\" value=\"Verwijder groep\" onclick=\"return bevestig();\" /></form>";
 				}
 			} else {
 				echo "Geen resultaten beschikbaar.";
