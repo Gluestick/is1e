@@ -6,13 +6,13 @@
 
 $pagina = pagina::getInstantie();
 database::getInstantie();
-$evenement = "Evenement";
+$evenement = "";
 if (isset($_GET["id"]) && !empty($_GET["id"])) {
 	$id=$_GET['id'];
 	$sql = "SELECT evenement.naam From evenement where evenementid=".$id."";
 	$resultaat_van_server = mysql_query($sql);
 	$array = mysql_fetch_array($resultaat_van_server);
-	$evenement .= ": ".$array["naam"];
+	$evenement .= $array["naam"];
 }
 
 $pagina->setTitel($evenement);
