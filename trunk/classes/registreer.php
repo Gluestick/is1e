@@ -44,7 +44,7 @@
 			$postcode = mysql_real_escape_string($_POST['postcode']);
 			$woonplaats = mysql_real_escape_string($_POST['woonplaats']);
 			
-			$this->error = null;
+			$this->error = NULL;
 			
 			/**** Check waarden *****/			
 			if(empty($gebruikersnaam)){
@@ -90,9 +90,19 @@
 				$this->error['geboortedatum'] = "Geen geboortedatum ingevuld.";
 			} elseif(!preg_match("/[0-9]{2}-[0-9]{2}-[0-9]{4}/", $geboortedatum)){
 				$this->error['geboortedatum'] = "Je geboortedatum moet als volgt worden ingevuld: dd-mm-yyyy.";
-			} elseif(tijd::formatteerTijd($geboortedatum, 'Y-m-d') > $today){
-				$this->error['geboortedatum'] = "De ingevulde geboortedatum ligt in de toekomst.";
-			}	
+			} elseif(tijd::checkCorrectieDatum($geboortedatum) == false){
+				$this->error['geboortedatum'] = "Incorrecte datum.";
+			}
+			
+			if (!empty($_POST["woonplaats"]) && !preg_match("/^[a-zA-Z0-9äëïöüÄËÏÖÜáéíóúàèìòù'\s-]+$/", $_POST["woonplaats"])) {
+				$this->error["plaats"] = "Ongeldige plaatsnaam";
+			}
+			if (!empty($_POST["postcode"]) && !preg_match("/^[0-9]{4}[a-zA-Z]{2}$/", $_POST["postcode"])) {
+				$this->error["postcode"] = "Ongeldige postcode";
+			}
+			if (!empty($_POST["adres"]) && !preg_match("/^[a-zA-ZäëïöüÄËÏÖÜáéíóúàèìòù'\s-]+[0-9]+$/", $_POST["adres"])) {
+				$this->error["adres"] = "Ongeldig adres";
+			}
 			
 			if(!empty($this->error)){
 				$this->gebruikersnaam = $gebruikersnaam;
@@ -135,13 +145,15 @@
 		/****** Kijkt of er van de ingevoerde waarde al een waarde bestaat in een bepaald veld *****/
 		public function checkDubbel($tabel, $waarde, $veldnaam){
 			database::getInstantie();
+			$tabel = mysql_real_escape_string($tabel);
+			$waarde = mysql_real_escape_string($waarde);
+			$veldnaam = mysql_real_escape_string($veldnaam);
 			$query = "SELECT $veldnaam FROM `$tabel` WHERE `$veldnaam` = '$waarde';";
 			$result = mysql_query($query) or die(mysql_error());
-			$this->error = FALSE;
 			if(mysql_num_rows($result) > 0){
-				$this->error = TRUE;
+				return true;
 			}
-			return $this->error;
+			return false;
 		}
 		
 		/***** Return het hoogste studentnr + 1 ******/
@@ -221,13 +233,13 @@
 				<td><?php if(isset($this->error['studentnr'])){ print $this->error['studentnr']; } ?></td>
 			</tr>
 			<tr>
-				<td></td>
+				<td>*</td>
 				<td>Geboortedatum:</td>
 				<td><input type="text" name="geb_dat" <?php if(isset($_POST['submit'])){ print("value=\"" . $this->geboortedatum . "\""); } ?> /></td>
 				<td><?php if(isset($this->error['geboortedatum'])){ print $this->error['geboortedatum']; } ?></td>
 			</tr>
 			<tr>
-				<td></td>
+				<td>*</td>
 				<td>Geslacht:</td>
 				<td><input type="radio" name="geslacht" value="Man" checked="checked" />Man <input type="radio" name="geslacht" value="Vrouw" />Vrouw</td>
 				<td><?php if(isset($this->error['geslacht'])){ print $this->error['geslacht']; } ?></td>
@@ -237,19 +249,19 @@
 				<td></td>
 				<td>Adres:</td>
 				<td><input type="text" name="adres" <?php if(isset($_POST['submit'])){ print("value=\"" . $this->adres . "\""); } ?> /></td>
-				<td></td>
+				<td><?php if(isset($this->error['adres'])){ print $this->error['adres']; } ?></td>
 			</tr>
 			<tr>
 				<td></td>
 				<td>Postcode:</td>
 				<td><input type="text" name="postcode" <?php if(isset($_POST['submit'])){ print("value=\"" . $this->postcode . "\""); } ?> /></td>
-				<td></td>
+				<td><?php if(isset($this->error['postcode'])){ print $this->error['postcode']; } ?></td>
 			</tr>
 			<tr>
 				<td></td>
 				<td>Woonplaats:</td>
 				<td><input type="text" name="woonplaats" <?php if(isset($_POST['submit'])){ print("value=\"" . $this->woonplaats . "\""); } ?> /></td>
-				<td></td>
+				<td><?php if(isset($this->error['woonplaats'])){ print $this->error['woonplaats']; } ?></td>
 			</tr>
 			<tr>
 				<td></td>
