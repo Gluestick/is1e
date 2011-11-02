@@ -61,10 +61,10 @@ echo $pagina->getVereisteHTML();
 						$where = "WHERE einddatum <= ".tijd::formatteerTijd($_POST["eindperiode"], "Y-m-d");
 					} else {
 						if (!tijd::checkCorrectieDatum($_POST["beginperiode"])) {
-							$error["beginperiode"] = "<ul><li>U heeft een onjuiste begindatum ingevuld</li></ul>";
+							$error["beginperiode"] = "U heeft een onjuiste begindatum ingevuld<br />";
 						}
 						if (!tijd::checkCorrectieDatum($_POST["eindperiode"])) {
-							$error["eindperiode"] = "<ul><li>U heeft een onjuiste begindatum ingevuld</li></ul>";
+							$error["eindperiode"] = "U heeft een onjuiste begindatum ingevuld<br />";
 						}
 					}
 					$sql = "SELECT `vereniging`.`naam`, COUNT(evenement.evenementid) AS totaal FROM `vereniging` LEFT OUTER JOIN evenement ON vereniging.verenigingid = evenement.organiserendeverenigingid ".$where." GROUP BY vereniging.naam;";
