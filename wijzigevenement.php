@@ -84,12 +84,7 @@ echo $pagina->getVereisteHTML();
 				if (mysql_num_rows($resultaat_van_server) > 0) {
 					$array = mysql_fetch_array($resultaat_van_server);
 					
-					if (isset($_POST["wijzigen"])) {
-						$query = "UPDATE evenement 
-				SET categorieid='" . $categorie . "', naam='" . $naam . "', omschrijving='" . $tekstvak . "', begindatum='" . $bdatum . "', einddatum='" . $edatum . "', isaanmeldingverplicht='" . $aanmelden . "', organiserendeverenigingid='" . $vereniging . "' 
-				where evenementid=" . $evenement . ";";
-						mysql_query($query);
-
+					if ((!isset($error)) || (count(array_keys($error)) == 0)) {
 						echo "Wijzigen is gelukt!";
 					}
 					?>
