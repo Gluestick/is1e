@@ -42,10 +42,18 @@ echo $pagina->getVereisteHTML();
 						LIMIT 3;";
 				$resultaat_van_server = mysql_query($sql);
 					while ($array = mysql_fetch_array($resultaat_van_server)) {
+                                            if($array["begindatum"] < date('Y-m-d')){
 					$id = $array['evenementid'];
 					$id1 = $array['id'];
+					echo "<tr><td> <a href=\"evenement.php?id=$id\"><font color=\"grey\">" . $array["evenementnaam"] . "</font> </a></td><td><font color=\"grey\">" .tijd::formatteerTijd($array["begindatum"],"d-m-Y") . "</font></td><td><font color=\"grey\">".tijd::formatteerTijd($array["einddatum"],"d-m-Y") . "</font></td><td><a href=\"raadplegenvereniging.php?id=$id1\"><font color=\"grey\">".$array["verenigingnaam"]."</font></a></td><td><font color=\"grey\">".$array["categorienaam"]."</font></td></tr>";
+                                            }
+                                            else{
+                                              $id = $array['evenementid'];
+					$id1 = $array['id'];
 					echo "<tr><td> <a href=\"evenement.php?id=$id\">" . $array["evenementnaam"] . " </a></td><td>" .tijd::formatteerTijd($array["begindatum"],"d-m-Y") . "</td><td>".tijd::formatteerTijd($array["einddatum"],"d-m-Y") . "</td><td><a href=\"raadplegenvereniging.php?id=$id1\">".$array["verenigingnaam"]."</a></td><td>".$array["categorienaam"]."</td></tr>";
-}
+  
+                                            }
+                                            }
 				?>
 			</table>
 			</center>
