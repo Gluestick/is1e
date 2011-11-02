@@ -104,7 +104,7 @@ echo $pagina->getVereisteHTML();
             if($array["begindatum"] < date('Y-m-d')){
             $id = mysql_real_escape_string($array['evenementid']);
             $id2= mysql_real_escape_string($array['id']);
-                echo "<tr><td></td><td> <a href=\"evenement.php?id=$id\"><font color=\"grey\">" . mysql_real_escape_string($array["evenementnaam"]) . "</font> </a></td><td><font color=\"grey\">" .tijd::formatteerTijd(mysql_real_escape_string($array["begindatum"]),"d-m-Y") . "</font></td><td><font color=\"grey\">".tijd::formatteerTijd(mysql_real_escape_string($array["einddatum"]),"d-m-Y") . "</font></td><td><a href=\"raadplegenvereniging.php?id=$id2\"><font color=\"grey\">".mysql_real_escape_string($array["verenigingnaam"])."</font></a></td><td><font color=\"grey\">".mysql_real_escape_string($array["categorienaam"])."</font></td><td><font color=\"grey\">" . mysql_real_escape_string($array["isaanmeldingverplicht"]) . "</font></td></tr>";
+                           echo "<tr><td></td><td> <a href=\"evenement.php?id=$id\"><font color=\"grey\">" . mysql_real_escape_string($array["evenementnaam"]) . "</font> </a></td><td><font color=\"grey\">" .tijd::formatteerTijd(mysql_real_escape_string($array["begindatum"]),"d-m-Y") . "</font></td><td><font color=\"grey\">".tijd::formatteerTijd(mysql_real_escape_string($array["einddatum"]),"d-m-Y") . "</font></td><td><a href=\"raadplegenvereniging.php?id=$id2\"><font color=\"grey\">".mysql_real_escape_string($array["verenigingnaam"])."</font></a></td><td><font color=\"grey\">".mysql_real_escape_string($array["categorienaam"])."</font></td><td><font color=\"grey\">Verlopen</font></td></tr>";
             }
             else{
                 $id = mysql_real_escape_string($array['evenementid']);
@@ -159,7 +159,7 @@ while ($array = mysql_fetch_array($resultaat_van_server)) {
     
     $id2= mysql_real_escape_string($array['id']);
 	$id = mysql_real_escape_string($array['evenementid']);
-		echo "<tr><td> <a href=\"evenement.php?id=$id\"><font color=\"grey\">" . mysql_real_escape_string($array["evenementnaam"]) . "</font> </a></td><td><font color=\"grey\">" .tijd::formatteerTijd(mysql_real_escape_string($array["begindatum"]),"d-m-Y") . "</font></td><td><font color=\"grey\">".tijd::formatteerTijd(mysql_real_escape_string($array["einddatum"]),"d-m-Y") . "</font></td><td><a href=\"raadplegenvereniging.php?id=$id2\"><font color=\"grey\">".mysql_real_escape_string($array["verenigingnaam"])."</font></a></td><td><font color=\"grey\">".mysql_real_escape_string($array["categorienaam"])."</font></td><td><font color=\"grey\">" . mysql_real_escape_string($array["isaanmeldingverplicht"]) . "</font></td></tr>";
+		echo "<tr><td> <a href=\"evenement.php?id=$id\"><font color=\"grey\">" . mysql_real_escape_string($array["evenementnaam"]) . "</font> </a></td><td><font color=\"grey\">" .tijd::formatteerTijd(mysql_real_escape_string($array["begindatum"]),"d-m-Y") . "</font></td><td><font color=\"grey\">".tijd::formatteerTijd(mysql_real_escape_string($array["einddatum"]),"d-m-Y") . "</font></td><td><a href=\"raadplegenvereniging.php?id=$id2\"><font color=\"grey\">".mysql_real_escape_string($array["verenigingnaam"])."</font></a></td><td><font color=\"grey\">".mysql_real_escape_string($array["categorienaam"])."</font></td><td><font color=\"grey\">Verlopen</font></td></tr>";
 }
 else{
     $id2= mysql_real_escape_string($array['id']);
