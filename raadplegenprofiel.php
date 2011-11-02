@@ -57,9 +57,7 @@ $pagina->setJavascriptCode("
 					var actie = $(this).html();
 					$.post('uitnodiging.php', { studentid: ".$_GET["id"].", groepid: index.attr('class'), action: actie }, function(data) {
 					}).complete(function() {
-						if ($(\"#inline_content table\").length > 1) {
-							index.remove();
-							var aantal = $(\"#teaccepteren\").html().match(/\\((.*?)\\)/);
+						if ($(\"#inline_content table\						var aantal = $(\"#teaccepteren\").html().match(/\\((.*?)\\)/);
 							var number = aantal[1];
 							var newnumber = number - 1;
 							$(\"#teaccepteren\").html($(\"#teaccepteren\").html().replace(number, newnumber));
@@ -200,29 +198,16 @@ echo $pagina->getVereisteHTML();
 				$query = "SELECT * FROM profielbericht WHERE studentid = ".$studentid.";";
 				$resultaat_van_server = mysql_query($query);
 
+				while($row = mysql_fetch_array($resultaat_van_server)  ) {
+						$row = mysql_fetch_array($resultaat_van_server);
 				echo "<table style=\"text-align:left;\">";
-
-				$teller = 0;
-
-				while ($row = mysql_fetch_array($resultaat_van_server)) {
-
-					$teller++;
-
-					if(is_int($teller/2))
-					{
-						$color = "red";
-					}
-					else
-					{
-						$color = "blue";
-					}
-
-					echo "<tr style='background-color:".$color."'><th>Datum</th><td> ".tijd::formatteerTijd($row["datum"], "d-m-Y")."</td></tr> ";
+					echo "<tr><th>Datum</th><td> ".tijd::formatteerTijd($row["datum"], "d-m-Y")."</td></tr> ";
 					echo "<tr><th>Onderwerp</th><td>" . $row["onderwerp"] . "</td></tr> ";
 					echo "<tr><th>Bericht</th><td>" . specialetekens::vervangTekensInTekst($row["inhoud"]) . "</td></tr> ";
-				}
+				
 				echo"</table>";
 				echo"<br/>";
+			}
 			}
 			
 			if (isset($_GET["id"]) && !empty($_GET["id"]) && intval($_GET["id"])) {
