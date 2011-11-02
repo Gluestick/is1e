@@ -42,7 +42,7 @@ echo $pagina->getVereisteHTML();
 		<div id="content">
 			<h1><?php echo $pagina->getTitel(); ?></h1>
 			<?php
-			$studentid = $_SESSION["studentid"];
+			$studentid = $_GET["id"];
 			if (isset($_POST["verstuur"]) && isset($_POST["onderwerp"]) && isset($_POST["bericht"])) {
 				if (empty($_POST["onderwerp"]) || empty($_POST["bericht"])) {
 					if (isset($_POST["onderwerp"])){
@@ -56,8 +56,7 @@ echo $pagina->getVereisteHTML();
 					$bericht = mysql_real_escape_string($_POST["bericht"]);
 					$onderwerp = mysql_real_escape_string($_POST["onderwerp"]);
 
-					$sql = "INSERT INTO  profielbericht (datum, onderwerp, inhoud, studentid) VALUES ('".date("Y-m-d")."','".$onderwerp."','".$bericht."', ".$studentid.")";
-
+					$sql = "INSERT INTO  profielbericht (datum, onderwerp, inhoud, studentid) VALUES ('".date("Y-m-d")."','".$onderwerp."','".$bericht."', ".$studentid." )";
 					if (mysql_query($sql)) {
 						echo"Bericht toegevoegd";
 					}

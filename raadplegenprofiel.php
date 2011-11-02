@@ -199,7 +199,6 @@ echo $pagina->getVereisteHTML();
 				$resultaat_van_server = mysql_query($query);
 
 				while($row = mysql_fetch_array($resultaat_van_server)  ) {
-						$row = mysql_fetch_array($resultaat_van_server);
 				echo "<table style=\"text-align:left;\">";
 					echo "<tr><th>Datum</th><td> ".tijd::formatteerTijd($row["datum"], "d-m-Y")."</td></tr> ";
 					echo "<tr><th>Onderwerp</th><td>" . $row["onderwerp"] . "</td></tr> ";
