@@ -57,7 +57,8 @@ $pagina->setJavascriptCode("
 					var actie = $(this).html();
 					$.post('uitnodiging.php', { studentid: ".$_GET["id"].", groepid: index.attr('class'), action: actie }, function(data) {
 					}).complete(function() {
-						if ($(\"#inline_content table\						var aantal = $(\"#teaccepteren\").html().match(/\\((.*?)\\)/);
+						if ($(\"#inline_content table\").length > 1) {
+							var aantal = $(\"#teaccepteren\").html().match(/\\((.*?)\\)/);
 							var number = aantal[1];
 							var newnumber = number - 1;
 							$(\"#teaccepteren\").html($(\"#teaccepteren\").html().replace(number, newnumber));
