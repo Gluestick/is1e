@@ -118,7 +118,7 @@ echo $pagina->getVereisteHTML();
 									$error["afbeelding"] = "Onjuist afbeelding bestand";
 								}
 							} else {
-								$error["afbeelding"] = "Te groot bestand.";
+								$error["afbeelding"] = "Onjuist afbeelding bestand.";
 							}
 						} else {
 							$error["afbeelding"] = gebruiker::checkValideUpload($afbeelding["error"]);
